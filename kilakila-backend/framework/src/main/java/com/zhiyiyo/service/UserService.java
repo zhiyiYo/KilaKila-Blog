@@ -1,0 +1,10 @@
+package com.zhiyiyo.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhiyiyo.domain.ResponseResult;
+import com.zhiyiyo.domain.entity.User;
+
+public interface UserService extends IService<User> {
+    ResponseResult getUserInfo();
+
+}

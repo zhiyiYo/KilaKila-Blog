@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/kila_kila_blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: zhiyiYo
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 5MB
+  redis:
+    password: shoko67
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: auto
+    banner: false

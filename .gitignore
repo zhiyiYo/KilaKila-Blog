@@ -1,0 +1,16 @@
+.vscode/
+.VSCodeCounter
+
+.settings
+*.iml
+*.classpath
+*.project
+.factorypath
+
+.idea
+
+target/
+
+test.js
+
+node_modules

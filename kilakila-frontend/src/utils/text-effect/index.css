@@ -1,0 +1,179 @@
+.particletext {
+    text-align: center;
+    font-size: 48px;
+    position: relative;
+}
+
+.particletext.bubbles>.particle {
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(241, 240, 154, 0.849);
+    /* background-color: rgba(33, 150, 243, 0.5); */
+    animation: bubbles 3s ease-in infinite;
+    border-radius: 100%;
+}
+
+.particletext.hearts>.particle {
+    opacity: 0;
+    position: absolute;
+    background-color: #cc2a5d;
+    animation: hearts 3s ease-in infinite;
+}
+
+.particletext.hearts>.particle:before,
+.particletext.hearts>.particle:after {
+    position: absolute;
+    content: '';
+    border-radius: 100px;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #cc2a5d;
+}
+
+.particletext.hearts>.particle:before {
+    transform: translateX(-50%);
+}
+
+.particletext.hearts>.particle:after {
+    transform: translateY(-50%);
+}
+
+.particletext.lines>.particle {
+    position: absolute;
+    background-color: rgba(244, 67, 54, 0.5);
+    animation: lines 3s linear infinite;
+}
+
+.particletext.confetti>.particle {
+    opacity: 0;
+    position: absolute;
+    animation: confetti 3s ease-in infinite;
+}
+
+.particletext.confetti>.particle.c1 {
+    background-color: rgba(76, 175, 80, 0.5);
+}
+
+.particletext.confetti>.particle.c2 {
+    background-color: rgba(156, 39, 176, 0.5);
+}
+
+.particletext.sunbeams>.particle {
+    position: absolute;
+    background-color: rgba(253, 216, 53, 0.5);
+    animation: sunbeams 3s linear infinite;
+}
+
+@keyframes bubbles {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+        transform: translate(0, -20%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(0, -1000%);
+    }
+}
+
+@keyframes hearts {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0%) rotate(45deg);
+    }
+
+    20% {
+        opacity: 0.8;
+        transform: translate(0, -20%) rotate(45deg);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(0, -1000%) rotate(45deg);
+    }
+}
+
+@keyframes lines {
+
+    0%,
+    50%,
+    100% {
+        transform: translateY(0%);
+    }
+
+    25% {
+        transform: translateY(100%);
+    }
+
+    75% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes confetti {
+    0% {
+        opacity: 0;
+        transform: translateY(0%) rotate(0deg);
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    35% {
+        transform: translateY(-800%) rotate(270deg);
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(2000%) rotate(1440deg);
+    }
+}
+
+@keyframes sunbeams {
+    0% {
+        transform: translateY(40%) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-40%) rotate(180deg);
+    }
+
+    100% {
+        transform: translateY(40%) rotate(360deg);
+    }
+
+    0%,
+    14%,
+    17%,
+    43%,
+    53%,
+    71%,
+    80%,
+    94%,
+    100% {
+        opacity: 0;
+    }
+
+    6%,
+    15%,
+    24%,
+    28%,
+    48%,
+    55%,
+    78%,
+    82%,
+    99% {
+        opacity: 1;
+    }
+}

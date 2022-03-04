@@ -27,11 +27,17 @@ export default {
 </script>
 
 <style>
+@import url(https://fonts.googleapis.com/css?family=Kanit:900);
+
 .card-header {
     justify-content: space-between;
     align-items: center;
     text-align: center;
     height: 35px;
+}
+
+.card-header h2 {
+    font-family: "Kanit";
 }
 
 .el-card__header {

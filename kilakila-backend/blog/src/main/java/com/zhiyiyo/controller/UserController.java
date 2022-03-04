@@ -19,4 +19,9 @@ public class UserController {
     public ResponseResult getUserInfo(){
         return userService.getUserInfo();
     }
+
+    @GetMapping("/adminInfo")
+    public ResponseResult getAdminInfo(){
+        return userService.getAdminInfo();
+    }
 }

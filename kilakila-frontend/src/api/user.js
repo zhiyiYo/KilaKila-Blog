@@ -10,7 +10,20 @@ function login(userName, password) {
     return request({
         url: "/login",
         method: "post",
-        data: { userName, password }
+        data: { userName, password },
+        needAuthentication: false
+    })
+}
+
+/**
+ * 用户注销
+ * @returns promise
+ */
+function logout() {
+    return request({
+        url: "/logout",
+        method: "post",
+        needAuthentication: false
     })
 }
 
@@ -26,10 +39,25 @@ function register(userName, nickName, email, password) {
     return request({
         url: "/register",
         method: "post",
-        data: { userName, nickName, email, password }
+        data: { userName, nickName, email, password },
     })
 }
 
 
+/**
+ * 获取管理员信息
+ */
+function getAdminInfo() {
+    return request.get("/user/adminInfo")
+}
 
-export { login, register }
+
+/**
+ * 获取用户信息
+ */
+function getUserInfo() {
+    return request.get("/user/userInfo")
+}
+
+
+export { login, logout, register, getAdminInfo, getUserInfo }

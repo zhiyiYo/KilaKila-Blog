@@ -14,6 +14,13 @@ function setToken(token) {
     localStorage.setItem('token', token)
 }
 
+/**
+ * 移除令牌
+ */
+function removeToken(token) {
+    localStorage.removeItem('token')
+}
+
 
 /**
  * 获取用户信息
@@ -33,4 +40,4 @@ function setUserInfo(userInfo) {
 }
 
 
-export { getToken, setToken, getUserInfo, setUserInfo }
+export { getToken, setToken, removeToken, getUserInfo, setUserInfo }

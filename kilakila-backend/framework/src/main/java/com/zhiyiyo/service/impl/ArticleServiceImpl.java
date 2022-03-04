@@ -7,15 +7,14 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.entity.Category;
-import com.zhiyiyo.domain.vo.ArticleDetailsVo;
-import com.zhiyiyo.domain.vo.ArticleListVo;
-import com.zhiyiyo.domain.vo.HotArticleVo;
-import com.zhiyiyo.domain.vo.PageVo;
+import com.zhiyiyo.domain.vo.*;
 import com.zhiyiyo.mapper.ArticleMapper;
 import com.zhiyiyo.domain.entity.Article;
+import com.zhiyiyo.mapper.TagMapper;
 import com.zhiyiyo.service.ArticleService;
 import com.zhiyiyo.service.CategoryService;
 import com.zhiyiyo.utils.BeanCopyUtils;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +28,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private TagMapper tagMapper;
 
     @Override
     public ResponseResult hotArticleList() {
@@ -81,6 +83,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
 
         return ResponseResult.okResult(articleDetailsVO);
+    }
+
+    @Override
+    public ResponseResult articleCount() {
+        long article = count();
+        long category = categoryService.count();
+        long tag = tagMapper.selectCount(null);
+        return ResponseResult.okResult(new ArticleCountVo(article, category, tag));
     }
 }
 

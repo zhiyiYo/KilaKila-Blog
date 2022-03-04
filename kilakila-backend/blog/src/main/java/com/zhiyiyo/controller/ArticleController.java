@@ -29,4 +29,9 @@ public class ArticleController {
     public ResponseResult articleDetail(@PathVariable("id") Long id) {
         return articleService.articleDetail(id);
     }
+
+    @GetMapping("/count")
+    public ResponseResult articleCount(){
+        return articleService.articleCount();
+    }
 }

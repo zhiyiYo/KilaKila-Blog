@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
@@ -38,8 +39,14 @@ public class User implements Serializable {
      * 昵称
      */
     @NotBlank(message = "昵称不能为空")
-    private String nickName; 
-    
+    private String nickName;
+
+    /**
+     * 个性签名
+     */
+    @Length(max = 64, message = "个性签名的长度不能超过 64 个字符")
+    private String signature;
+
     /**
      * 密码
      */

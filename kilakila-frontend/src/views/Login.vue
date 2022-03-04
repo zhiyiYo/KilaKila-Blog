@@ -68,7 +68,7 @@ import { ElMessage } from "element-plus";
 import KilaKilaButton from "../components/KilaKilaButton";
 import KilaKilaCard from "../components/KilaKilaCard";
 import { login } from "../api/user";
-import { setToken, setUserInfo } from "../utils/storage";
+import { setToken, setUserInfo, removeToken } from "../utils/storage";
 import { md5Encryption } from "../utils/encrypt";
 import router from "../router/index";
 
@@ -81,6 +81,8 @@ export default {
         KilaKilaButton,
     },
     setup() {
+        removeToken();
+
         let ruleFormRef = ref();
 
         let ruleForm = reactive({

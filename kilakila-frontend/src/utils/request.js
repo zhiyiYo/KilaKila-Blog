@@ -14,10 +14,11 @@ const service = axios.create({
 
 // 请求拦截
 service.interceptors.request.use(config => {
+    let needAuthentication = config.needAuthentication
+
     // 设置令牌
-    let token = getToken()
-    if (token) {
-        config.headers['token'] = token
+    if (needAuthentication && getToken()) {
+        config.headers['token'] = getToken()
     }
 
     return config
@@ -55,7 +56,7 @@ service.interceptors.response.use(response => {
 
     return Promise.reject('error')
 }, error => {
-    const { status } = error.response
+    /* const { status } = error.response
     if (status === 401) {
         ElMessage.warning('前辈需要登录后才能继续当前操作哦')
     } else if (status === 403) {
@@ -64,7 +65,7 @@ service.interceptors.response.use(response => {
         ElMessage.warning('请求的资源不存在哦')
     } else if (status >= 500) { // 服务端异常
         ElMessage.warning('服务器出现异常啦')
-    }
+    } */
 
     return Promise.reject(error);
 })

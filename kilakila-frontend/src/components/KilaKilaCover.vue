@@ -3,7 +3,9 @@
         <div class="cover-word-container">
             <h1 class="cover-title particletext bubbles">{{ title }}</h1>
             <p class="cover-content">{{ content }}</p>
-            <el-icon size="50px" id="arrow-down"><arrow-down /></el-icon>
+            <el-icon size="50px" class="arrow-down" @click="scrollToContent"
+                ><arrow-down
+            /></el-icon>
         </div>
     </div>
 </template>
@@ -24,7 +26,12 @@ export default {
             backgroundSize: "cover",
         });
 
-        return { coverStyle };
+        function scrollToContent() {
+            let h = document.getElementsByClassName("cover")[0].scrollHeight;
+            window.scrollTo({ top: h, behavior: "smooth" });
+        }
+
+        return { coverStyle, scrollToContent };
     },
     mounted() {
         createParticles();
@@ -78,7 +85,7 @@ export default {
     text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-#arrow-down {
+.arrow-down {
     position: absolute;
     bottom: 6%;
     cursor: pointer;
@@ -87,7 +94,7 @@ export default {
     animation: bounce 4s infinite;
 }
 
-#arrow-down:hover {
+.arrow-down:hover {
     color: rgba(255, 255, 255, 0.8);
     transition: color 0.2s;
 }

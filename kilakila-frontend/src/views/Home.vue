@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        <kila-kila-header />
         <kila-kila-cover
             imgUrl="assets/image/home-cover.jpg"
             title="✨ Kila Kila Blog ✨"
@@ -14,11 +15,19 @@
 <script>
 import KilaKilaCover from "../components/KilaKilaCover";
 import KilaKilaSideContent from "../components/KilaKilaSideContent";
+import KilaKilaHeader from "../components/KilaKilaHeader";
+import store from "../store";
+
 export default {
     name: "Home",
     components: {
+        KilaKilaHeader,
         KilaKilaCover,
         KilaKilaSideContent,
+    },
+    setup() {
+        store.dispatch("adminAbout/getAdminInfo");
+        store.dispatch("adminAbout/getArticleCount");
     },
 };
 </script>
@@ -27,9 +36,11 @@ export default {
 .home {
     height: 100%;
     width: 100%;
+    background-color: #f3f6f7;
 }
 
 .container {
     padding: 50px;
+    background: transparent;
 }
 </style>

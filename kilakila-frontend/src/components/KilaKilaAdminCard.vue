@@ -5,8 +5,10 @@
             :src="adminInfo.avatar"
             class="avatar"
         ></el-avatar>
-        <h3>{{ adminInfo.nickName }}</h3>
-        <p>{{ adminInfo.signature }}</p>
+        <div class="admin-description">
+            <h3>{{ adminInfo.nickName }}</h3>
+            <p>{{ adminInfo.signature }}</p>
+        </div>
 
         <!-- 发表的文章信息 -->
         <div class="article-info-container">
@@ -34,91 +36,50 @@
 
         <!-- 社交软件图标 -->
         <div class="social-icon-container">
-            <el-tooltip
-                class="box-item"
-                effect="dark"
-                content="Twitter"
-                placement="bottom"
-                ><a href="">
-                    <img
-                        src="../assets/image/twitter.svg"
-                        alt="twitter"
-                        class="social-icon"
-                    />
-                </a>
-            </el-tooltip>
-            <el-tooltip
-                class="box-item"
-                effect="dark"
-                content="GitHub"
-                placement="bottom"
-            >
-                <a :href="adminInfo.githubUrl">
-                    <img
-                        src="../assets/image/github.svg"
-                        alt="github"
-                        class="social-icon"
-                    />
-                </a>
-            </el-tooltip>
-            <el-tooltip
-                class="box-item"
-                effect="dark"
-                content="QQ"
-                placement="bottom"
-            >
-                <img
-                    src="../assets/image/QQ.svg"
-                    alt="QQ"
+            <!-- 推特 -->
+            <a href="">
+                <font-awesome-icon
+                    :icon="['fab', 'twitter']"
                     class="social-icon"
+                    id="twitter"
                 />
-            </el-tooltip>
-            <el-tooltip
-                class="box-item"
-                effect="dark"
-                content="Email"
-                placement="bottom"
-            >
-                <a :href="'mailto:' + adminInfo.email">
-                    <img
-                        src="../assets/image/email.svg"
-                        alt="email"
-                        class="social-icon"
-                    />
-                </a>
-            </el-tooltip>
+            </a>
+
+            <!-- GitHub -->
+            <a :href="adminInfo.githubUrl">
+                <font-awesome-icon
+                    :icon="['fab', 'github']"
+                    class="social-icon"
+                    id="github"
+                />
+            </a>
+
+            <!-- QQ -->
+            <font-awesome-icon
+                :icon="['fab', 'qq']"
+                class="social-icon"
+                id="qq"
+            />
+
+            <!-- 邮箱 -->
+            <a :href="'mailto:' + adminInfo.email">
+                <font-awesome-icon
+                    :icon="['fas', 'envelope']"
+                    class="social-icon"
+                    id="email"
+                />
+            </a>
         </div>
     </div>
 </template>
 
 <script>
-import { reactive } from "@vue/reactivity";
-import { getAdminInfo } from "../api/user";
-import { getArticleCount } from "../api/article";
+import { mapState } from "../store/map";
 
 export default {
     name: "KilaKilaAdminCard",
     setup() {
-        let adminInfo = reactive({
-            nickName: "",
-            signature: "",
-            avatar: require("@/assets/image/avatar.jpg"),
-            githubUrl: "https://github.com/zhiyiYo",
-        });
-        let articleCountInfo = reactive({
-            article: 0,
-            category: 0,
-            tag: 0,
-        });
-
-        getAdminInfo().then((data) => {
-            delete data.avatar;
-            Object.assign(adminInfo, data);
-        });
-
-        getArticleCount().then((data) => {
-            Object.assign(articleCountInfo, data);
-        });
+        let { adminInfo, articleCountInfo } = mapState("adminAbout");
 
         function gotoGithub() {
             location.href = adminInfo.githubUrl;
@@ -137,7 +98,7 @@ export default {
     border-radius: 15px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     text-align: center;
-    height: 400px;
+    height: 375px;
     width: 20%;
     padding: 20px;
 }
@@ -160,8 +121,14 @@ export default {
     transform: rotate(360deg);
 }
 
-h3 {
+.admin-description h3 {
     margin: 0px;
+}
+
+.admin-description p {
+    margin: 4px;
+    font-size: 14px;
+    color: #1f2d3d;
 }
 
 .article-info-container {
@@ -174,7 +141,15 @@ h3 {
 }
 
 .article-info {
-    margin: 0 10px;
+    margin: 0 5%;
+}
+
+.article-info p:nth-child(1) {
+    margin-bottom: 0;
+}
+
+.article-info p:nth-child(2) {
+    margin-top: 5px;
 }
 
 .social-icon-container {
@@ -183,6 +158,31 @@ h3 {
 
 .social-icon {
     margin: 0px 3%;
+    font-size: 20px;
+    color: #555;
+    transition: all 0.3s;
+    cursor: pointer;
+    transform: translateY(0);
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+}
+
+#twitter:hover {
+    color: #77ddf6;
+}
+
+#github:hover {
+    color: black;
+}
+
+#qq:hover {
+    color: #d43402;
+}
+
+#email:hover {
+    color: #f7b401;
 }
 
 .follow-button {
@@ -193,5 +193,8 @@ h3 {
 
 .github-icon {
     margin-right: 10px;
+}
+
+@keyframes floatAni {
 }
 </style>

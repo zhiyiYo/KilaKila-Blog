@@ -35,7 +35,7 @@ export default {
     background: white;
     border-radius: 50%;
     bottom: 20px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
     color: #1892ff;
     cursor: pointer;
     display: block;

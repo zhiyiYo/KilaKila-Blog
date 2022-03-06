@@ -17,4 +17,24 @@ function getArticleCount() {
 }
 
 
-export { getHotArticleList, getArticleCount }
+/**
+ * 获取发表的文章
+ * @param {number} pageNum 当前页码
+ * @param {number} pageSize 每一页的文章数
+ * @param {number} categoryId 文章所属分类，可以不传
+ * @returns promise
+ */
+function getPostArticleList(pageNum, pageSize, categoryId) {
+    let params = { pageNum, pageSize }
+    if (categoryId) {
+        params.categoryId = categoryId
+    }
+
+    return request({
+        url: '/article/articleList',
+        params
+    })
+}
+
+
+export { getHotArticleList, getArticleCount, getPostArticleList }

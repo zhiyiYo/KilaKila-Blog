@@ -10,9 +10,8 @@ import KilaKilaAdminCard from "./KilaKilaAdminCard";
 import KilaKilaHotArticleCard from "./KilaKilaHotArticleCard";
 
 export default {
-    components: { KilaKilaAdminCard, KilaKilaHotArticleCard },
     name: "KilaKilaSideContent",
-    setup() {},
+    components: { KilaKilaAdminCard, KilaKilaHotArticleCard },
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <kila-kila-card title="欢迎前辈回家">
+        <kila-kila-form-card title="欢迎前辈回家">
             <el-form
                 ref="ruleFormRef"
                 :model="ruleForm"
@@ -57,7 +57,7 @@
                 前辈还没有账号？
                 <router-link to="/register">快来注册一个吧！</router-link>
             </p>
-        </kila-kila-card>
+        </kila-kila-form-card>
     </div>
 </template>
 
@@ -66,7 +66,7 @@ import { ref, reactive } from "vue";
 import { User, Lock } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 import KilaKilaButton from "../components/KilaKilaButton";
-import KilaKilaCard from "../components/KilaKilaCard";
+import KilaKilaFormCard from "../components/KilaKilaFormCard";
 import { login } from "../api/user";
 import { setToken, setUserInfo, removeToken } from "../utils/storage";
 import { md5Encryption } from "../utils/encrypt";
@@ -77,7 +77,7 @@ export default {
     components: {
         User,
         Lock,
-        KilaKilaCard,
+        KilaKilaFormCard,
         KilaKilaButton,
     },
     setup() {
@@ -140,6 +140,7 @@ export default {
     height: 100%;
     background: url("../assets/image/login-background.jpg");
     background-size: cover;
+    text-align: center;
 }
 
 #signup-hint {

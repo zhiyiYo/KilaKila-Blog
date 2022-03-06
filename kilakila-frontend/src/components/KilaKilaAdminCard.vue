@@ -75,17 +75,21 @@
 
 <script>
 import { mapState } from "../store/map";
+import { computed } from "vue";
 
 export default {
     name: "KilaKilaAdminCard",
     setup() {
         let { adminInfo, articleCountInfo } = mapState("adminAbout");
+        let a = computed(() => {
+            return { name: "hzz" };
+        });
 
         function gotoGithub() {
-            location.href = adminInfo.githubUrl;
+            location.href = adminInfo.value.githubUrl;
         }
 
-        return { adminInfo, articleCountInfo, gotoGithub };
+        return { adminInfo, articleCountInfo, gotoGithub, computed };
     },
 };
 </script>
@@ -95,12 +99,13 @@ export default {
 
 .admin-card {
     background: white;
-    border-radius: 15px;
+    border-radius: 8px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     text-align: center;
     height: 375px;
-    width: 20%;
+    width: 100%;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .avatar {
@@ -123,12 +128,17 @@ export default {
 
 .admin-description h3 {
     margin: 0px;
+    overflow: hidden;
 }
 
 .admin-description p {
     margin: 4px;
     font-size: 14px;
-    color: #1f2d3d;
+    color: #555;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 
 .article-info-container {

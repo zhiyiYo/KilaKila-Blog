@@ -1,6 +1,6 @@
 <template>
     <div class="register">
-        <kila-kila-card title="你来啦">
+        <kila-kila-form-card title="你来啦">
             <el-form
                 ref="ruleFormRef"
                 :model="ruleForm"
@@ -98,7 +98,7 @@
                     >
                 </el-form-item>
             </el-form>
-        </kila-kila-card>
+        </kila-kila-form-card>
     </div>
 </template>
 
@@ -107,9 +107,8 @@ import { ref, reactive } from "vue";
 import { User, Lock, Postcard, Promotion } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
 import KilaKilaButton from "../components/KilaKilaButton";
-import KilaKilaCard from "../components/KilaKilaCard";
+import KilaKilaFormCard from "../components/KilaKilaFormCard";
 import { register } from "../api/user";
-import { setToken, setUserInfo } from "../utils/storage";
 import { md5Encryption } from "../utils/encrypt";
 import router from "../router/index";
 
@@ -120,7 +119,7 @@ export default {
         Lock,
         Postcard,
         Promotion,
-        KilaKilaCard,
+        KilaKilaFormCard,
         KilaKilaButton,
     },
     setup() {

@@ -40,7 +40,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         wrapper.orderByDesc(Article::getViewCount);
         // wrapper.last("limit 10");
 
-        Page<Article> page = new Page<>(1, 2);
+        Page<Article> page = new Page<>(1, 5);
         this.page(page, wrapper);
 
         List<Article> records = page.getRecords();

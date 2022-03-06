@@ -9,6 +9,7 @@
         <div class="container">
             <kila-kila-side-content></kila-kila-side-content>
         </div>
+        <kila-kila-back-to-top />
     </div>
 </template>
 
@@ -16,6 +17,7 @@
 import KilaKilaCover from "../components/KilaKilaCover";
 import KilaKilaSideContent from "../components/KilaKilaSideContent";
 import KilaKilaHeader from "../components/KilaKilaHeader";
+import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
 import store from "../store";
 
 export default {
@@ -24,6 +26,7 @@ export default {
         KilaKilaHeader,
         KilaKilaCover,
         KilaKilaSideContent,
+        KilaKilaBackToTop,
     },
     setup() {
         store.dispatch("adminAbout/getAdminInfo");
@@ -40,7 +43,9 @@ export default {
 }
 
 .container {
-    padding: 50px;
+    padding: 40px 15px;
     background: transparent;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 </style>

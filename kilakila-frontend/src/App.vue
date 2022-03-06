@@ -18,4 +18,8 @@
 body {
     overflow: overlay;
 }
+
+:root {
+    --theme-color: #1892ff;
+}
 </style>

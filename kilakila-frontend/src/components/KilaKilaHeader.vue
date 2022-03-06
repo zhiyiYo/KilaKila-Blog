@@ -70,6 +70,7 @@ header {
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     --text-color: #eeeeee;
     --text-hover-color: white;
+    animation: fadeUpIn 1s;
 }
 
 .header-title {
@@ -137,13 +138,30 @@ header {
     color: var(--text-hover-color);
 }
 
-@media screen and (max-width: 1180px) {
+.el-drawer__body {
+    padding: 0;
+}
+
+@media screen and (max-width: 900px) {
     .header-menu {
         display: none;
     }
 
     #header-menu-button {
         display: inline-block;
+    }
+}
+
+@keyframes fadeUpIn {
+    0% {
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+        opacity: 0%;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 100%;
     }
 }
 </style>

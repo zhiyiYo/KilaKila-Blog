@@ -47,6 +47,7 @@
 
 <script>
 import { reactive } from "vue";
+import { useDefaultThumbnail } from "../utils/thumbnail";
 
 export default {
     name: "KilaKilaPostArticleCard",
@@ -67,12 +68,6 @@ export default {
         if (props.reverse) {
             cardClass.push("post-article-card-reversed");
             thumbailLinkClass.push("post-article-thumbail-link-reversed");
-        }
-
-        let defaultThumbnail = require("@/assets/image/article-thumbnail.jpg");
-
-        function useDefaultThumbnail(event) {
-            event.target.src = defaultThumbnail;
         }
 
         return { cardClass, thumbailLinkClass, useDefaultThumbnail };

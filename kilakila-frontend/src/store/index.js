@@ -3,6 +3,7 @@ import { getAdminInfo } from '../api/user'
 import { getArticleCount } from '../api/article'
 
 
+// 管理员
 let adminAbout = {
 	namespaced: true,
 	state: {
@@ -47,6 +48,17 @@ let adminAbout = {
 	},
 }
 
+
+// 网站
+let websiteAbout = {
+	namespaced: true,
+	state: {
+		startDate: "2022-01-01"
+	},
+	actions: {},
+	mutations: {},
+}
+
 export default createStore({
-	modules: { adminAbout },
+	modules: { adminAbout, websiteAbout },
 });

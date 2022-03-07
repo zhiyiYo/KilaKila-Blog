@@ -39,6 +39,7 @@
 import KilaKilaCard from "./KilaKilaCard";
 import { getHotArticleList } from "../api/article";
 import { reactive } from "@vue/reactivity";
+import { defaultThumbnail, useDefaultThumbnail } from "../utils/thumbnail";
 
 export default {
     name: "KilaKilaHotArticleCard",
@@ -47,7 +48,6 @@ export default {
     },
     setup() {
         let hotArticleList = reactive([]);
-        let defaultThumbnail = require("@/assets/image/article-thumbnail.jpg");
 
         getHotArticleList().then((data) => {
             data.forEach((article) => {
@@ -57,10 +57,6 @@ export default {
 
             hotArticleList.push(...data);
         });
-
-        function useDefaultThumbnail(event) {
-            event.target.src = defaultThumbnail;
-        }
 
         return { hotArticleList, useDefaultThumbnail };
     },

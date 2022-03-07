@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+        <!-- 页头 -->
         <kila-kila-header />
 
         <!-- 封面 -->
@@ -8,6 +9,7 @@
             title="✨ Kila Kila Blog ✨"
             content="雄关漫道真如铁，而今迈步从头越"
         ></kila-kila-cover>
+
         <div class="container">
             <!-- 侧边栏 -->
             <kila-kila-side-content />
@@ -20,8 +22,24 @@
                     :article="article"
                     :reverse="index % 2 == 1"
                 />
+
+                <!-- 分页 -->
+                <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :total="articleCount"
+                    :page-size="10"
+                    id="pagination"
+                    @current-change="onCurrentPageChanged"
+                >
+                </el-pagination>
             </div>
         </div>
+
+        <!-- 页脚 -->
+        <kila-kila-footer
+            :adminName="$store.state.adminAbout.adminInfo.nickName"
+        />
 
         <!-- 滚动到顶部按钮 -->
         <kila-kila-back-to-top />
@@ -35,7 +53,9 @@ import KilaKilaSideContent from "../components/KilaKilaSideContent";
 import KilaKilaHeader from "../components/KilaKilaHeader";
 import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
 import KilaKilaPostArticleCard from "../components/KilaKilaPostArticleCard";
+import KilaKilaFooter from "../components/KilaKilaFooter";
 import { getPostArticleList } from "../api/article";
+import { defaultThumbnail } from "../utils/thumbnail";
 import store from "../store";
 
 export default {
@@ -46,6 +66,7 @@ export default {
         KilaKilaSideContent,
         KilaKilaBackToTop,
         KilaKilaPostArticleCard,
+        KilaKilaFooter,
     },
     setup() {
         store.dispatch("adminAbout/getAdminInfo");
@@ -54,18 +75,21 @@ export default {
         let postArticleList = reactive([]);
         let articleCount = ref(0);
 
-        getPostArticleList(0, 10).then((data) => {
-            console.log(data);
-            articleCount.value = data.total;
-            data.rows.forEach((article) => {
-                article.createTime = article.createTime.split(" ")[0];
-                article.thumbnail = article.thumbnail || defaultThumbnail;
+        onCurrentPageChanged(1);
+
+        function onCurrentPageChanged(pageNum) {
+            getPostArticleList(pageNum, 10).then((data) => {
+                articleCount.value = parseInt(data.total);
+                data.rows.forEach((article) => {
+                    article.createTime = article.createTime.split(" ")[0];
+                    article.thumbnail = article.thumbnail || defaultThumbnail;
+                });
+
+                postArticleList.splice(0, postArticleList.length, ...data.rows);
             });
+        }
 
-            postArticleList.push(...data.rows);
-        });
-
-        return { postArticleList, articleCount };
+        return { postArticleList, articleCount, onCurrentPageChanged };
     },
 };
 </script>
@@ -74,20 +98,18 @@ export default {
 .home {
     height: 100%;
     width: 100%;
-    background-color: #f3f6f7;
 }
 
 .container {
     padding: 40px 15px;
-    background: transparent;
     max-width: 1300px;
     margin: 0 auto;
     display: flex;
+    animation: fadeInUp 1s;
 }
 
 .post-article-list {
     width: 74%;
-    padding-left: 20px;
 }
 
 .post-article-list .post-article-card {
@@ -96,5 +118,60 @@ export default {
 
 .post-article-list .post-article-card:nth-child(1) {
     margin-top: 0;
+}
+
+.side-content {
+    width: 26%;
+    margin-right: 20px;
+}
+
+#pagination {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+/deep/#pagination > button {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    background: white;
+    border-radius: 8px;
+    height: 35px;
+    width: 35px;
+}
+
+/deep/#pagination li {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    border-radius: 8px;
+    margin: 0 6px;
+    height: 35px;
+    width: 35px;
+}
+
+/deep/#pagination li.active {
+    color: white;
+    background: #1892ff;
+    font-weight: normal;
+}
+
+@media screen and (max-width: 900px) {
+    .side-content {
+        display: none;
+    }
+
+    .post-article-list {
+        width: 100%;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        margin-top: 50px;
+        opacity: 0;
+    }
+
+    to {
+        margin-top: 0;
+        opacity: 1;
+    }
 }
 </style>

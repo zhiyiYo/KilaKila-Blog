@@ -17,6 +17,7 @@
 
 body {
     overflow: overlay;
+    background-color: #f3f6f7;
 }
 
 :root {

@@ -1,20 +1,20 @@
 package com.zhiyiyo.controller;
 
 import com.zhiyiyo.domain.ResponseResult;
-import com.zhiyiyo.service.CategoryService;
+import com.zhiyiyo.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/category")
-public class CategoryController {
+@RequestMapping("/tag")
+public class TagController {
     @Autowired
-    private CategoryService categoryService;
+    private TagService tagService;
 
-    @GetMapping("/categoryList")
-    public ResponseResult getCategoryList(){
-        return categoryService.getCategoryList();
+    @GetMapping("/tagList")
+    public ResponseResult getTagList(){
+        return tagService.getTagList();
     }
 }

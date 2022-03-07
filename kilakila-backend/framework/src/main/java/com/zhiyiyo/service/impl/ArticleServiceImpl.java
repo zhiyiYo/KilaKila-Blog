@@ -33,6 +33,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private TagMapper tagMapper;
 
     @Override
+    public List<Article> listNormalArticle() {
+        LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
+        return list(wrapper);
+    }
+
+    @Override
     public ResponseResult hotArticleList() {
         // 查询出非草稿、没有被删除的文章，并按照热度降序排序前 10 文章
         LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();

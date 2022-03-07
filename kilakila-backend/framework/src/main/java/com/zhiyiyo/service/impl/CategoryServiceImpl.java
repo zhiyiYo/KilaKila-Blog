@@ -14,7 +14,9 @@ import com.zhiyiyo.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,9 +35,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public ResponseResult getCategoryList() {
         // 从数据库中查询非草稿的文章的目录 id
-        LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
-        List<Article> articles = articleService.list(wrapper);
+        List<Article> articles = articleService.listNormalArticle();
         Set<Long> categoryIds = articles.stream().map(Article::getCategoryId).collect(Collectors.toSet());
 
         // 从数据库中查询目录
@@ -43,8 +43,21 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         queryWrapper.in(Category::getId, categoryIds);
         queryWrapper.eq(Category::getStatus, SystemConstants.Category_STATUS_NORMAL);
         List<Category> categories = list(queryWrapper);
+        List<CategoryVo> categoryVos = BeanCopyUtils.copyBeanList(categories, CategoryVo.class);
 
-        return ResponseResult.okResult(BeanCopyUtils.copyBeanList(categories, CategoryVo.class));
+        // 统计每种分类的数量
+        Map<Long, Integer> categoryIdCountMap = new HashMap<>();
+        for (Article article : articles) {
+            Long categoryId = article.getCategoryId();
+            Integer count = categoryIdCountMap.get(categoryId);
+            categoryIdCountMap.put(categoryId, count == null ? 1 : count + 1);
+        }
+
+        for (CategoryVo categoryVo : categoryVos) {
+            categoryVo.setCount(categoryIdCountMap.get(categoryVo.getId()));
+        }
+
+        return ResponseResult.okResult(categoryVos);
     }
 }
 

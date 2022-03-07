@@ -17,7 +17,7 @@
             <!-- 发表的文章 -->
             <div class="post-article-list">
                 <kila-kila-post-article-card
-                    v-for="(article, index) in postArticleList"
+                    v-for="(article, index) in postArticles"
                     :key="article.id"
                     :article="article"
                     :reverse="index % 2 == 1"
@@ -31,6 +31,7 @@
                     :page-size="10"
                     id="pagination"
                     @current-change="onCurrentPageChanged"
+                    v-if="articleCount > 0"
                 >
                 </el-pagination>
             </div>
@@ -71,8 +72,10 @@ export default {
     setup() {
         store.dispatch("adminAbout/getAdminInfo");
         store.dispatch("adminAbout/getArticleCount");
+        store.dispatch("categoryAbout/getCategories");
+        store.dispatch("tagAbout/getTags");
 
-        let postArticleList = reactive([]);
+        let postArticles = reactive([]);
         let articleCount = ref(0);
 
         onCurrentPageChanged(1);
@@ -85,11 +88,11 @@ export default {
                     article.thumbnail = article.thumbnail || defaultThumbnail;
                 });
 
-                postArticleList.splice(0, postArticleList.length, ...data.rows);
+                postArticles.splice(0, postArticles.length, ...data.rows);
             });
         }
 
-        return { postArticleList, articleCount, onCurrentPageChanged };
+        return { postArticles, articleCount, onCurrentPageChanged };
     },
 };
 </script>
@@ -130,7 +133,7 @@ export default {
     justify-content: center;
 }
 
-/deep/#pagination > button {
+:deep(#pagination > button) {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     background: white;
     border-radius: 8px;
@@ -138,7 +141,7 @@ export default {
     width: 35px;
 }
 
-/deep/#pagination li {
+:deep(#pagination li) {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     background-color: white;
     border-radius: 8px;
@@ -147,7 +150,7 @@ export default {
     width: 35px;
 }
 
-/deep/#pagination li.active {
+:deep(#pagination li.active) {
     color: white;
     background: #1892ff;
     font-weight: normal;

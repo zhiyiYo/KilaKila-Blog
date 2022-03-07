@@ -25,7 +25,6 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = 853190758604791410L;
 
-        
     @TableId(type = IdType.AUTO)
     private Long id; 
     

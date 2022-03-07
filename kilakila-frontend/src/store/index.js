@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
 import { getAdminInfo } from '../api/user'
 import { getArticleCount } from '../api/article'
+import { getCategoryList } from '../api/category'
+import { getTagList } from '../api/tag'
 
 
 // 管理员
@@ -59,6 +61,53 @@ let websiteAbout = {
 	mutations: {},
 }
 
+
+// 分类
+let categoryAbout = {
+	namespaced: true,
+	state: {
+		categories: []
+	},
+	actions: {
+		getCategories(context) {
+			return new Promise((resolve) => {
+				getCategoryList().then(data => {
+					context.commit('updateCategories', data)
+					resolve()
+				})
+			})
+		}
+	},
+	mutations: {
+		updateCategories(state, data) {
+			state.categories = data
+		}
+	}
+}
+
+// 标签
+let tagAbout = {
+	namespaced: true,
+	state: {
+		tags: []
+	},
+	actions: {
+		getTags(context) {
+			return new Promise((resolve) => {
+				getTagList().then(data => {
+					context.commit('updateTags', data)
+					resolve()
+				})
+			})
+		}
+	},
+	mutations: {
+		updateTags(state, data) {
+			state.tags = data
+		}
+	}
+}
+
 export default createStore({
-	modules: { adminAbout, websiteAbout },
+	modules: { adminAbout, websiteAbout, categoryAbout, tagAbout },
 });

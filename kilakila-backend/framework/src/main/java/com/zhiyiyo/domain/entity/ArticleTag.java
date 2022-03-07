@@ -3,6 +3,7 @@ package com.zhiyiyo.domain.entity;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -32,8 +33,12 @@ public class ArticleTag implements Serializable {
     /**
      * 标签 ID
      */    
-    private Long tagId; 
-    
+    private Long tagId;
 
+    /**
+     * 标签的出现次数
+     */
+    @TableField(exist = false)
+    private Integer count;
 }
 

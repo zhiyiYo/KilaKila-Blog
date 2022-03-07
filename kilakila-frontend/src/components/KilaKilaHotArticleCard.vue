@@ -5,7 +5,7 @@
         title="热门文章"
     >
         <div
-            v-for="article in hotArticleList"
+            v-for="article in hotArticles"
             :key="article.id"
             class="hot-article-item"
         >
@@ -47,7 +47,7 @@ export default {
         KilaKilaCard,
     },
     setup() {
-        let hotArticleList = reactive([]);
+        let hotArticles = reactive([]);
 
         getHotArticleList().then((data) => {
             data.forEach((article) => {
@@ -55,10 +55,10 @@ export default {
                 article.thumbnail = article.thumbnail || defaultThumbnail;
             });
 
-            hotArticleList.push(...data);
+            hotArticles.push(...data);
         });
 
-        return { hotArticleList, useDefaultThumbnail };
+        return { hotArticles, useDefaultThumbnail };
     },
 };
 </script>

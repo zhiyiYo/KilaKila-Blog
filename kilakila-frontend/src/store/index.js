@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
 import { getAdminInfo } from '../api/user'
 import { getArticleCount } from '../api/article'
-import { getCategoryList } from '../api/category'
-import { getTagList } from '../api/tag'
+import { getCategoryCountList } from '../api/category'
+import { getTagCountList } from '../api/tag'
 
 
 // 管理员
@@ -66,21 +66,21 @@ let websiteAbout = {
 let categoryAbout = {
 	namespaced: true,
 	state: {
-		categories: []
+		categoryCounts: []
 	},
 	actions: {
-		getCategories(context) {
+		getCategoryCounts(context) {
 			return new Promise((resolve) => {
-				getCategoryList().then(data => {
-					context.commit('updateCategories', data)
+				getCategoryCountList().then(data => {
+					context.commit('updateCategoryCounts', data)
 					resolve()
 				})
 			})
 		}
 	},
 	mutations: {
-		updateCategories(state, data) {
-			state.categories = data
+		updateCategoryCounts(state, data) {
+			state.categoryCounts = data
 		}
 	}
 }
@@ -89,21 +89,21 @@ let categoryAbout = {
 let tagAbout = {
 	namespaced: true,
 	state: {
-		tags: []
+		tagCounts: []
 	},
 	actions: {
-		getTags(context) {
+		getTagCounts(context) {
 			return new Promise((resolve) => {
-				getTagList().then(data => {
-					context.commit('updateTags', data)
+				getTagCountList().then(data => {
+					context.commit('updateTagCounts', data)
 					resolve()
 				})
 			})
 		}
 	},
 	mutations: {
-		updateTags(state, data) {
-			state.tags = data
+		updateTagCounts(state, data) {
+			state.tagCounts = data
 		}
 	}
 }

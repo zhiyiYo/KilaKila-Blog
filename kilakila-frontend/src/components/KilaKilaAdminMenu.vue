@@ -18,17 +18,13 @@
             </el-menu-item>
 
             <!-- 归档 -->
-            <el-sub-menu index="2">
-                <template #title>
-                    <font-awesome-icon
-                        :icon="['fas', 'box-archive']"
-                        class="menu-icon"
-                    />
-                    <span>归档</span>
-                </template>
-                <el-menu-item index="2-1">🎯 2022 年 1 月（2）</el-menu-item>
-                <el-menu-item index="2-2">🎯 2022 年 2 月（3）</el-menu-item>
-            </el-sub-menu>
+            <el-menu-item index="2">
+                <font-awesome-icon
+                    :icon="['fas', 'box-archive']"
+                    class="menu-icon"
+                />
+                <span>归档</span>
+            </el-menu-item>
 
             <!-- 分类 -->
             <el-sub-menu index="3">
@@ -40,7 +36,8 @@
                     <span>分类</span>
                 </template>
                 <el-menu-item
-                    v-for="category in $store.state.categoryAbout.categories"
+                    v-for="category in $store.state.categoryAbout
+                        .categoryCounts"
                     :key="category.id"
                     :index="'3-' + category.id"
                     class="category-item"
@@ -51,7 +48,7 @@
             </el-sub-menu>
 
             <!-- 标签 -->
-            <el-sub-menu index="3">
+            <el-sub-menu index="4">
                 <template #title>
                     <font-awesome-icon
                         :icon="['fas', 'tags']"
@@ -60,9 +57,9 @@
                     <span>标签</span>
                 </template>
                 <el-menu-item
-                    v-for="category in $store.state.tagAbout.tags"
+                    v-for="category in $store.state.tagAbout.tagCounts"
                     :key="category.id"
-                    :index="'3-' + category.id"
+                    :index="'4-' + category.id"
                     class="category-item"
                     >🔖
                     <span class="tag-name">{{ category.name }}</span>

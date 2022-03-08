@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyiyo.mapper.ArchiveMapper">
+    <select id="selectArchiveCount" resultType="com.zhiyiyo.domain.vo.ArchiveCountVo">
+        select date_format(create_time, '%Y/%c') as date, count(*) as count
+        from article
+        group by date
+        order by date
+                desc
+        limit #{start},#{pageSize};
+    </select>
+
+    <select id="selectArchiveTotalCount" resultType="java.lang.Long">
+        select count(*)
+        from (select count(*) from article group by date_format(create_time, '%Y/%c')) as t
+    </select>
+</mapper>

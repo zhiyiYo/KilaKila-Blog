@@ -1,12 +1,12 @@
 import request from "../utils/request"
 
 /**
- * 获取所有文章标签
+ * 获取所有标签的文章数量
  * @returns promise
  */
-function getTagList() {
-    return request.get("/tag/tagList")
+function getTagCountList() {
+    return request.get("/tag/tagCountList")
 }
 
 
-export { getTagList }
+export { getTagCountList }

@@ -6,7 +6,7 @@ import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.entity.Article;
 import com.zhiyiyo.domain.entity.Category;
-import com.zhiyiyo.domain.vo.CategoryVo;
+import com.zhiyiyo.domain.vo.CategoryCountVo;
 import com.zhiyiyo.mapper.CategoryMapper;
 import com.zhiyiyo.service.ArticleService;
 import com.zhiyiyo.service.CategoryService;
@@ -33,7 +33,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     private ArticleService articleService;
 
     @Override
-    public ResponseResult getCategoryList() {
+    public ResponseResult getCategoryCountList() {
         // 从数据库中查询非草稿的文章的目录 id
         List<Article> articles = articleService.listNormalArticle();
         Set<Long> categoryIds = articles.stream().map(Article::getCategoryId).collect(Collectors.toSet());
@@ -43,7 +43,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         queryWrapper.in(Category::getId, categoryIds);
         queryWrapper.eq(Category::getStatus, SystemConstants.Category_STATUS_NORMAL);
         List<Category> categories = list(queryWrapper);
-        List<CategoryVo> categoryVos = BeanCopyUtils.copyBeanList(categories, CategoryVo.class);
+        List<CategoryCountVo> categoryVos = BeanCopyUtils.copyBeanList(categories, CategoryCountVo.class);
 
         // 统计每种分类的数量
         Map<Long, Integer> categoryIdCountMap = new HashMap<>();
@@ -53,7 +53,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             categoryIdCountMap.put(categoryId, count == null ? 1 : count + 1);
         }
 
-        for (CategoryVo categoryVo : categoryVos) {
+        for (CategoryCountVo categoryVo : categoryVos) {
             categoryVo.setCount(categoryIdCountMap.get(categoryVo.getId()));
         }
 

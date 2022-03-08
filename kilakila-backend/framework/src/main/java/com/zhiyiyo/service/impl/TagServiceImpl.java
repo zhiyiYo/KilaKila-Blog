@@ -3,12 +3,11 @@ package com.zhiyiyo.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.entity.Article;
 import com.zhiyiyo.domain.entity.ArticleTag;
 import com.zhiyiyo.domain.entity.Tag;
-import com.zhiyiyo.domain.vo.TagVo;
+import com.zhiyiyo.domain.vo.TagCountVo;
 import com.zhiyiyo.mapper.ArticleTagMapper;
 import com.zhiyiyo.mapper.TagMapper;
 import com.zhiyiyo.service.ArticleService;
@@ -30,7 +29,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     private ArticleTagMapper articleTagMapper;
 
     @Override
-    public ResponseResult getTagList() {
+    public ResponseResult getTagCountList() {
         // 查询出所有非草稿文章携带的标签 id
         List<Article> articles = articleService.listNormalArticle();
         List<Long> articleIds = articles.stream().map(Article::getId).collect(Collectors.toList());
@@ -44,7 +43,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
                 .collect(Collectors.toMap(ArticleTag::getTagId, ArticleTag::getCount));
         LambdaQueryWrapper<Tag> wrapper = new LambdaQueryWrapper<>();
         wrapper.in(Tag::getId, tagCountMap.keySet());
-        List<TagVo> tagVos = BeanCopyUtils.copyBeanList(list(wrapper), TagVo.class);
+        List<TagCountVo> tagVos = BeanCopyUtils.copyBeanList(list(wrapper), TagCountVo.class);
         tagVos.forEach(tagVo -> tagVo.setCount(tagCountMap.get(tagVo.getId())));
 
         return ResponseResult.okResult(tagVos);

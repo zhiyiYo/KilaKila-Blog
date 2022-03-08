@@ -4,6 +4,7 @@
         <kila-kila-hot-article-card />
         <kila-kila-category-card />
         <kila-kila-tag-card />
+        <kila-kila-archive-card />
     </div>
 </template>
 
@@ -12,6 +13,7 @@ import KilaKilaAdminCard from "./KilaKilaAdminCard";
 import KilaKilaHotArticleCard from "./KilaKilaHotArticleCard";
 import KilaKilaCategoryCard from "./KilaKilaCategoryCard";
 import KilaKilaTagCard from "./KilaKilaTagCard";
+import KilaKilaArchiveCard from "./KilaKilaArchiveCard";
 
 export default {
     name: "KilaKilaSideContent",
@@ -20,6 +22,7 @@ export default {
         KilaKilaHotArticleCard,
         KilaKilaCategoryCard,
         KilaKilaTagCard,
+        KilaKilaArchiveCard,
     },
 };
 </script>

@@ -25,8 +25,8 @@ export default {
         KilaKilaCard,
     },
     setup() {
-        let { tags } = mapState("tagAbout");
-        let tagClouds = computed(() => wordCloud(tags.value));
+        let { tagCounts } = mapState("tagAbout");
+        let tagClouds = computed(() => wordCloud(tagCounts.value));
         console.log(tagClouds);
         return { tagClouds };
     },

@@ -13,8 +13,8 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/categoryList")
-    public ResponseResult getCategoryList(){
-        return categoryService.getCategoryList();
+    @GetMapping("/categoryCountList")
+    public ResponseResult getCategoryCountList(){
+        return categoryService.getCategoryCountList();
     }
 }

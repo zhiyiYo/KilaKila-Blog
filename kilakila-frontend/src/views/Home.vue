@@ -72,8 +72,8 @@ export default {
     setup() {
         store.dispatch("adminAbout/getAdminInfo");
         store.dispatch("adminAbout/getArticleCount");
-        store.dispatch("categoryAbout/getCategories");
-        store.dispatch("tagAbout/getTags");
+        store.dispatch("categoryAbout/getCategoryCounts");
+        store.dispatch("tagAbout/getTagCounts");
 
         let postArticles = reactive([]);
         let articleCount = ref(0);

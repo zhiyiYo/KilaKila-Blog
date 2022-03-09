@@ -2,6 +2,21 @@
     <router-view />
 </template>
 
+<script>
+import store from "./store";
+
+export default {
+    name: "App",
+    setup() {
+        store.dispatch("adminAbout/getAdminInfo");
+        store.dispatch("adminAbout/getArticleCount");
+        store.dispatch("categoryAbout/getCategoryCounts");
+        store.dispatch("tagAbout/getTagCounts");
+    },
+};
+</script>
+
+
 <style>
 ::-webkit-scrollbar {
     height: 14px;
@@ -18,6 +33,8 @@
 body {
     overflow: overlay;
     background-color: #f3f6f7;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 :root {

@@ -85,7 +85,7 @@ export default {
     font-size: 24px;
     font-family: "Long Cang", sans-serif;
     text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-    animation: fadeUpInSlow 1.8s;
+    animation: fadeUpInSlow 1.5s;
 }
 
 .arrow-down {

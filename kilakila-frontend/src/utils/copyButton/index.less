@@ -1,0 +1,35 @@
+.article-content pre {
+    position: relative;
+
+    &>span {
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 3px;
+        padding: 3px 10px;
+        font-size: 12px;
+        font-family: Lato, PingFang SC, Microsoft YaHei, sans-serif;
+        font-weight: normal;
+        background: #fff;
+        color: #000;
+        cursor: pointer;
+        opacity: 0;
+        margin: 8px 10px;
+        transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        -o-transition: all 0.5s;
+
+        &:hover {
+            background: #ddd;
+        }
+    }
+
+    &:hover>span {
+        opacity: 1;
+        transition: opacity 0.25s;
+        -moz-transition: opacity 0.25s;
+        -webkit-transition: opacity 0.25s;
+        -o-transition: opacity 0.25s;
+    }
+}

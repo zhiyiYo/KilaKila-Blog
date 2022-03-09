@@ -12,7 +12,13 @@
 
         <div class="container">
             <!-- 侧边栏 -->
-            <kila-kila-side-content />
+            <div class="side-content">
+                <kila-kila-admin-card />
+                <kila-kila-hot-article-card />
+                <kila-kila-category-card />
+                <kila-kila-tag-card />
+                <kila-kila-archive-card />
+            </div>
 
             <!-- 发表的文章 -->
             <div class="post-article-list">
@@ -50,31 +56,33 @@
 <script>
 import { reactive, ref } from "vue";
 import KilaKilaCover from "../components/KilaKilaCover";
-import KilaKilaSideContent from "../components/KilaKilaSideContent";
 import KilaKilaHeader from "../components/KilaKilaHeader";
 import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
 import KilaKilaPostArticleCard from "../components/KilaKilaPostArticleCard";
 import KilaKilaFooter from "../components/KilaKilaFooter";
+import KilaKilaAdminCard from "../components/KilaKilaAdminCard";
+import KilaKilaHotArticleCard from "../components/KilaKilaHotArticleCard";
+import KilaKilaCategoryCard from "../components/KilaKilaCategoryCard";
+import KilaKilaTagCard from "../components/KilaKilaTagCard";
+import KilaKilaArchiveCard from "../components/KilaKilaArchiveCard";
 import { getPostArticleList } from "../api/article";
 import { defaultThumbnail } from "../utils/thumbnail";
-import store from "../store";
 
 export default {
     name: "Home",
     components: {
         KilaKilaHeader,
         KilaKilaCover,
-        KilaKilaSideContent,
         KilaKilaBackToTop,
         KilaKilaPostArticleCard,
         KilaKilaFooter,
+        KilaKilaAdminCard,
+        KilaKilaHotArticleCard,
+        KilaKilaCategoryCard,
+        KilaKilaTagCard,
+        KilaKilaArchiveCard,
     },
     setup() {
-        store.dispatch("adminAbout/getAdminInfo");
-        store.dispatch("adminAbout/getArticleCount");
-        store.dispatch("categoryAbout/getCategoryCounts");
-        store.dispatch("tagAbout/getTagCounts");
-
         let postArticles = reactive([]);
         let articleCount = ref(0);
 

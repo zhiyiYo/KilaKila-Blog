@@ -27,7 +27,6 @@ export default {
     setup() {
         let { tagCounts } = mapState("tagAbout");
         let tagClouds = computed(() => wordCloud(tagCounts.value));
-        console.log(tagClouds);
         return { tagClouds };
     },
 };
@@ -45,8 +44,6 @@ export default {
     transition: all 0.4s;
     padding: 0 4px;
     overflow-wrap: break-word;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     line-height: 2;
 }
 

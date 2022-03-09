@@ -97,7 +97,7 @@ header {
 .header-menu-item {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14px;
     margin-left: 25px;
     position: relative;
     padding-bottom: 5px;

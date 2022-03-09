@@ -25,7 +25,14 @@ module.exports = {
                 '@': resolve('src')
             }
         },
-        devtool: "source-map"
     },
     lintOnSave: false,
+    devServer: {
+        proxy: {
+            "/ixiaowai": {
+                target: "https://api.ixiaowai.cn",
+                pathRewrite: { "^/ixiaowai": "" },
+            },
+        }
+    }
 }

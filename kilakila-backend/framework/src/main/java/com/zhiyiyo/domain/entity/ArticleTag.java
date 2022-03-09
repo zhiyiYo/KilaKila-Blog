@@ -27,8 +27,8 @@ public class ArticleTag implements Serializable {
 
     /**
      * 文章 ID
-     */    
-    private Long articleId; 
+     */
+    private Long articleId;
     
     /**
      * 标签 ID

@@ -37,4 +37,13 @@ function getPostArticleList(pageNum, pageSize, categoryId) {
 }
 
 
-export { getHotArticleList, getArticleCount, getPostArticleList }
+/**
+ * 获取文章详情
+ * @param {number} id 文章 id
+ * @returns promise
+ */
+function getArticleDetails(id) {
+    return request.get('/article/' + id)
+}
+
+export { getHotArticleList, getArticleCount, getPostArticleList, getArticleDetails }

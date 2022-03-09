@@ -1,0 +1,160 @@
+.hljs,
+.hljsln {
+    display: block;
+    overflow-x: auto;
+    padding: 0.7em 1em 0.7em 3em !important;
+    background: #282c34 !important;
+    border: 1px solid #282c34 !important;
+    color: #bababa;
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
+    font-size: 14px !important;
+
+    /* 代码块不换行 */
+    white-space: pre;
+    word-break: normal;
+
+    &::-webkit-scrollbar {
+        height: 4px;
+    }
+}
+
+.hljs.ln-hide {
+    padding: 0.7em 1em 0.7em 1em !important;
+}
+
+.ln-bg {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 37px;
+    height: 100%;
+    background: #282c34;
+    border-radius: 7px 0px 0px 7px;
+}
+
+.ln-num {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    width: 37px;
+    text-align: center;
+    display: inline-block;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &::before {
+        color: #999;
+        font-style: normal;
+        font-weight: normal;
+        text-align: center;
+        content: attr(data-num);
+    }
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: #5c6370;
+    font-style: italic;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+    color: #c678dd;
+}
+
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+    color: #e06c75;
+}
+
+.hljs-literal {
+    color: #56b6c2;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta-string {
+    color: #98c379;
+}
+
+.class_ {
+    color: #e5c07b !important;
+}
+
+.hljs-attr {
+    color: #d19a66 !important;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+    color: #d19a66;
+}
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+    color: #61afef;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+.hljs-link {
+    text-decoration: underline;
+}
+
+.hljs-built_in {
+    color: #56b6c2;
+}
+
+.hljs-tag .hljs-name {
+    color: #e06c75
+}
+
+.hljs-tag {
+    color: #bababa;
+}
+
+.hljs-attribute,
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-title {
+    font-weight: normal !important;
+}
+
+.hljs-punctuation {
+    color: #bababa;
+}
+
+.hljs::-webkit-scrollbar,
+.hljsln::-webkit-scrollbar {
+    height: 3px;
+}

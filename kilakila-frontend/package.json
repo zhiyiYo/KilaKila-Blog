@@ -15,10 +15,13 @@
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "axios": "^0.17.0",
+    "clipboard": "^2.0.10",
     "core-js": "^3.6.5",
     "element-plus": "^2.0.4",
+    "highlight.js": "^11.4.0",
     "jquery": "^3.6.0",
     "js-md5": "^0.7.3",
+    "mavon-editor": "^2.10.4",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"
@@ -35,6 +38,7 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.0.0",
+    "less-loader": "^5.0.0",
     "prettier": "^2.2.1",
     "unplugin-auto-import": "^0.6.1",
     "unplugin-vue-components": "^0.17.21"

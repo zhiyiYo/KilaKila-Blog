@@ -3,10 +3,7 @@ package com.zhiyiyo.controller;
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/article")
@@ -33,5 +30,10 @@ public class ArticleController {
     @GetMapping("/count")
     public ResponseResult articleCount(){
         return articleService.articleCount();
+    }
+
+    @PutMapping("/updateViewCount/{id}")
+    public ResponseResult updateViewCount(@PathVariable Long id){
+        return articleService.updateViewCount(id);
     }
 }

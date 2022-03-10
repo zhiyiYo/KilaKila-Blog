@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -24,6 +25,8 @@ public class ArticleDetailsVo {
     private String thumbnail;
     //是否允许评论
     private Boolean isComment;
+    // 所有标签
+    List<TagVo> tags;
 
     //访问量
     private Long viewCount;

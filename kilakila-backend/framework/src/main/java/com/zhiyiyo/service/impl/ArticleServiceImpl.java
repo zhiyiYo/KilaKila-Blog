@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
+import com.zhiyiyo.domain.entity.ArticleTag;
 import com.zhiyiyo.domain.entity.Category;
+import com.zhiyiyo.domain.entity.Tag;
 import com.zhiyiyo.domain.vo.*;
 import com.zhiyiyo.mapper.ArticleMapper;
 import com.zhiyiyo.domain.entity.Article;
+import com.zhiyiyo.mapper.ArticleTagMapper;
 import com.zhiyiyo.mapper.TagMapper;
 import com.zhiyiyo.service.ArticleService;
 import com.zhiyiyo.service.CategoryService;
@@ -19,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 文章表(Article)表服务实现类
@@ -28,6 +32,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private ArticleTagMapper articleTagMapper;
 
     @Autowired
     private TagMapper tagMapper;
@@ -89,6 +96,19 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             articleDetailsVO.setCategoryName(category.getName());
         }
 
+        // 设置标签
+        LambdaQueryWrapper<ArticleTag> articleTagWrapper = new LambdaQueryWrapper<>();
+        articleTagWrapper.eq(ArticleTag::getArticleId, id);
+        List<ArticleTag> articleTags = articleTagMapper.selectList(articleTagWrapper);
+        List<Long> tagIds = articleTags.stream().map(ArticleTag::getTagId).collect(Collectors.toList());
+
+        if (tagIds.size() > 0) {
+            LambdaQueryWrapper<Tag> tagWrapper = new LambdaQueryWrapper<>();
+            tagWrapper.in(Tag::getId, tagIds);
+            List<Tag> tags = tagMapper.selectList(tagWrapper);
+            articleDetailsVO.setTags(BeanCopyUtils.copyBeanList(tags, TagVo.class));
+        }
+
         return ResponseResult.okResult(articleDetailsVO);
     }
 
@@ -98,6 +118,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         long category = categoryService.count();
         long tag = tagMapper.selectCount(null);
         return ResponseResult.okResult(new ArticleCountVo(article, category, tag));
+    }
+
+    @Override
+    public ResponseResult updateViewCount(Long id) {
+        Article article = getById(id);
+        article.setViewCount(article.getViewCount() + 1);
+        updateById(article);
+        return ResponseResult.okResult();
     }
 }
 

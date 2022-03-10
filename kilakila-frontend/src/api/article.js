@@ -46,4 +46,17 @@ function getArticleDetails(id) {
     return request.get('/article/' + id)
 }
 
-export { getHotArticleList, getArticleCount, getPostArticleList, getArticleDetails }
+
+/**
+ * 更新文章阅读数
+ * @param {number} id 文章 id
+ * @returns promise
+ */
+function updateViewCount(id) {
+    return request({
+        url: "/article/updateViewCount/" + id,
+        method: "put",
+    })
+}
+
+export { getHotArticleList, getArticleCount, getPostArticleList, getArticleDetails, updateViewCount }

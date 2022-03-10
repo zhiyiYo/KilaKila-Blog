@@ -15,6 +15,7 @@ import xml from 'highlight.js/lib/languages/xml';
 import sql from 'highlight.js/lib/languages/sql';
 import cpp from 'highlight.js/lib/languages/cpp';
 import c from 'highlight.js/lib/languages/c';
+import ClipboardJS from 'clipboard'
 
 
 hljs.registerLanguage('javascript', javascript);
@@ -35,8 +36,24 @@ hljs.registerLanguage('c', c);
 hljs.configure({ ignoreUnescapedHTML: true });
 
 
-function buildHljsLineNumber() {
-    let $codes = $('.post-body .article-content pre code');
+/**
+ * 高亮代码块
+ * @param {Element} element 包含 pre code 代码块的元素
+ */
+function highlightCode(element) {
+    const codeEls = element.querySelectorAll('pre code');
+    codeEls.forEach((el) => {
+        hljs.highlightElement(el);
+    });
+}
+
+
+/**
+ * 给代码块添加行号
+ * @param {Element} element 包含 pre code 代码块的元素
+ */
+function buildLineNumber(element) {
+    let $codes = $(element).find('pre code');
     if (!$codes.length) {
         return false;
     }
@@ -68,12 +85,48 @@ function addLineNumbersFor(html) {
     return html;
 }
 
+/**
+ * 给代码块添加复制按钮
+ * @param {Element} element 包含 pre code 代码块的元素
+ */
+function buildCopyButton(element) {
+    let $pres = $(element).find('pre');
+    if (!$pres.length) return;
 
-function highlightCode(element) {
-    const codeEls = element.querySelectorAll('pre code');
-    codeEls.forEach((el) => {
-        hljs.highlightElement(el);
+    $pres.each(function () {
+        var t = $(this).children("code").text();
+
+        // 创建按钮
+        var btn = $('<span class="copy">复制</span>').attr(
+            "data-clipboard-text",
+            t
+        );
+
+        $(this).prepend(btn);
+
+        var c = new ClipboardJS(btn[0]);
+        c.on("success", function () {
+            btn.addClass("copyed").text("复制成功");
+            setTimeout(function () {
+                btn.text("复制").removeClass("copyed");
+            }, 1000);
+        });
+        c.on("error", function () {
+            btn.text("复制失败");
+        });
     });
 }
 
-export { buildHljsLineNumber, highlightCode };
+
+/**
+ * 创建代码块
+ * @param {string} selector 包含 pre code 的元素选择器
+ */
+function buildCodeBlock(selector) {
+    let element = document.querySelector(selector)
+    highlightCode(element)
+    buildLineNumber(element)
+    buildCopyButton(element)
+}
+
+export default buildCodeBlock

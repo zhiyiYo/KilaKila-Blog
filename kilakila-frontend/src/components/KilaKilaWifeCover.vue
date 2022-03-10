@@ -15,7 +15,10 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: url(https://api.yimian.xyz/img?type=moe&size=1920x*);
+    /* background-image: url(https://api.yimian.xyz/img?type=moe&size=1920x*); */
+    /* background-image: url(https://api.vvhan.com/api/acgimg); */
+    /* background-image: url(http://www.dmoe.cc/random.php); */
+    background-image: url(https://api.ghser.com/random/api.php);
     height: 400px;
     width: 100%;
     animation: fadeUpInCover 1s;
@@ -24,7 +27,7 @@ export default {
 .wife-cover::before {
     width: 100%;
     height: 400px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     content: "";
     position: absolute;
 }

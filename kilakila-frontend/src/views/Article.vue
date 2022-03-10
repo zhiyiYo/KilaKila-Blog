@@ -41,7 +41,6 @@
                 <div
                     class="article-content"
                     v-html="articleDetails.content"
-                    v-highlight
                 ></div>
             </div>
         </div>
@@ -63,10 +62,9 @@ import KilaKilaCatalogCard from "../components/KilaKilaCatalogCard";
 import KilaKilaHotArticleCard from "../components/KilaKilaHotArticleCard";
 import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
 import { getArticleDetails } from "../api/article";
-import { reactive, nextTick, ref, onUpdated } from "vue";
+import { reactive, nextTick, ref } from "vue";
 import { mavonEditor } from "mavon-editor";
-import { buildHljsLineNumber } from "../utils/hljs";
-import buildCopyButton from "../utils/copyButton";
+import buildCodeBlock from "../utils/code-block";
 
 export default {
     name: "Article",
@@ -92,8 +90,7 @@ export default {
                 .render(data.content);
 
             nextTick(() => {
-                buildHljsLineNumber();
-                buildCopyButton();
+                buildCodeBlock(".article-content");
                 articleLoaded.value = true;
             });
         });

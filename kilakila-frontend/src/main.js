@@ -7,11 +7,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import FontAwesomeIcon from "./utils/fontawesome-icons";
-import { highlightCode } from "./utils/hljs"
 
 createApp(App)
     .use(store)
     .use(router)
     .component("font-awesome-icon", FontAwesomeIcon)
-    .directive('highlight', highlightCode)
     .mount("#app");

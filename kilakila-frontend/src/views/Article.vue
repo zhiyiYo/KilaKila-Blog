@@ -30,7 +30,10 @@
             <!-- 侧边栏 -->
             <div class="side-content">
                 <kila-kila-admin-card />
-                <kila-kila-hot-article-card />
+                <div class="sticky-layout">
+                    <kila-kila-catalog-card v-if="articleLoaded" />
+                    <kila-kila-hot-article-card />
+                </div>
             </div>
 
             <!-- 文章内容 -->
@@ -56,12 +59,13 @@ import KilaKilaHeader from "../components/KilaKilaHeader";
 import KilaKilaFooter from "../components/KilaKilaFooter";
 import KilaKilaWifeCover from "../components/KilaKilaWifeCover";
 import KilaKilaAdminCard from "../components/KilaKilaAdminCard";
+import KilaKilaCatalogCard from "../components/KilaKilaCatalogCard";
 import KilaKilaHotArticleCard from "../components/KilaKilaHotArticleCard";
 import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
 import { getArticleDetails } from "../api/article";
-import { reactive, nextTick } from "vue";
+import { reactive, nextTick, ref, onUpdated } from "vue";
 import { mavonEditor } from "mavon-editor";
-import { buildHljsLineNumber, highlightCode } from "../utils/hljs";
+import { buildHljsLineNumber } from "../utils/hljs";
 import buildCopyButton from "../utils/copyButton";
 
 export default {
@@ -73,9 +77,12 @@ export default {
         KilaKilaAdminCard,
         KilaKilaHotArticleCard,
         KilaKilaBackToTop,
+        KilaKilaCatalogCard,
     },
     setup(props) {
         window.scrollTo({ top: 0 });
+
+        let articleLoaded = ref(false);
 
         let articleDetails = reactive({});
         getArticleDetails(props.id).then((data) => {
@@ -87,12 +94,13 @@ export default {
             nextTick(() => {
                 buildHljsLineNumber();
                 buildCopyButton();
+                articleLoaded.value = true;
             });
         });
 
         // TODO:增加文章阅读量
 
-        return { articleDetails };
+        return { articleDetails, articleLoaded };
     },
     props: ["id"],
 };
@@ -294,6 +302,11 @@ export default {
             }
         }
     }
+}
+
+.sticky-layout {
+    position: sticky;
+    top: 20px;
 }
 
 @media screen and (max-width: 900px) {

@@ -32,6 +32,8 @@ hljs.registerLanguage('sql', sql);
 hljs.registerLanguage('cpp', cpp);
 hljs.registerLanguage('c', c);
 
+hljs.configure({ ignoreUnescapedHTML: true });
+
 
 function buildHljsLineNumber() {
     let $codes = $('.post-body .article-content pre code');

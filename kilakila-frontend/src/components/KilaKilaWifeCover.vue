@@ -1,25 +1,12 @@
 <template>
-    <div class="wife-cover" :style="wifeCoverStyle">
+    <div class="wife-cover">
         <slot></slot>
     </div>
 </template>
 
 <script>
-import { reactive } from "@vue/reactivity";
-import { ixiaowai } from "../api/wife";
-
 export default {
     name: "KilaKilaWifeCover",
-    setup() {
-        let wifeCoverStyle = reactive({
-            backgroundImage: "",
-        });
-        ixiaowai().then((response) => {
-            wifeCoverStyle.backgroundImage = `url(${response.data.imgurl})`;
-        });
-
-        return { wifeCoverStyle };
-    },
 };
 </script>
 
@@ -28,6 +15,7 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-image: url(https://api.yimian.xyz/img?type=moe&size=1920x*);
     height: 400px;
     width: 100%;
     animation: fadeUpInCover 1s;

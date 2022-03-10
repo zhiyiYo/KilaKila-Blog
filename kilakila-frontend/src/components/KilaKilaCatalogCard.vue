@@ -1,5 +1,5 @@
 <template>
-    <div class="catalog-card">
+    <div class="catalog-card" v-if="Object.keys(titles).length > 0">
         <div class="catalog-card-header">
             <div>
                 <span

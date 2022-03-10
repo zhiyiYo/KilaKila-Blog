@@ -12,14 +12,16 @@ import java.util.List;
 public interface ArticleService extends IService<Article> {
     List<Article> listNormalArticle();
 
-    ResponseResult hotArticleList();
+    ResponseResult getHotArticleList();
 
-    ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId);
+    ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId);
 
-    ResponseResult articleDetail(Long id);
+    ResponseResult getArticleDetail(Long id);
 
-    ResponseResult articleCount();
+    ResponseResult getArticleCount();
 
     ResponseResult updateViewCount(Long id);
+
+    ResponseResult getPreviousNextArticle(Long id);
 }
 

@@ -55,6 +55,7 @@ public class BlogLoginServiceImpl implements BlogLoginService {
 
         // 将 token 和用户信息返回给用户
         UserInfoVo userInfo = BeanCopyUtils.copyBean(loginUser.getUser(), UserInfoVo.class);
+        userInfo.setIsAdmin(SystemConstants.ADMIN_USER.equals(loginUser.getUser().getType()));
         BlogUserLoginVo blogUserLoginVo = new BlogUserLoginVo(token, userInfo);
         return ResponseResult.okResult(blogUserLoginVo);
     }

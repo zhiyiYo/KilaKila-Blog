@@ -17,7 +17,7 @@ function setToken(token) {
 /**
  * 移除令牌
  */
-function removeToken(token) {
+function removeToken() {
     localStorage.removeItem('token')
 }
 

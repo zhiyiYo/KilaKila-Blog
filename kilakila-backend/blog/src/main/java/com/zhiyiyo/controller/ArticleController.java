@@ -13,27 +13,33 @@ public class ArticleController {
     private ArticleService articleService;
 
     @GetMapping("/hotArticleList")
-    public ResponseResult hotArticleList() {
-        return articleService.hotArticleList();
+    public ResponseResult getHotArticleList() {
+        return articleService.getHotArticleList();
     }
 
     @GetMapping("/articleList")
-    public ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId) {
-        return articleService.articleList(pageNum, pageSize, categoryId);
+    public ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId) {
+        return articleService.getArticleList(pageNum, pageSize, categoryId);
     }
 
     @GetMapping("/{id}")
-    public ResponseResult articleDetail(@PathVariable("id") Long id) {
-        return articleService.articleDetail(id);
+    public ResponseResult getArticleDetail(@PathVariable("id") Long id) {
+        return articleService.getArticleDetail(id);
     }
 
     @GetMapping("/count")
-    public ResponseResult articleCount(){
-        return articleService.articleCount();
+    public ResponseResult getArticleCount(){
+        return articleService.getArticleCount();
     }
 
     @PutMapping("/updateViewCount/{id}")
     public ResponseResult updateViewCount(@PathVariable Long id){
         return articleService.updateViewCount(id);
     }
+
+    @GetMapping("/previousNextArticle/{id}")
+    public ResponseResult getPreviousNextArticle(@PathVariable Long id){
+        return articleService.getPreviousNextArticle(id);
+    }
+
 }

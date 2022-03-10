@@ -129,6 +129,11 @@ export default {
 .admin-description h3 {
     margin: 0px;
     overflow: hidden;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 .admin-description p {

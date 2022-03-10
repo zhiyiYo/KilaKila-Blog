@@ -1,5 +1,5 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBoxArchive, faFolder, faTags, faTag, faBars, faEnvelope, faFire, faCalendarDays, faEye, faHeartPulse, faAngleRight, faBarsStaggered } from "@fortawesome/free-solid-svg-icons"
+import { faBoxArchive, faFolder, faTags, faTag, faBars, faEnvelope, faFire, faCalendarDays, faEye, faHeartPulse, faAngleRight, faBarsStaggered, faPen } from "@fortawesome/free-solid-svg-icons"
 import { faGithub, faFortAwesome, faTwitter, faQq } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -14,6 +14,7 @@ library.add(faCalendarDays);
 library.add(faAngleRight);
 library.add(faHeartPulse);
 library.add(faBarsStaggered);
+library.add(faPen);
 library.add(faEye);
 library.add(faFolder);
 library.add(faBoxArchive);

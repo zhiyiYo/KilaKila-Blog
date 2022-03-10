@@ -20,5 +20,7 @@ public class UserInfoVo {
 
     private String sex;
 
+    private Boolean isAdmin;
+
     private String email;
 }

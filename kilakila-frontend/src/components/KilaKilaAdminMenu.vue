@@ -2,12 +2,7 @@
     <div class="admin-menu">
         <kila-kila-admin-card />
         <kila-kila-divider />
-        <el-menu
-            default-active="2"
-            class="el-menu-vertical-demo"
-            @open="handleOpen"
-            @close="handleClose"
-        >
+        <el-menu default-active="2" class="el-menu-vertical-demo">
             <!-- 首页 -->
             <el-menu-item index="1">
                 <font-awesome-icon
@@ -66,6 +61,12 @@
                     <span class="tag-count">{{ category.count }}</span>
                 </el-menu-item>
             </el-sub-menu>
+
+            <!-- 新随笔 -->
+            <el-menu-item index="5" v-if="$store.state.adminAbout.isAdmin">
+                <font-awesome-icon :icon="['fas', 'pen']" class="menu-icon" />
+                <span>新随笔</span>
+            </el-menu-item>
         </el-menu>
     </div>
 </template>

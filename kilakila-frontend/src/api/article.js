@@ -59,4 +59,22 @@ function updateViewCount(id) {
     })
 }
 
-export { getHotArticleList, getArticleCount, getPostArticleList, getArticleDetails, updateViewCount }
+
+/**
+ * 获取上一篇和下一篇博客
+ * @param {number} id 文章 id
+ * @returns promise
+ */
+function getPreviousNextArticle(id) {
+    return request.get("/article/previousNextArticle/" + id)
+}
+
+
+export {
+    getHotArticleList,
+    getArticleCount,
+    getPostArticleList,
+    getArticleDetails,
+    updateViewCount,
+    getPreviousNextArticle
+}

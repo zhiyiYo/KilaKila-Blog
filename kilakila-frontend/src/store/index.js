@@ -3,6 +3,7 @@ import { getAdminInfo } from '../api/user'
 import { getArticleCount } from '../api/article'
 import { getCategoryCountList } from '../api/category'
 import { getTagCountList } from '../api/tag'
+import { getUserInfo } from "../utils/storage"
 
 
 // 管理员
@@ -19,7 +20,8 @@ let adminAbout = {
 			article: 0,
 			category: 0,
 			tag: 0,
-		}
+		},
+		isAdmin: getUserInfo() ? getUserInfo().isAdmin : false
 	},
 	actions: {
 		getAdminInfo(context) {

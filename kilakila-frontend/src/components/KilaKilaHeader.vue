@@ -12,6 +12,14 @@
                     />{{ item.name }}
                 </router-link>
             </div>
+            <div v-if="$store.state.adminAbout.isAdmin">
+                <router-link to="/article/edit" class="header-menu-item">
+                    <font-awesome-icon
+                        :icon="['fas', 'pen']"
+                        class="header-icon"
+                    />新随笔
+                </router-link>
+            </div>
         </div>
 
         <div id="header-menu-button" @click="drawer = !drawer">
@@ -30,7 +38,8 @@
 </template>
 
 <script>
-import { reactive, ref } from "@vue/reactivity";
+import { reactive, ref } from "vue";
+import { getUserInfo } from "../utils/storage";
 import KilaKilaAdminMenu from "./KilaKilaAdminMenu";
 
 export default {
@@ -39,7 +48,6 @@ export default {
         KilaKilaAdminMenu,
     },
     setup() {
-        // TODO:管理员可以看到新博客
         let menuItems = reactive([
             { name: "首页", icon: ["fab", "fort-awesome"], href: "/" },
             { name: "归档", icon: ["fas", "box-archive"], href: "/" },

@@ -18,6 +18,9 @@ export default {
 
 
 <style>
+@import url(https://fonts.googleapis.com/css?family=Kanit:900);
+@import url(https://fonts.googleapis.com/css?family=Long+Cang&display=swap);
+
 ::-webkit-scrollbar {
     height: 14px;
     width: 4px;

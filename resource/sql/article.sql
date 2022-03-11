@@ -5,8 +5,8 @@ USE `kila_kila_blog`;
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `id` bigint(200) NOT NULL AUTO_INCREMENT,
-  `title` varchar(256) DEFAULT NULL COMMENT '标题',
-  `content` longtext COMMENT '文章内容',
+  `title` varchar(256) NOT NULL COMMENT '标题',
+  `content` longtext NOT NULL COMMENT '文章内容',
   `summary` varchar(1024) DEFAULT NULL COMMENT '文章摘要',
   `category_id` bigint(20) DEFAULT NULL COMMENT '所属分类id',
   `thumbnail` varchar(256) DEFAULT NULL COMMENT '缩略图',

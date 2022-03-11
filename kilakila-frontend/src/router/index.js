@@ -3,6 +3,8 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import Article from "../views/Article.vue"
+import Edit from "../views/Edit"
+import { getUserInfo } from "../utils/storage"
 
 const routes = [
     {
@@ -21,11 +23,28 @@ const routes = [
         component: Register,
     },
     {
+        path: "/article/add",
+        name: "ArticleAdd",
+        component: Edit,
+        meta: {
+            needAuthentication: true
+        }
+    },
+    {
         path: "/article/:id",
-        name: "Article",
+        name: "ArticleDetails",
         component: Article,
         props: true
-    }
+    },
+    {
+        path: "/article/:id/edit",
+        name: "ArticleEdit",
+        component: Edit,
+        props: true,
+        meta: {
+            needAuthentication: true
+        }
+    },
 
 ];
 
@@ -33,5 +52,19 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes,
 });
+
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.needAuthentication) {
+        let isAdmin = getUserInfo() ? getUserInfo().isAdmin : false;
+        if (isAdmin) {
+            next()
+        } else {
+            next({ name: "Login" })
+        }
+    } else {
+        next()
+    }
+})
 
 export default router;

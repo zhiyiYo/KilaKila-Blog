@@ -28,11 +28,11 @@ module.exports = {
     },
     lintOnSave: false,
     devServer: {
-        /* proxy: {
-            "/ixiaowai": {
-                target: "https://api.ixiaowai.cn",
-                pathRewrite: { "^/ixiaowai": "" },
+        proxy: {
+            "/image": {
+                target: "https://niupic.com/api",
+                pathRewrite: { "^/image": "" },
             },
-        } */
+        }
     }
 }

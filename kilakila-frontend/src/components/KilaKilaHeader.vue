@@ -13,7 +13,7 @@
                 </router-link>
             </div>
             <div v-if="$store.state.adminAbout.isAdmin">
-                <router-link to="/article/edit" class="header-menu-item">
+                <router-link to="/article/add" class="header-menu-item">
                     <font-awesome-icon
                         :icon="['fas', 'pen']"
                         class="header-icon"
@@ -39,7 +39,6 @@
 
 <script>
 import { reactive, ref } from "vue";
-import { getUserInfo } from "../utils/storage";
 import KilaKilaAdminMenu from "./KilaKilaAdminMenu";
 
 export default {
@@ -61,7 +60,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url(https://fonts.googleapis.com/css?family=Kanit:900);
 
 header {

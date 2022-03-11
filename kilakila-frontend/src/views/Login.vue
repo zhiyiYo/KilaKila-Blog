@@ -6,7 +6,7 @@
                 :model="ruleForm"
                 :rules="rules"
                 label-width="0px"
-                class="demo-ruleForm"
+                class="login-ruleForm"
             >
                 <!-- 用户名 -->
                 <el-form-item prop="userName">
@@ -132,7 +132,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .login {
     display: flex;
     justify-content: center;

@@ -126,4 +126,8 @@ export default {
     text-overflow: ellipsis;
     padding-left: 3px;
 }
+
+a {
+    display: block;
+}
 </style>

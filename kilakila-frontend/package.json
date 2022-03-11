@@ -21,7 +21,7 @@
     "highlight.js": "^11.4.0",
     "jquery": "^3.6.0",
     "js-md5": "^0.7.3",
-    "mavon-editor": "^2.10.4",
+    "mavon-editor": "^3.0.0-beta",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"

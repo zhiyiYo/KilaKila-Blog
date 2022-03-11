@@ -29,7 +29,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .category-item {
     display: flex;
     justify-content: space-between;

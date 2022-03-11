@@ -54,9 +54,6 @@ export default {
 </script>
 
 <style scoped>
-@import url(https://fonts.googleapis.com/css?family=Kanit:900);
-@import url(https://fonts.googleapis.com/css?family=Long+Cang&display=swap);
-
 .cover {
     height: 100%;
     width: 100%;

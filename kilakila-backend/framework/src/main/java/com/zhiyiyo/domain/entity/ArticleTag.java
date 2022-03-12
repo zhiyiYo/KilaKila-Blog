@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
  */
 @SuppressWarnings("serial")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @TableName("article_tag")
 public class ArticleTag implements Serializable {
 
@@ -29,16 +29,21 @@ public class ArticleTag implements Serializable {
      * 文章 ID
      */
     private Long articleId;
-    
+
     /**
      * 标签 ID
-     */    
+     */
     private Long tagId;
 
     /**
      * 标签的出现次数
      */
     @TableField(exist = false)
-    private Integer count;
+    private Integer count = 0;
+
+    public ArticleTag(Long articleId, Long tagId) {
+        this.articleId = articleId;
+        this.tagId = tagId;
+    }
 }
 

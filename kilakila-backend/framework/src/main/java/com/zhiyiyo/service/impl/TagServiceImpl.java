@@ -48,4 +48,19 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
 
         return ResponseResult.okResult(tagVos);
     }
+
+    @Override
+    public Tag getOrAddTagByName(String name) {
+        LambdaQueryWrapper<Tag> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Tag::getName, name);
+        Tag tag = getOne(wrapper);
+
+        if (tag == null) {
+            tag = new Tag();
+            tag.setName(name);
+            save(tag);
+        }
+
+        return tag;
+    }
 }

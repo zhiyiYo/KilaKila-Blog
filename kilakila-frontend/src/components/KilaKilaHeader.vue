@@ -30,6 +30,7 @@
             v-model="drawer"
             direction="ltr"
             :show-close="false"
+            :with-header="false"
             :size="350"
         >
             <kila-kila-admin-menu />
@@ -145,7 +146,7 @@ header {
     color: var(--text-hover-color);
 }
 
-.el-drawer__body {
+:deep(.el-drawer__body) {
     padding: 0;
 }
 

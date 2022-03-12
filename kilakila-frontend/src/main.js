@@ -7,12 +7,12 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import mavonEditor from "mavon-editor";
+import VueMavonEditor from "mavon-editor";
 import FontAwesomeIcon from "./utils/fontawesome-icons";
 
 createApp(App)
     .use(store)
     .use(router)
-    .use(mavonEditor)
+    .use(VueMavonEditor)
     .component("font-awesome-icon", FontAwesomeIcon)
     .mount("#app");

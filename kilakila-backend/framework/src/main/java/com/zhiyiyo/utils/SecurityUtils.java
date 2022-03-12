@@ -26,7 +26,17 @@ public class SecurityUtils {
         return id != null && 1L == id;
     }
 
+    /**
+     * 获取当前登录的用户 id，如果没有获取到就返回 null
+     * @return 用户 id
+     */
     public static Long getUserId() {
-        return getLoginUser().getUser().getId();
+        Long userId = null;
+        try {
+            userId = getLoginUser().getUser().getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return userId;
     }
 }

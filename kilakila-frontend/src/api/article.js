@@ -70,11 +70,27 @@ function getPreviousNextArticle(id) {
 }
 
 
+/**
+ * 添加文章
+ * @param {object} article 文章
+ * @returns promise
+ */
+function addArticle(article) {
+    return request({
+        url: "/article",
+        method: "post",
+        data: article,
+        needAuthentication: true
+    })
+}
+
+
 export {
     getHotArticleList,
     getArticleCount,
     getPostArticleList,
     getArticleDetails,
     updateViewCount,
-    getPreviousNextArticle
+    getPreviousNextArticle,
+    addArticle
 }

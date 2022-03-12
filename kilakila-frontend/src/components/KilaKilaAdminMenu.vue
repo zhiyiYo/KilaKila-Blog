@@ -2,7 +2,7 @@
     <div class="admin-menu">
         <kila-kila-admin-card />
         <kila-kila-divider />
-        <el-menu default-active="2" class="el-menu-vertical-demo">
+        <el-menu default-active="2">
             <!-- 首页 -->
             <el-menu-item index="1">
                 <font-awesome-icon
@@ -98,6 +98,7 @@ export default {
 .el-menu {
     padding: 0 10px;
     margin-top: 10px;
+    border-right: none;
 }
 
 .menu-icon {

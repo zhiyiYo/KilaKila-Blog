@@ -59,5 +59,20 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
         return ResponseResult.okResult(categoryVos);
     }
+
+    @Override
+    public Category getOrAddCategoryByName(String name) {
+        LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Category::getName, name);
+        Category category = getOne(wrapper);
+
+        if (category == null) {
+            category = new Category();
+            category.setName(name);
+            save(category);
+        }
+
+        return category;
+    }
 }
 

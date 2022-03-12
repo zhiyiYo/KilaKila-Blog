@@ -142,7 +142,7 @@ export default {
 }
 
 :deep(#pagination > button) {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-box-shadow);
     background: white;
     border-radius: 8px;
     height: 35px;
@@ -150,7 +150,7 @@ export default {
 }
 
 :deep(#pagination li) {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-box-shadow);
     background-color: white;
     border-radius: 8px;
     margin: 0 6px;
@@ -160,7 +160,7 @@ export default {
 
 :deep(#pagination li.active) {
     color: white;
-    background: #1892ff;
+    background: var(--theme-color);
     font-weight: normal;
 }
 

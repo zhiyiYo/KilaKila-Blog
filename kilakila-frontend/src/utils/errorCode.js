@@ -8,6 +8,5 @@ errorCode.set(501, "用户名被占用啦")
 errorCode.set(502, "手机号已存在")
 errorCode.set(503, "邮箱地址被占用啦")
 errorCode.set(504, "用户名或密码错误")
-errorCode.set(505, "用户信息不能为空")
 
 export default errorCode

@@ -109,7 +109,7 @@ export default {
 }
 
 .hot-article-title:hover {
-    color: #1892ff;
+    color: var(--theme-color);
 }
 
 .hot-article-meta-data {

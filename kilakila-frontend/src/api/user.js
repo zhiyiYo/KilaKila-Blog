@@ -11,7 +11,6 @@ function login(userName, password) {
         url: "/login",
         method: "post",
         data: { userName, password },
-        needAuthentication: false
     })
 }
 
@@ -23,7 +22,6 @@ function logout() {
     return request({
         url: "/logout",
         method: "post",
-        needAuthentication: false
     })
 }
 

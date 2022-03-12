@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
+import com.zhiyiyo.domain.dto.ArticleDTO;
 import com.zhiyiyo.domain.entity.ArticleTag;
 import com.zhiyiyo.domain.entity.Category;
 import com.zhiyiyo.domain.entity.Tag;
@@ -15,7 +16,9 @@ import com.zhiyiyo.domain.entity.Article;
 import com.zhiyiyo.mapper.ArticleTagMapper;
 import com.zhiyiyo.mapper.TagMapper;
 import com.zhiyiyo.service.ArticleService;
+import com.zhiyiyo.service.ArticleTagService;
 import com.zhiyiyo.service.CategoryService;
+import com.zhiyiyo.service.TagService;
 import com.zhiyiyo.utils.BeanCopyUtils;
 import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +37,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private CategoryService categoryService;
 
     @Autowired
-    private ArticleTagMapper articleTagMapper;
+    private ArticleTagService articleTagService;
 
     @Autowired
-    private TagMapper tagMapper;
+    private TagService tagService;
 
     @Override
     public List<Article> listNormalArticle() {
@@ -99,13 +102,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         // 设置标签
         LambdaQueryWrapper<ArticleTag> articleTagWrapper = new LambdaQueryWrapper<>();
         articleTagWrapper.eq(ArticleTag::getArticleId, id);
-        List<ArticleTag> articleTags = articleTagMapper.selectList(articleTagWrapper);
+        List<ArticleTag> articleTags = articleTagService.list(articleTagWrapper);
         List<Long> tagIds = articleTags.stream().map(ArticleTag::getTagId).collect(Collectors.toList());
 
         if (tagIds.size() > 0) {
             LambdaQueryWrapper<Tag> tagWrapper = new LambdaQueryWrapper<>();
             tagWrapper.in(Tag::getId, tagIds);
-            List<Tag> tags = tagMapper.selectList(tagWrapper);
+            List<Tag> tags = tagService.list(tagWrapper);
             articleDetailsVO.setTags(BeanCopyUtils.copyBeanList(tags, TagVo.class));
         }
 
@@ -116,7 +119,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult getArticleCount() {
         long article = count();
         long category = categoryService.count();
-        long tag = tagMapper.selectCount(null);
+        Long tag = tagService.count();
         return ResponseResult.okResult(new ArticleCountVo(article, category, tag));
     }
 
@@ -153,6 +156,28 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
 
         return ResponseResult.okResult(previousNextArticleVo);
+    }
+
+    @Override
+    public ResponseResult addArticle(ArticleDTO article) {
+        Article newArticle = BeanCopyUtils.copyBean(article, Article.class);
+
+        // 设置分类 id
+        Category category = categoryService.getOrAddCategoryByName(article.getCategory());
+        newArticle.setCategoryId(category.getId());
+
+        // 设置文章状态
+        String status = article.getIsDraft() ? SystemConstants.ARTICLE_STATUS_Draft : SystemConstants.ARTICLE_STATUS_NORMAL;
+        newArticle.setStatus(status);
+        save(newArticle);
+
+        // 设置标签
+        List<ArticleTag> articleTags = article.getTags().stream()
+                .map(name -> new ArticleTag(newArticle.getId(), tagService.getOrAddTagByName(name).getId()))
+                .collect(Collectors.toList());
+        articleTagService.saveBatch(articleTags);
+
+        return ResponseResult.okResult(newArticle.getId());
     }
 }
 

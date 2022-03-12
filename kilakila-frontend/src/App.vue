@@ -4,14 +4,20 @@
 
 <script>
 import store from "./store";
+import bus from "./utils/bus";
 
 export default {
     name: "App",
     setup() {
         store.dispatch("adminAbout/getAdminInfo");
-        store.dispatch("adminAbout/getArticleCount");
-        store.dispatch("categoryAbout/getCategoryCounts");
-        store.dispatch("tagAbout/getTagCounts");
+        updateArticleInfo();
+        bus.on("articlePosted", updateArticleInfo);
+
+        function updateArticleInfo() {
+            store.dispatch("adminAbout/getArticleCount");
+            store.dispatch("categoryAbout/getCategoryCounts");
+            store.dispatch("tagAbout/getTagCounts");
+        }
     },
 };
 </script>
@@ -42,5 +48,6 @@ body {
 
 :root {
     --theme-color: #1892ff;
+    --card-box-shadow: 0 3px 8px 6px rgba(7, 17, 27, 0.05);
 }
 </style>

@@ -7,6 +7,11 @@ public class SystemConstants {
     public static final String ARTICLE_STATUS_NORMAL = "0";
 
     /**
+     * 文章是草稿状态
+     */
+    public static final String ARTICLE_STATUS_Draft = "1";
+
+    /**
      * 目录是正常发布状态
      */
     public static final String Category_STATUS_NORMAL = "0";

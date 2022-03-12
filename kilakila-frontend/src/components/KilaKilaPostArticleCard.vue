@@ -84,7 +84,7 @@ export default {
     flex-direction: row;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-box-shadow);
 }
 
 .post-article-card-reversed {
@@ -134,7 +134,7 @@ export default {
 }
 
 .post-article-title:hover {
-    color: #1892ff;
+    color: var(--theme-color);
 }
 
 .post-article-meta-data-wrap {

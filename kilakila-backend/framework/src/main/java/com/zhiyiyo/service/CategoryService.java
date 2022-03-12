@@ -10,5 +10,6 @@ import com.zhiyiyo.domain.entity.Category;
  */
 public interface CategoryService extends IService<Category> {
     ResponseResult getCategoryCountList();
+    Category getOrAddCategoryByName(String name);
 }
 

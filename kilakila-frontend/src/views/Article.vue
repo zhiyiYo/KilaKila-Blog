@@ -137,6 +137,9 @@
         <!-- 回到顶部 -->
         <kila-kila-back-to-top />
 
+        <!-- 图片查看器 -->
+        <kila-kila-light-box ref="lightBoxRef" v-if="articleLoaded" />
+
         <!-- 页脚 -->
         <kila-kila-footer />
     </div>
@@ -150,16 +153,18 @@ import KilaKilaAdminCard from "../components/KilaKilaAdminCard";
 import KilaKilaCatalogCard from "../components/KilaKilaCatalogCard";
 import KilaKilaHotArticleCard from "../components/KilaKilaHotArticleCard";
 import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
+import KilaKilaLightBox from "../components/KilaKilaLightBox";
 import {
     getArticleDetails,
     getPreviousNextArticle,
     updateViewCount,
 } from "../api/article";
 import { reactive, nextTick, ref } from "vue";
-import { mavonEditor } from "mavon-editor";
+import markdownIt from "../utils/markdown-it";
 import { mapState } from "../store/map";
 import { useDefaultThumbnail, defaultThumbnail } from "../utils/thumbnail";
 import buildCodeBlock from "../utils/code-block";
+import MathQueue from "../utils/mathjax";
 
 export default {
     name: "Article",
@@ -171,6 +176,7 @@ export default {
         KilaKilaHotArticleCard,
         KilaKilaBackToTop,
         KilaKilaCatalogCard,
+        KilaKilaLightBox,
     },
     setup(props) {
         window.scrollTo({ top: 0 });
@@ -180,17 +186,19 @@ export default {
         let articleUrl = ref(window.location.href);
         let previousArticle = reactive({});
         let nextArticle = reactive({});
+        let lightBoxRef = ref();
 
         let articleDetails = reactive({});
         getArticleDetails(props.id).then((data) => {
             Object.assign(articleDetails, data);
-            articleDetails.content = mavonEditor
-                .getMarkdownIt()
-                .render(data.content);
+            articleDetails.content = markdownIt.render(data.content);
 
             nextTick(() => {
+                MathQueue("article-content");
                 buildCodeBlock(".article-content");
                 articleLoaded.value = true;
+            }).then(() => {
+                lightBoxRef.value.addImageClickedListener();
             });
         });
 
@@ -218,6 +226,7 @@ export default {
             useDefaultThumbnail,
             previousArticle,
             nextArticle,
+            lightBoxRef,
         };
     },
     props: ["id"],
@@ -290,14 +299,19 @@ export default {
     width: 74%;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-box-shadow);
     padding: 30px 40px;
     box-sizing: border-box;
 
     :deep(.article-content) {
         img {
-            max-width: 100%;
-            margin: 0 auto 20px;
+            display: block;
+            margin: 15px auto 15px;
+            border-radius: 6px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 1px 15px rgba(27, 31, 35, 0.15),
+                0 0 1px rgba(106, 115, 125, 0.35);
         }
 
         h1 code,
@@ -324,6 +338,7 @@ export default {
         p {
             color: #4c4948;
             font-size: 15px;
+            line-height: 28px;
         }
 
         h1,
@@ -345,60 +360,19 @@ export default {
         h5,
         h6 {
             font-size: 16px;
-            padding-left: 30px;
-
-            &:hover {
-                padding-left: 40px;
-            }
-
-            &::before {
-                margin-left: -34px;
-                content: "🌟";
-            }
         }
 
         h1 {
-            font-size: 25px;
-            padding-left: 19px;
-
-            &:hover {
-                padding-left: 36px;
-            }
-
-            &::before {
-                margin-left: -24px;
-                content: "\1F4AB";
-                margin-right: 2px;
-            }
+            font-size: 24px;
+            margin: 10px 0;
         }
 
         h2 {
-            padding-left: 19px;
-            font-size: 22px;
-
-            &:hover {
-                padding-left: 36px;
-            }
-
-            &::before {
-                margin-left: -24px;
-                content: "✨";
-                margin-right: 2px;
-            }
+            font-size: 20px;
         }
 
         h3 {
-            padding-left: 30px;
             font-size: 17px;
-
-            &:hover {
-                padding-left: 40px;
-            }
-
-            &::before {
-                margin-left: -34px;
-                content: "🌟";
-            }
         }
 
         /* 代码样式 */
@@ -418,6 +392,123 @@ export default {
                     monospace !important;
                 line-height: 21px;
             }
+        }
+
+        a {
+            color: #2d8cf0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+
+            &::after {
+                content: "";
+                display: block;
+                width: 0;
+                height: 1px;
+                position: absolute;
+                left: 0;
+                bottom: -2px;
+                background: #2d8cf0;
+                transition: all 0.3s ease-in-out;
+            }
+
+            &:hover::after {
+                width: 100%;
+            }
+        }
+
+        hr {
+            position: relative;
+            margin: 20px 0;
+            border: 2px dashed #bfe4fb;
+            width: 100%;
+            box-sizing: content-box;
+            height: 0;
+            overflow: visible;
+            box-sizing: border-box;
+        }
+
+        hr::before {
+            position: absolute;
+            top: -11px;
+            left: 2%;
+            z-index: 1;
+            color: #bfe4fb;
+            content: "✂";
+            font-size: 21px;
+            line-height: 1;
+            -webkit-transition: all 1s ease-in-out;
+            -moz-transition: all 1s ease-in-out;
+            -o-transition: all 1s ease-in-out;
+            -ms-transition: all 1s ease-in-out;
+            transition: all 1s ease-in-out;
+        }
+
+        hr:hover::before {
+            left: calc(98% - 20px);
+        }
+
+        table {
+            font-size: 15px;
+            width: 100%;
+            margin: 15px 0px;
+            display: block;
+            overflow-x: auto;
+            border: none;
+            border-collapse: collapse;
+            border-spacing: 0;
+
+            &::-webkit-scrollbar {
+                height: 4px !important;
+            }
+
+            th {
+                background: #bfe4fb;
+                border: 1px solid #a6d6f5;
+                white-space: nowrap;
+                font-weight: 400;
+                padding: 6px 15px;
+                min-width: 100px;
+            }
+
+            td {
+                border: 1px solid #a6d6f5;
+                padding: 6px 15px;
+                min-width: 100px;
+            }
+        }
+
+        ul,
+        ol {
+            li {
+                margin: 4px 0px;
+            }
+        }
+
+        ul li {
+            list-style: circle;
+
+            &::marker {
+                transition: all 0.4s;
+                /* color: #49b1f5; */
+                color: var(--theme-color);
+                font-weight: 600;
+                font-size: 1.05em;
+            }
+
+            &:hover::marker {
+                color: #ff7242;
+            }
+        }
+
+        blockquote {
+            border: none;
+            margin: 15px 0px;
+            color: inherit;
+            border-radius: 4px;
+            padding: 1px 15px;
+            border-left: 4px solid var(--theme-color);
+            background-color: #f8f8f8;
         }
     }
 

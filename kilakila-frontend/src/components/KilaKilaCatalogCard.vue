@@ -189,7 +189,7 @@ export default {
 .catalog-card {
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-box-shadow);
     padding: 20px 24px;
     width: 100%;
     margin-top: 25px;
@@ -222,8 +222,10 @@ export default {
 }
 
 .catalog-content {
-    max-height: calc(100vh-120px);
-    overflow: hidden;
+    max-height: calc(100vh - 120px);
+    overflow: auto;
+    margin-right: -24px;
+    padding-right: 20px;
 }
 
 .catalog-item {
@@ -241,12 +243,12 @@ export default {
     -webkit-box-orient: vertical;
 
     &:hover {
-        color: #1892ff;
+        color: var(--theme-color);
     }
 }
 
 .active {
-    background-color: #1892ff;
+    background-color: var(--theme-color);
     color: white;
 
     &:hover {

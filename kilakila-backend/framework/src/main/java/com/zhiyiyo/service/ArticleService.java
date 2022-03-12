@@ -2,6 +2,7 @@ package com.zhiyiyo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhiyiyo.domain.ResponseResult;
+import com.zhiyiyo.domain.dto.ArticleDTO;
 import com.zhiyiyo.domain.entity.Article;
 
 import java.util.List;
@@ -23,5 +24,7 @@ public interface ArticleService extends IService<Article> {
     ResponseResult updateViewCount(Long id);
 
     ResponseResult getPreviousNextArticle(Long id);
+
+    ResponseResult addArticle(ArticleDTO article);
 }
 

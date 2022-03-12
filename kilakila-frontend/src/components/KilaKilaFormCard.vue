@@ -38,6 +38,7 @@ export default {
 
 .card-header h2 {
     font-family: "Kanit";
+    margin-top: 3px;
 }
 
 .el-card__header {

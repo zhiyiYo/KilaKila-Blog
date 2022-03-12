@@ -48,6 +48,6 @@ export default {
 }
 
 .tag-item:hover {
-    color: #1892ff !important;
+    color: var(--theme-color) !important;
 }
 </style>

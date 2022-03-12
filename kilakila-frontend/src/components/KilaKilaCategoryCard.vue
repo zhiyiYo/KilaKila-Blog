@@ -42,7 +42,7 @@ export default {
 }
 
 .category-item:hover {
-    background-color: #1892ff;
+    background-color: var(--theme-color);
     color: white;
     padding: 10px 17px;
 }

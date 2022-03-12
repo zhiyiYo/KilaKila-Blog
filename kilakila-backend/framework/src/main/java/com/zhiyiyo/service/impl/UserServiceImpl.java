@@ -6,11 +6,11 @@ import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.entity.User;
 import com.zhiyiyo.domain.vo.UserInfoVo;
+import com.zhiyiyo.enums.AppHttpCodeEnum;
 import com.zhiyiyo.mapper.UserMapper;
 import com.zhiyiyo.service.UserService;
 import com.zhiyiyo.utils.BeanCopyUtils;
 import com.zhiyiyo.utils.SecurityUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +19,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public ResponseResult getUserInfo() {
         Long userId = SecurityUtils.getUserId();
         User user = getById(userId);
-        return ResponseResult.okResult(BeanCopyUtils.copyBean(user, UserInfoVo.class));
+        if (user != null)
+            return ResponseResult.okResult(BeanCopyUtils.copyBean(user, UserInfoVo.class));
+
+        return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
     }
 
     @Override

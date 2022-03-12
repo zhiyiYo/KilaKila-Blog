@@ -6,4 +6,5 @@ import com.zhiyiyo.domain.entity.Tag;
 
 public interface TagService extends IService<Tag> {
     ResponseResult getTagCountList();
+    Tag getOrAddTagByName(String name);
 }

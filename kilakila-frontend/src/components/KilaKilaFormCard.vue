@@ -27,8 +27,6 @@ export default {
 </script>
 
 <style scoped>
-@import url(https://fonts.googleapis.com/css?family=Kanit:900);
-
 .card-header {
     justify-content: space-between;
     align-items: center;
@@ -67,7 +65,7 @@ export default {
 }
 
 .box-card {
-    width: 30%;
+    width: 461px;
     border: 1px solid transparent;
     border-radius: 10px;
     box-shadow: none !important;
@@ -86,5 +84,11 @@ export default {
     font-size: 20px;
     color: #627d98;
     margin-top: 0px;
+}
+
+@media screen and (max-width: 500px) {
+    .box-card {
+        width: 80%;
+    }
 }
 </style>

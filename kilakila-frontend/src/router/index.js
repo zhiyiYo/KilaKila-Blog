@@ -4,6 +4,7 @@ import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import Article from "../views/Article.vue"
 import Edit from "../views/Edit"
+import Settings from "../views/Settings"
 import { getUserInfo } from "../utils/storage"
 
 const routes = [
@@ -45,6 +46,15 @@ const routes = [
             needAuthentication: true
         }
     },
+    {
+        path: "/user/settings",
+        name: "UserSettings",
+        component: Settings,
+        props: true,
+        meta: {
+            needLogin: true
+        }
+    },
 
 ];
 
@@ -58,6 +68,13 @@ router.beforeEach((to, from, next) => {
     if (to.meta.needAuthentication) {
         let isAdmin = getUserInfo() ? getUserInfo().isAdmin : false;
         if (isAdmin) {
+            next()
+        } else {
+            next({ name: "Login" })
+        }
+    } else if (to.meta.needLogin) {
+        let userInfo = getUserInfo()
+        if (userInfo) {
             next()
         } else {
             next({ name: "Login" })

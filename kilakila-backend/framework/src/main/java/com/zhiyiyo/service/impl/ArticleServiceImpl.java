@@ -11,6 +11,7 @@ import com.zhiyiyo.domain.entity.ArticleTag;
 import com.zhiyiyo.domain.entity.Category;
 import com.zhiyiyo.domain.entity.Tag;
 import com.zhiyiyo.domain.vo.*;
+import com.zhiyiyo.enums.AppHttpCodeEnum;
 import com.zhiyiyo.mapper.ArticleMapper;
 import com.zhiyiyo.domain.entity.Article;
 import com.zhiyiyo.mapper.ArticleTagMapper;
@@ -91,6 +92,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult getArticleDetail(Long id) {
         // 从数据库中查询文章
         Article article = getById(id);
+        // TODO:使用断言并抛出异常
+        if (article == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.RESOURCE_NOT_EXIST);
+        }
+
         ArticleDetailsVo articleDetailsVO = BeanCopyUtils.copyBean(article, ArticleDetailsVo.class);
 
         // 设置分类名称

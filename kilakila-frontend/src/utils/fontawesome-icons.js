@@ -1,7 +1,23 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBoxArchive, faFolder, faTags, faTag, faBars, faEnvelope, faFire, faCalendarDays, faEye, faHeartPulse, faAngleRight, faBarsStaggered, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import { faGithub, faFortAwesome, faTwitter, faQq } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import {
+    faBoxArchive,
+    faFolder,
+    faTags,
+    faTag,
+    faBars,
+    faEnvelope,
+    faFire,
+    faCalendarDays,
+    faEye,
+    faHeartPulse,
+    faAngleRight,
+    faBarsStaggered,
+    faPen,
+    faTrashCan,
+    faUser
+} from "@fortawesome/free-solid-svg-icons"
 
 library.add(faGithub);
 library.add(faFortAwesome);
@@ -21,6 +37,7 @@ library.add(faFolder);
 library.add(faBoxArchive);
 library.add(faBars);
 library.add(faEnvelope);
+library.add(faUser);
 
 
 export default FontAwesomeIcon

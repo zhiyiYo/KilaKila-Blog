@@ -49,6 +49,9 @@ let adminAbout = {
 		updateArticleCountInfo(state, articleCountInfo) {
 			Object.assign(state.articleCountInfo, articleCountInfo)
 		},
+		updateIsAdmin(state) {
+			state.isAdmin = getUserInfo() ? getUserInfo().isAdmin : false
+		}
 	},
 }
 

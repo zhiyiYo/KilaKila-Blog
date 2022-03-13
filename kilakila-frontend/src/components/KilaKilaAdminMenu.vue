@@ -2,9 +2,9 @@
     <div class="admin-menu">
         <kila-kila-admin-card />
         <kila-kila-divider />
-        <el-menu default-active="2">
+        <el-menu>
             <!-- 首页 -->
-            <el-menu-item index="1">
+            <el-menu-item index="1" @click="$router.push('/')">
                 <font-awesome-icon
                     :icon="['fab', 'fort-awesome']"
                     class="menu-icon"
@@ -13,7 +13,7 @@
             </el-menu-item>
 
             <!-- 归档 -->
-            <el-menu-item index="2">
+            <el-menu-item index="2" @click="$router.push('/archive')">
                 <font-awesome-icon
                     :icon="['fas', 'box-archive']"
                     class="menu-icon"
@@ -36,6 +36,7 @@
                     :key="category.id"
                     :index="'3-' + category.id"
                     class="category-item"
+                    @click="$router.push('/category/' + category.id)"
                     >🗂️
                     <span class="category-name">{{ category.name }}</span>
                     <span class="category-count">{{ category.count }}</span>
@@ -52,20 +53,31 @@
                     <span>标签</span>
                 </template>
                 <el-menu-item
-                    v-for="category in $store.state.tagAbout.tagCounts"
-                    :key="category.id"
-                    :index="'4-' + category.id"
-                    class="category-item"
+                    v-for="tag in $store.state.tagAbout.tagCounts"
+                    :key="tag.id"
+                    :index="'4-' + tag.id"
+                    class="tag-item"
+                    @click="$router.push('/tag')"
                     >🔖
-                    <span class="tag-name">{{ category.name }}</span>
-                    <span class="tag-count">{{ category.count }}</span>
+                    <span class="tag-name">{{ tag.name }}</span>
+                    <span class="tag-count">{{ tag.count }}</span>
                 </el-menu-item>
             </el-sub-menu>
 
             <!-- 新随笔 -->
-            <el-menu-item index="5" v-if="$store.state.adminAbout.isAdmin">
+            <el-menu-item
+                index="5"
+                v-if="$store.state.adminAbout.isAdmin"
+                @click="$router.push('/article/add')"
+            >
                 <font-awesome-icon :icon="['fas', 'pen']" class="menu-icon" />
                 <span>新随笔</span>
+            </el-menu-item>
+
+            <!-- 个人中心 -->
+            <el-menu-item index="6" @click="$router.push('/user/settings')">
+                <font-awesome-icon :icon="['fas', 'user']" class="menu-icon" />
+                <span>个人中心</span>
             </el-menu-item>
         </el-menu>
     </div>
@@ -105,7 +117,7 @@ export default {
     margin: 0 10px 0 0;
 }
 
-:deep(.category-item) {
+:deep(.category-item, .tag-item) {
     display: flex;
     justify-content: space-between;
     text-decoration: none;
@@ -116,7 +128,7 @@ export default {
     border-radius: 4px;
 }
 
-:deep(.category-item:hover) {
+:deep(.category-item:hover, .tag-item:hover) {
     padding-left: 50px !important;
 }
 

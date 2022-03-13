@@ -12,14 +12,6 @@
                     />{{ item.name }}
                 </router-link>
             </div>
-            <div v-if="$store.state.adminAbout.isAdmin">
-                <router-link to="/article/add" class="header-menu-item">
-                    <font-awesome-icon
-                        :icon="['fas', 'pen']"
-                        class="header-icon"
-                    />新随笔
-                </router-link>
-            </div>
         </div>
 
         <div id="header-menu-button" @click="drawer = !drawer">
@@ -41,6 +33,7 @@
 <script>
 import { reactive, ref } from "vue";
 import KilaKilaAdminMenu from "./KilaKilaAdminMenu";
+import store from "../store";
 
 export default {
     name: "KilaKilaHeader",
@@ -50,10 +43,19 @@ export default {
     setup() {
         let menuItems = reactive([
             { name: "首页", icon: ["fab", "fort-awesome"], href: "/" },
-            { name: "归档", icon: ["fas", "box-archive"], href: "/" },
-            { name: "分类", icon: ["fas", "folder"], href: "/" },
-            { name: "标签", icon: ["fas", "tags"], href: "/" },
+            { name: "归档", icon: ["fas", "box-archive"], href: "/archive" },
+            { name: "分类", icon: ["fas", "folder"], href: "/catelog" },
+            { name: "标签", icon: ["fas", "tags"], href: "/tag" },
+            { name: "个人中心", icon: ["fas", "user"], href: "/user/settings" },
         ]);
+
+        if (store.state.adminAbout.isAdmin) {
+            menuItems.splice(4, 0, {
+                name: "新随笔",
+                icon: ["fas", "pen"],
+                href: "/article/add",
+            });
+        }
 
         let drawer = ref(false);
         return { menuItems, drawer };

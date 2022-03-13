@@ -34,7 +34,7 @@
                     background
                     layout="prev, pager, next"
                     :total="articleCount"
-                    :page-size="10"
+                    :page-size="pageSize"
                     id="pagination"
                     @current-change="onCurrentPageChanged"
                     v-if="articleCount > 0"
@@ -83,13 +83,14 @@ export default {
         KilaKilaArchiveCard,
     },
     setup() {
+        let pageSize = 10;
         let postArticles = reactive([]);
         let articleCount = ref(0);
 
         onCurrentPageChanged(1);
 
         function onCurrentPageChanged(pageNum) {
-            getPostArticleList(pageNum, 10).then((data) => {
+            getPostArticleList(pageNum, pageSize).then((data) => {
                 articleCount.value = parseInt(data.total);
                 data.rows.forEach((article) => {
                     article.createTime = article.createTime.split(" ")[0];
@@ -100,7 +101,7 @@ export default {
             });
         }
 
-        return { postArticles, articleCount, onCurrentPageChanged };
+        return { postArticles, articleCount, pageSize, onCurrentPageChanged };
     },
 };
 </script>

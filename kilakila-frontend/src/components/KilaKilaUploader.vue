@@ -175,6 +175,7 @@ export default {
                 () => {
                     isProgressVisible.value = false;
                     localImageUrl.value = "";
+                    context.emit("uploaded", "");
                 }
             );
         }

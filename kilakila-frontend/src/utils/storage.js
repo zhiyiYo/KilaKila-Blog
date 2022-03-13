@@ -39,5 +39,12 @@ function setUserInfo(userInfo) {
     localStorage.setItem('userInfo', JSON.stringify(userInfo))
 }
 
+/**
+ * 移除用户信息
+ */
+function removeUserInfo() {
+    localStorage.removeItem('userInfo')
+}
 
-export { getToken, setToken, removeToken, getUserInfo, setUserInfo }
+
+export { getToken, setToken, removeToken, getUserInfo, setUserInfo, removeUserInfo }

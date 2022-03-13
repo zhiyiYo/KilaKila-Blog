@@ -68,9 +68,15 @@ import { ElMessage } from "element-plus";
 import KilaKilaButton from "../components/KilaKilaButton";
 import KilaKilaFormCard from "../components/KilaKilaFormCard";
 import { login } from "../api/user";
-import { setToken, setUserInfo, removeToken } from "../utils/storage";
+import {
+    setToken,
+    setUserInfo,
+    removeToken,
+    removeUserInfo,
+} from "../utils/storage";
 import { md5Encryption } from "../utils/encrypt";
 import router from "../router/index";
+import store from "../store";
 
 export default {
     name: "Login",
@@ -82,6 +88,7 @@ export default {
     },
     setup() {
         removeToken();
+        removeUserInfo();
 
         let ruleFormRef = ref();
 
@@ -116,6 +123,7 @@ export default {
                     (data) => {
                         setToken(data.token);
                         setUserInfo(data.userInfo);
+                        store.commit("adminAbout/updateIsAdmin");
                         router.push("/");
                     }
                 );

@@ -22,15 +22,21 @@ service.interceptors.response.use(response => {
 /**
  * 上传图片
  * @param {File} file 图片文件
+ * @param {RefImpl} progress 上传进度
  * @returns promise
  */
-function uploadImage(file) {
+function uploadImage(file, progress) {
     let formData = new FormData();
     formData.append("file", file)
     return service({
         url: "/upload",
         method: "post",
         data: formData,
+        onUploadProgress(event) {
+            let v = Math.round(event.loaded / event.total * 100)
+            progress.value = v == 100 ? 80 : v
+        },
+
     })
 }
 

@@ -92,22 +92,11 @@
 
                 <!-- 缩略图 -->
                 <el-form-item prop="thumbnail" label="缩略图">
-                    <el-upload
-                        class="upload-demo"
-                        drag
-                        action=""
-                        :limit="1"
-                        :http-request="uploadThumbnail"
-                        :before-upload="beforeUploadThumbnail"
-                        :before-remove="beforeRemoveThumbnail"
-                    >
-                        <el-icon class="el-icon--upload"
-                            ><upload-filled
-                        /></el-icon>
-                        <div class="el-upload__text">
-                            拖拽文件或 <em>点击上传</em>
-                        </div>
-                    </el-upload>
+                    <kila-kila-uploader
+                        @uploaded="handleThumbnailUploaded"
+                        @aboutToUpload="handleAboutToUploadThumbnail"
+                        @removed="handleRemoveThumbnail"
+                    />
                 </el-form-item>
 
                 <!-- 按钮 -->
@@ -142,6 +131,7 @@ import { mapState } from "../store/map";
 import KilaKilaHeader from "../components/KilaKilaHeader.vue";
 import KilaKilaWifeCover from "../components/KilaKilaWifeCover.vue";
 import KilaKilaFooter from "../components/KilaKilaFooter.vue";
+import KilaKilaUploader from "../components/KilaKilaUploader";
 import { ElMessage } from "element-plus";
 import { UploadFilled } from "@element-plus/icons-vue";
 import { addArticle } from "../api/article";
@@ -157,6 +147,7 @@ export default {
         KilaKilaWifeCover,
         KilaKilaFooter,
         UploadFilled,
+        KilaKilaUploader,
     },
     setup() {
         let content = ref("");
@@ -215,22 +206,18 @@ export default {
             });
         }
 
-        function uploadThumbnail(file) {
-            uploadImage(file.file).then((url) => {
-                ruleForm.thumbnail = url;
-                console.log("上传完成");
-                document.getElementById("submit-button").disabled = false;
-                document.getElementById("draft-button").disabled = false;
-            });
+        function handleThumbnailUploaded(url) {
+            ruleForm.thumbnail = url;
+            document.getElementById("submit-button").disabled = false;
+            document.getElementById("draft-button").disabled = false;
         }
 
-        function beforeUploadThumbnail(file) {
-            console.log("上传图片中");
+        function handleAboutToUploadThumbnail() {
             document.getElementById("submit-button").disabled = true;
             document.getElementById("draft-button").disabled = true;
         }
 
-        function beforeRemoveThumbnail(file, fileList) {
+        function handleRemoveThumbnail(file) {
             ruleForm.thumbnail = "";
         }
 
@@ -296,9 +283,9 @@ export default {
             tags,
             onImageAdded,
             mavonRef,
-            uploadThumbnail,
-            beforeUploadThumbnail,
-            beforeRemoveThumbnail,
+            handleThumbnailUploaded,
+            handleAboutToUploadThumbnail,
+            handleRemoveThumbnail,
             submitDraft,
             submitArticle,
         };

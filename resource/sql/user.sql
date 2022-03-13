@@ -5,8 +5,8 @@ USE `kila_kila_blog`;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_name` varchar(64) NOT NULL DEFAULT 'NULL' COMMENT '用户名',
-  `nick_name` varchar(64) NOT NULL DEFAULT 'NULL' COMMENT '昵称',
+  `user_name` varchar(64) NOT NULL COMMENT '用户名',
+  `nick_name` varchar(64) NOT NULL COMMENT '昵称',
   `signature` varchar(64) DEFAULT '用一句话来介绍自己' COMMENT '个性签名',
   `password` varchar(64) NOT NULL DEFAULT 'NULL' COMMENT '密码',
   `type` char(1) DEFAULT '0' COMMENT '用户类型：0 代表普通用户，1 代表管理员(只能有一个)',
@@ -126,22 +126,5 @@ values
     '2022-01-16 06:54:26',
     NULL,
     '2022-01-16 07:06:34',
-    0
-  ),(
-    14787164048662,
-    'CharliePuth',
-    '查理普斯',
-    'You just want attention, You don not want my heart',
-    '$2a$10$85O7itxkvpWpxevQstpDguKN4ZUivWhXQJKhtgg7w/vzyQ7nIGFv6',
-    '0',
-    '0',
-    'charlie@qq.com',
-    NULL,
-    NULL,
-    'https://p1.music.126.net/nb1DSYfzzKnK1n0Osldi6g==/109951166968014942.jpg?param=130y130',
-    -1,
-    '2022-01-30 17:18:44',
-    -1,
-    '2022-01-30 17:18:44',
     0
   );

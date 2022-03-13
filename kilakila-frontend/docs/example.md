@@ -40,7 +40,7 @@
 # 代码
 
 ## 行内代码
-执行命令：`npm install marked`
+在 VS Code 中按下 <kbd>Alt</kbd> + <kbd>T</kbd> + <kbd>R</kbd> 执行命令：`npm install marked`
 
 ## 代码片
 

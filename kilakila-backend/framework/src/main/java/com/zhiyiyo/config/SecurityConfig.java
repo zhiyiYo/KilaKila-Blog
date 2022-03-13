@@ -4,6 +4,7 @@ import com.zhiyiyo.filter.JwtAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -48,6 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/login").anonymous()
             .antMatchers("/logout").authenticated()
+            .antMatchers(HttpMethod.PUT,"/article").authenticated()
+            .antMatchers(HttpMethod.POST,"/article").authenticated()
+            .antMatchers(HttpMethod.DELETE,"/article").authenticated()
             .anyRequest().permitAll();
 
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

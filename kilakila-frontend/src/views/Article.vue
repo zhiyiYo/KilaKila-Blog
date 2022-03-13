@@ -6,7 +6,16 @@
         <!-- 二次元封面 -->
         <kila-kila-wife-cover>
             <div class="article-info">
-                <h1 class="article-title">{{ articleDetails.title }}</h1>
+                <h1 class="article-title">
+                    {{ articleDetails.title }}
+                    <font-awesome-icon
+                        :icon="['fas', 'pen']"
+                        class="edit-icon"
+                        title="编辑"
+                        v-if="isAdmin"
+                        @click="editArticle"
+                    />
+                </h1>
                 <div class="article-meta-data-wrap">
                     <span class="article-meta-data">
                         <font-awesome-icon :icon="['fas', 'calendar-days']" />
@@ -165,6 +174,7 @@ import { mapState } from "../store/map";
 import { useDefaultThumbnail, defaultThumbnail } from "../utils/thumbnail";
 import buildCodeBlock from "../utils/code-block";
 import MathQueue from "../utils/mathjax";
+import router from "../router";
 
 export default {
     name: "Article",
@@ -181,7 +191,7 @@ export default {
     setup(props) {
         window.scrollTo({ top: 0 });
 
-        let { adminInfo } = mapState("adminAbout");
+        let { adminInfo, isAdmin } = mapState("adminAbout");
         let articleLoaded = ref(false);
         let articleUrl = ref(window.location.href);
         let previousArticle = reactive({});
@@ -218,7 +228,12 @@ export default {
             }
         });
 
+        function editArticle() {
+            router.push(`/article/${props.id}/edit`);
+        }
+
         return {
+            isAdmin,
             articleDetails,
             articleLoaded,
             adminInfo,
@@ -227,6 +242,7 @@ export default {
             previousArticle,
             nextArticle,
             lightBoxRef,
+            editArticle,
         };
     },
     props: ["id"],
@@ -266,11 +282,22 @@ export default {
     color: white;
     line-height: 1.5;
     margin-bottom: 15px;
+    padding: 0 30px;
     overflow: hidden;
     display: -webkit-box;
     text-overflow: ellipsis;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+}
+
+.edit-icon {
+    display: inline-block;
+    cursor: pointer;
+    transition: all 0.4s;
+
+    &:hover {
+        color: #ff7242;
+    }
 }
 
 .article-meta-data-wrap {
@@ -391,6 +418,27 @@ export default {
                 font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
                     monospace !important;
                 line-height: 21px;
+            }
+        }
+
+        kbd {
+            background-color: #f7f7f7;
+            color: #222325;
+            border-radius: 0.25rem;
+            border: 1px solid #cbcccd;
+            box-shadow: 0 2px 0 1px #cbcccd;
+            cursor: default;
+            font-family: Arial, sans-serif;
+            font-size: 0.75em;
+            line-height: 1;
+            min-width: 0.75rem;
+            padding: 2px 5px;
+            position: relative;
+            top: -1px;
+
+            &:hover {
+                box-shadow: 0 1px 0 0.5px #cbcccd;
+                top: 1px;
             }
         }
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhiyiyo.mapper.AccessMapper">
+    <select id="selectPermissionsByUserId" resultType="java.lang.String">
+        SELECT DISTINCT a.permission
+        FROM user_role ur
+                 LEFT JOIN role r ON ur.role_id = r.id
+                 LEFT JOIN role_access ra ON ur.role_id = ra.role_id
+                 LEFT JOIN access a ON a.id = ra.access_id
+        WHERE user_id = #{userid}
+          AND r.status = 0
+          AND a.status = 0
+    </select>
+</mapper>

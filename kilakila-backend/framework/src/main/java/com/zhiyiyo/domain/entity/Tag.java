@@ -30,14 +30,15 @@ public class Tag implements Serializable {
     /**
      * 标签名
      */    
-    private String name; 
-    
-        
+    private String name;
+
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy; 
     
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime; 
+    private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy; 
     
     @TableField(fill = FieldFill.INSERT_UPDATE)

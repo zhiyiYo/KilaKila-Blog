@@ -4,6 +4,7 @@ import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.dto.ArticleDTO;
 import com.zhiyiyo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,8 +32,15 @@ public class ArticleController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('article:add')")
     public ResponseResult addArticle(@Valid @RequestBody ArticleDTO article){
         return articleService.addArticle(article);
+    }
+
+    @PutMapping
+    @PreAuthorize("hasAuthority('article:edit')")
+    public ResponseResult editArticle(@Valid @RequestBody ArticleDTO article){
+        return articleService.editArticle(article);
     }
 
     @GetMapping("/count")

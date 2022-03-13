@@ -5,7 +5,7 @@ USE `kila_kila_blog`;
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag` (
   `id` bigint(200) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) DEFAULT NULL COMMENT '标签名',
+  `name` varchar(128) NOT NULL COMMENT '标签名',
   `create_by` bigint(200) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `update_by` bigint(200) DEFAULT NULL,

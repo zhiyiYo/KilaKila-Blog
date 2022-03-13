@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { uploadImage } from "../api/image";
 import { Plus } from "@element-plus/icons-vue";
 import VueEasyLightbox from "vue-easy-lightbox";
@@ -111,13 +111,14 @@ export default {
     components: { Plus, VueEasyLightbox },
     setup(props, context) {
         let progress = ref(0);
-        let isThumbnailVisible = ref(false);
         let isLightBoxVisible = ref(false);
         let isProgressVisible = ref(false);
         let isSuccessLabelVisible = ref(false);
         let imageUrl = ref("");
         let localImageUrl = ref("");
         let index = ref(0);
+
+        let isThumbnailVisible = computed(() => localImageUrl.value.length > 0);
 
         function openFileDialog() {
             document.getElementById("file-input").click();
@@ -130,22 +131,19 @@ export default {
             }
 
             context.emit("aboutToUpload");
-
             let file = fileInput.files[0];
-
-            // 显示缩略图
-            let thumbnailEl = document.getElementById("thumbnail");
-            thumbnailEl.src = localImageUrl.value = URL.createObjectURL(file);
-            isThumbnailVisible.value = true;
-
-            // 上传图片并显示进度条
+            setImageUrl(URL.createObjectURL(file));
             upload(file);
+        }
+
+        function setImageUrl(url) {
+            let thumbnailEl = document.getElementById("thumbnail");
+            thumbnailEl.src = localImageUrl.value = url;
         }
 
         function handleThumbnailRemove(file) {
             imageUrl.value = "";
             localImageUrl.value = "";
-            isThumbnailVisible.value = false;
             context.emit("removed", file);
         }
 
@@ -195,6 +193,7 @@ export default {
             handleLightboxHide,
             openFileDialog,
             onImageAdded,
+            setImageUrl,
         };
     },
 };

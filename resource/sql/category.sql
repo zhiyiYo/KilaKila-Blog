@@ -3,7 +3,7 @@ USE `kila_kila_blog`;
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` bigint(200) NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) DEFAULT NULL COMMENT '分类名',
+  `name` varchar(128) NOT NULL COMMENT '分类名',
   `pid` bigint(200) DEFAULT '-1' COMMENT '父分类id，如果没有父分类为-1',
   `description` varchar(512) DEFAULT NULL COMMENT '描述',
   `status` char(1) DEFAULT '0' COMMENT '状态0:正常,1禁用',

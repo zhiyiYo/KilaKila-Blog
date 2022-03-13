@@ -5,7 +5,7 @@
 
         <!-- 二次元封面 -->
         <kila-kila-wife-cover>
-            <h1>新随笔</h1>
+            <h1>{{ title }}</h1>
         </kila-kila-wife-cover>
 
         <!-- 编辑表单 -->
@@ -96,6 +96,7 @@
                         @uploaded="handleThumbnailUploaded"
                         @aboutToUpload="handleAboutToUploadThumbnail"
                         @removed="handleRemoveThumbnail"
+                        ref="uploaderRef"
                     />
                 </el-form-item>
 
@@ -103,7 +104,7 @@
                 <el-form-item>
                     <el-button
                         type="primary"
-                        @click="submitArticle(ruleFormRef)"
+                        @click="submitForm(ruleFormRef, false)"
                         color="#1892ff"
                         class="el-button"
                         id="submit-button"
@@ -112,10 +113,10 @@
                     <el-button
                         class="el-button"
                         id="draft-button"
-                        @click="submitDraft(ruleFormRef)"
+                        @click="submitForm(ruleFormRef, true)"
                         >存为草稿</el-button
                     >
-                    <el-button>取消</el-button>
+                    <el-button @click="cancelSubmit">取消</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -132,9 +133,9 @@ import KilaKilaHeader from "../components/KilaKilaHeader.vue";
 import KilaKilaWifeCover from "../components/KilaKilaWifeCover.vue";
 import KilaKilaFooter from "../components/KilaKilaFooter.vue";
 import KilaKilaUploader from "../components/KilaKilaUploader";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import { UploadFilled } from "@element-plus/icons-vue";
-import { addArticle } from "../api/article";
+import { addArticle, editArticle, getArticleDetails } from "../api/article";
 import { uploadImage } from "../api/image";
 import router from "../router";
 import bus from "../utils/bus";
@@ -149,10 +150,13 @@ export default {
         UploadFilled,
         KilaKilaUploader,
     },
-    setup() {
+    setup(props) {
+        let isInEditMode = props.id ? true : false;
         let content = ref("");
         let mavonRef = ref();
         let ruleFormRef = ref();
+        let uploaderRef = ref();
+        let title = computed(() => (isInEditMode ? "编辑博客" : "新随笔"));
         let { categoryCounts } = mapState("categoryAbout");
         let { tagCounts } = mapState("tagAbout");
         let categories = computed(() => {
@@ -169,12 +173,14 @@ export default {
         });
 
         let ruleForm = reactive({
+            id: undefined,
             title: "",
             summary: "",
             content: "",
             category: "",
             tags: [],
             thumbnail: "",
+            isDraft: false,
         });
         let rules = reactive({
             title: [
@@ -200,6 +206,19 @@ export default {
             ],
         });
 
+        // 如果有传入文章 id 需要先获取文章信息
+        if (isInEditMode) {
+            getArticleDetails(props.id).then((data) => {
+                Object.assign(ruleForm, data);
+                ruleForm.category = data.categoryName;
+                ruleForm.tags = data.tags.map((t) => t.name);
+                if (data.thumbnail) {
+                    uploaderRef.value.setImageUrl(data.thumbnail);
+                    uploaderRef.value.isSuccessLabelVisible = true;
+                }
+            });
+        }
+
         function onImageAdded(pos, file) {
             uploadImage(file).then((url) => {
                 mavonRef.value.$img2Url(pos, url);
@@ -221,30 +240,42 @@ export default {
             ruleForm.thumbnail = "";
         }
 
-        function submitArticle(form) {
+        function submitForm(form, isDraft) {
             if (!validateForm(form)) return;
 
-            ruleForm.isDraft = false;
+            ruleForm.isDraft = isDraft;
             generateSummary();
-            addArticle(ruleForm).then((id) => {
-                ElMessage.success("博客发布成功啦");
-                bus.emit("articlePosted");
-                setTimeout(() => {
-                    router.push("/article/" + id);
-                }, 1500);
-            });
+
+            let name = isDraft ? "草稿" : "博客";
+            if (!isInEditMode) {
+                addArticle(ruleForm).then((id) => {
+                    ElMessage.success(name + "保存成功啦");
+                    setTimeout(() => {
+                        router.push("/article/" + id);
+                    }, 1500);
+                });
+            } else {
+                editArticle(ruleForm).then((id) => {
+                    ElMessage.success(name + "编辑成功啦");
+                    bus.emit("articlePosted");
+                    setTimeout(() => {
+                        router.push("/article/" + id);
+                    }, 1500);
+                });
+            }
         }
 
-        function submitDraft(form) {
-            if (!validateForm(form)) return;
-
-            ruleForm.isDraft = true;
-            generateSummary();
-            addArticle(ruleForm).then((id) => {
-                ElMessage.success("草稿保存成功啦");
-                setTimeout(() => {
-                    router.push("/article/" + id);
-                }, 1500);
+        function cancelSubmit() {
+            ElMessageBox.confirm(
+                "前辈已经想好要取消这篇博客的发表了吗？",
+                "一条友善的提示",
+                {
+                    confirmButtonText: "你在教我做事？",
+                    cancelButtonText: "我再想想",
+                    type: "warning",
+                }
+            ).then(() => {
+                router.push("/");
             });
         }
 
@@ -275,9 +306,11 @@ export default {
         });
 
         return {
+            title,
             content,
             ruleForm,
             ruleFormRef,
+            uploaderRef,
             rules,
             categories,
             tags,
@@ -286,8 +319,8 @@ export default {
             handleThumbnailUploaded,
             handleAboutToUploadThumbnail,
             handleRemoveThumbnail,
-            submitDraft,
-            submitArticle,
+            submitForm,
+            cancelSubmit,
         };
     },
     props: ["id"],

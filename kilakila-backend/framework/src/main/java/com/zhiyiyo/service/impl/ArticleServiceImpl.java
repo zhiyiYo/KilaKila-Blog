@@ -169,7 +169,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         // 设置文章状态
         String status = article.getIsDraft() ? SystemConstants.ARTICLE_STATUS_Draft : SystemConstants.ARTICLE_STATUS_NORMAL;
         newArticle.setStatus(status);
-        save(newArticle);
+        saveOrUpdate(newArticle);
 
         // 设置标签
         List<ArticleTag> articleTags = article.getTags().stream()
@@ -178,6 +178,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         articleTagService.saveBatch(articleTags);
 
         return ResponseResult.okResult(newArticle.getId());
+    }
+
+    @Override
+    public ResponseResult editArticle(ArticleDTO article) {
+        // 移除文章的旧标签
+        LambdaQueryWrapper<ArticleTag> articleTagWrapper = new LambdaQueryWrapper<>();
+        articleTagWrapper.eq(ArticleTag::getArticleId, article.getId());
+        articleTagService.remove(articleTagWrapper);
+
+        return addArticle(article);
     }
 }
 

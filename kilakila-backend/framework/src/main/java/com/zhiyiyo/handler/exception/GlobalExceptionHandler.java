@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     public ResponseResult methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         log.error("发生异常！{0}", e);
         String message = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
-        return ResponseResult.errorResult(AppHttpCodeEnum.REQUIRE_USER_INFO, message);
+        return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_NOT_VALID, message);
     }
 
     @ExceptionHandler({Exception.class})

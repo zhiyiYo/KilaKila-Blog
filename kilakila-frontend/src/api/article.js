@@ -84,6 +84,20 @@ function addArticle(article) {
     })
 }
 
+/**
+ * 编辑文章
+ * @param {object} article 文章
+ * @returns promise
+ */
+function editArticle(article) {
+    return request({
+        url: "/article",
+        method: "put",
+        data: article,
+        needAuthentication: true
+    })
+}
+
 
 export {
     getHotArticleList,
@@ -92,5 +106,6 @@ export {
     getArticleDetails,
     updateViewCount,
     getPreviousNextArticle,
-    addArticle
+    addArticle,
+    editArticle
 }

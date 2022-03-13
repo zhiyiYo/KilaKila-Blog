@@ -78,15 +78,16 @@ public class Article implements Serializable {
      */
     private String isComment;
 
-
+    @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    // 更新阅读数量的时候不应该更新
+    @TableField(fill = FieldFill.INSERT)
     private Long updateBy;
 
-    // 更新阅读数量的时候不应该更新 updateTime
     @TableField(fill = FieldFill.INSERT)
     private Date updateTime;
 

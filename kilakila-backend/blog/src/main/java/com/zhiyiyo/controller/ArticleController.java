@@ -22,8 +22,8 @@ public class ArticleController {
     }
 
     @GetMapping("/articleList")
-    public ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId) {
-        return articleService.getArticleList(pageNum, pageSize, categoryId);
+    public ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId, Long tagId) {
+        return articleService.getArticleList(pageNum, pageSize, categoryId, tagId);
     }
 
     @GetMapping("/{id}")

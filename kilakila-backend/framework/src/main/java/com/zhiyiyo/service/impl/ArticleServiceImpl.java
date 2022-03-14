@@ -64,12 +64,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId) {
+    public ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId, Long tagId) {
         // 构造查询条件
         LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
         wrapper.orderByDesc(Article::getIsTop);
         wrapper.eq(categoryId != null, Article::getCategoryId, categoryId);
+        if (tagId != null) {
+            LambdaQueryWrapper<ArticleTag> tagWrapper = new LambdaQueryWrapper<>();
+            tagWrapper.eq(ArticleTag::getTagId, tagId);
+            List<ArticleTag> articleTags = articleTagService.list(tagWrapper);
+            wrapper.in(Article::getId, articleTags.stream().map(ArticleTag::getArticleId).collect(Collectors.toList()));
+        }
 
         // 从数据库中分页查询
         Page<Article> page = new Page<>(pageNum, pageSize);

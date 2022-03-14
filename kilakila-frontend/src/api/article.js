@@ -22,12 +22,16 @@ function getArticleCount() {
  * @param {number} pageNum 当前页码
  * @param {number} pageSize 每一页的文章数
  * @param {number} categoryId 文章所属分类，可以不传
+ * @param {number} tagId 文章的标签，可以不传
  * @returns promise
  */
-function getPostArticleList(pageNum, pageSize, categoryId) {
+function getPostArticleList(pageNum, pageSize, categoryId, tagId) {
     let params = { pageNum, pageSize }
     if (categoryId) {
         params.categoryId = categoryId
+    }
+    if (tagId) {
+        params.tagId = tagId
     }
 
     return request({

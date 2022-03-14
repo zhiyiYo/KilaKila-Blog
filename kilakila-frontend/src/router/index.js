@@ -5,6 +5,8 @@ import Register from "../views/Register.vue"
 import Article from "../views/Article.vue"
 import Edit from "../views/Edit"
 import Settings from "../views/Settings"
+import Category from "../views/Category"
+import Tag from "../views/Tag"
 import { getUserInfo } from "../utils/storage"
 
 const routes = [
@@ -45,6 +47,18 @@ const routes = [
         meta: {
             needAuthentication: true
         }
+    },
+    {
+        path: "/category/:id",
+        name: "Category",
+        component: Category,
+        props: true
+    },
+    {
+        path: "/tag/:id",
+        name: "Tga",
+        component: Tag,
+        props: true
     },
     {
         path: "/user/settings",

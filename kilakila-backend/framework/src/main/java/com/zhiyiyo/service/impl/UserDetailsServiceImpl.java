@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         wrapper.eq(User::getUserName, userName);
         User user = userMapper.selectOne(wrapper);
         Assert.notNull(user, AppHttpCodeEnum.LOGIN_ERROR);
-        
+
         List<String> permissions = accessMapper.selectPermissionsByUserId(user.getId());
         return new LoginUser(user, permissions);
     }

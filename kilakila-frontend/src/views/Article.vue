@@ -173,7 +173,7 @@ import markdownIt from "../utils/markdown-it";
 import { mapState } from "../store/map";
 import { useDefaultThumbnail, defaultThumbnail } from "../utils/thumbnail";
 import buildCodeBlock from "../utils/code-block";
-import MathQueue from "../utils/mathjax";
+import { renderByMathjax, initMathJax } from "../utils/mathjax";
 import router from "../router";
 
 export default {
@@ -204,7 +204,9 @@ export default {
             articleDetails.content = markdownIt.render(data.content);
 
             nextTick(() => {
-                MathQueue("article-content");
+                initMathJax({}, () => {
+                    renderByMathjax(".article-content");
+                });
                 buildCodeBlock(".article-content");
                 articleLoaded.value = true;
             }).then(() => {

@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div id="home">
         <!-- 页头 -->
         <kila-kila-header />
 
@@ -106,8 +106,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.home {
+<style lang="less" scoped>
+#home {
     height: 100%;
     width: 100%;
 }
@@ -122,14 +122,14 @@ export default {
 
 .post-article-list {
     width: 74%;
-}
 
-.post-article-list .post-article-card {
-    margin-top: 20px;
-}
+    .post-article-card {
+        margin-top: 20px;
+    }
 
-.post-article-list .post-article-card:nth-child(1) {
-    margin-top: 0;
+    .post-article-card:nth-child(1) {
+        margin-top: 0;
+    }
 }
 
 .side-content {
@@ -137,32 +137,32 @@ export default {
     margin-right: 20px;
 }
 
-#pagination {
+:deep(#pagination) {
     margin-top: 20px;
     justify-content: center;
-}
 
-:deep(#pagination > button) {
-    box-shadow: var(--card-box-shadow);
-    background: white;
-    border-radius: 8px;
-    height: 35px;
-    width: 35px;
-}
+    & > button {
+        box-shadow: var(--card-box-shadow);
+        background: white;
+        border-radius: 8px;
+        height: 35px;
+        width: 35px;
+    }
 
-:deep(#pagination li) {
-    box-shadow: var(--card-box-shadow);
-    background-color: white;
-    border-radius: 8px;
-    margin: 0 6px;
-    height: 35px;
-    width: 35px;
-}
+    li {
+        box-shadow: var(--card-box-shadow);
+        background-color: white;
+        border-radius: 8px;
+        margin: 0 6px;
+        height: 35px;
+        width: 35px;
+    }
 
-:deep(#pagination li.active) {
-    color: white;
-    background: var(--theme-color);
-    font-weight: normal;
+    li.active {
+        color: white;
+        background: var(--theme-color);
+        font-weight: normal;
+    }
 }
 
 @media screen and (max-width: 900px) {

@@ -3,8 +3,10 @@ package com.zhiyiyo.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zhiyiyo.domain.entity.LoginUser;
 import com.zhiyiyo.domain.entity.User;
+import com.zhiyiyo.enums.AppHttpCodeEnum;
 import com.zhiyiyo.mapper.AccessMapper;
 import com.zhiyiyo.mapper.UserMapper;
+import com.zhiyiyo.utils.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,15 +25,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private AccessMapper accessMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userName) {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getUserName, userName);
         User user = userMapper.selectOne(wrapper);
-
-        if (user == null) {
-            throw new UsernameNotFoundException("用户名或密码错误");
-        }
-
+        Assert.notNull(user, AppHttpCodeEnum.LOGIN_ERROR);
+        
         List<String> permissions = accessMapper.selectPermissionsByUserId(user.getId());
         return new LoginUser(user, permissions);
     }

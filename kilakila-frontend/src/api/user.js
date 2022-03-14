@@ -35,7 +35,7 @@ function logout() {
  */
 function register(userName, nickName, email, password) {
     return request({
-        url: "/register",
+        url: "/user/register",
         method: "post",
         data: { userName, nickName, email, password },
     })

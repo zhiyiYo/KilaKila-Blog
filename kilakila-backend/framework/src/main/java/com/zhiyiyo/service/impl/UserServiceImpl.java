@@ -9,12 +9,19 @@ import com.zhiyiyo.domain.vo.UserInfoVo;
 import com.zhiyiyo.enums.AppHttpCodeEnum;
 import com.zhiyiyo.mapper.UserMapper;
 import com.zhiyiyo.service.UserService;
+import com.zhiyiyo.utils.Assert;
 import com.zhiyiyo.utils.BeanCopyUtils;
 import com.zhiyiyo.utils.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public ResponseResult getUserInfo() {
         Long userId = SecurityUtils.getUserId();
@@ -31,5 +38,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         wrapper.eq(User::getType, SystemConstants.ADMIN_USER);
         User user = getOne(wrapper, false);
         return ResponseResult.okResult(BeanCopyUtils.copyBean(user, UserInfoVo.class));
+    }
+
+    @Override
+    public ResponseResult register(User user) {
+        // 查询用户是否已经存在
+        LambdaQueryWrapper<User> sameNameWrapper = new LambdaQueryWrapper<>();
+        sameNameWrapper.eq(User::getUserName, user.getUserName());
+        User sameNameUser = getOne(sameNameWrapper);
+        Assert.isNull(sameNameUser, AppHttpCodeEnum.USERNAME_EXIST);
+
+        // 查询邮箱是否已经存在
+        LambdaQueryWrapper<User> sameEmailWrapper = new LambdaQueryWrapper<>();
+        sameEmailWrapper.eq(User::getEmail, user.getEmail());
+        User sameEmailUser = getOne(sameEmailWrapper);
+        Assert.isNull(sameEmailUser, AppHttpCodeEnum.EMAIL_EXIST);
+
+        // 添加用户
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        save(user);
+        return ResponseResult.okResult();
     }
 }

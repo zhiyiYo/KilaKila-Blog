@@ -6,9 +6,6 @@ import com.zhiyiyo.domain.entity.User;
 
 public interface BlogLoginService {
     ResponseResult login(LoginUserDTO user);
-
     ResponseResult logout();
-
-    ResponseResult register(User user);
 }
 

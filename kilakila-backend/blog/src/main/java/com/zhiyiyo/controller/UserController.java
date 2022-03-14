@@ -2,11 +2,12 @@ package com.zhiyiyo.controller;
 
 
 import com.zhiyiyo.domain.ResponseResult;
+import com.zhiyiyo.domain.entity.User;
 import com.zhiyiyo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/user")
@@ -23,5 +24,10 @@ public class UserController {
     @GetMapping("/adminInfo")
     public ResponseResult getAdminInfo(){
         return userService.getAdminInfo();
+    }
+
+    @PostMapping("/register")
+    public ResponseResult register(@Valid @RequestBody User user){
+        return userService.register(user);
     }
 }

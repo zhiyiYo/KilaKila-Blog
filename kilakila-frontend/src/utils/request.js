@@ -33,7 +33,7 @@ service.interceptors.response.use(response => {
     // 服务器响应的数据中的状态码
     const code = response.data.code || 200
     if (code === 200) return response.data.data;
-
+    console.log(response.data);
     const msg = errorCode.get(code)
     if (code === 401) {
         ElMessageBox.confirm(
@@ -46,7 +46,7 @@ service.interceptors.response.use(response => {
             }
 
         ).then(() => {
-            router.push('/login')
+            router.replace('/login')
         })
     } else if (msg) {
         ElMessage.error(msg)
@@ -63,7 +63,7 @@ service.interceptors.response.use(response => {
         ElMessage.warning('前辈权限不足，无法执行当前操作')
     } else if (status === 404) {
         ElMessage.warning('请求的资源不存在哦')
-    } else if (status >= 500) { // 服务端异常
+    } else if (status >= 500) {
         ElMessage.warning('服务器出现异常啦')
     }
 

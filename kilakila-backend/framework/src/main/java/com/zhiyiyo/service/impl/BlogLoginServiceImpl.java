@@ -1,17 +1,14 @@
 package com.zhiyiyo.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.dto.LoginUserDTO;
 import com.zhiyiyo.domain.entity.LoginUser;
-import com.zhiyiyo.domain.entity.User;
 import com.zhiyiyo.domain.vo.BlogUserLoginVo;
 import com.zhiyiyo.domain.vo.UserInfoVo;
 import com.zhiyiyo.enums.AppHttpCodeEnum;
-import com.zhiyiyo.mapper.UserMapper;
 import com.zhiyiyo.service.BlogLoginService;
-import com.zhiyiyo.service.UserService;
+import com.zhiyiyo.utils.Assert;
 import com.zhiyiyo.utils.BeanCopyUtils;
 import com.zhiyiyo.utils.JwtUtil;
 import com.zhiyiyo.utils.RedisCache;
@@ -20,19 +17,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BlogLoginServiceImpl implements BlogLoginService {
     @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private RedisCache redisCache;
@@ -43,9 +33,7 @@ public class BlogLoginServiceImpl implements BlogLoginService {
         UsernamePasswordAuthenticationToken authenticationToken = new
                 UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
-        if (authentication == null) {
-            throw new RuntimeException("用户名或密码错误");
-        }
+        Assert.notNull(authentication, AppHttpCodeEnum.LOGIN_ERROR);
 
         // 将用户信息存入 redis
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
@@ -69,30 +57,6 @@ public class BlogLoginServiceImpl implements BlogLoginService {
 
         // 从 redis 中删除用户信息
         redisCache.deleteObject(SystemConstants.REDIS_USER_ID_PREFIX + userId);
-        return ResponseResult.okResult();
-    }
-
-    @Override
-    public ResponseResult register(User user) {
-        // 查询用户是否已经存在
-        LambdaQueryWrapper<User> sameNameWrapper = new LambdaQueryWrapper<>();
-        sameNameWrapper.eq(User::getUserName, user.getUserName());
-        User sameNameUser = userMapper.selectOne(sameNameWrapper);
-        if (sameNameUser != null) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.USERNAME_EXIST);
-        }
-
-        // 查询邮箱是否已经存在
-        LambdaQueryWrapper<User> sameEmailWrapper = new LambdaQueryWrapper<>();
-        sameEmailWrapper.eq(User::getEmail, user.getEmail());
-        User sameEmailUser = userMapper.selectOne(sameEmailWrapper);
-        if (sameEmailUser != null) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.EMAIL_EXIST);
-        }
-
-        // 添加用户
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userMapper.insert(user);
         return ResponseResult.okResult();
     }
 }

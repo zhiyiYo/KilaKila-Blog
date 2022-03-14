@@ -14,14 +14,12 @@ import com.zhiyiyo.domain.vo.*;
 import com.zhiyiyo.enums.AppHttpCodeEnum;
 import com.zhiyiyo.mapper.ArticleMapper;
 import com.zhiyiyo.domain.entity.Article;
-import com.zhiyiyo.mapper.ArticleTagMapper;
-import com.zhiyiyo.mapper.TagMapper;
 import com.zhiyiyo.service.ArticleService;
 import com.zhiyiyo.service.ArticleTagService;
 import com.zhiyiyo.service.CategoryService;
 import com.zhiyiyo.service.TagService;
+import com.zhiyiyo.utils.Assert;
 import com.zhiyiyo.utils.BeanCopyUtils;
-import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,11 +50,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public ResponseResult getHotArticleList() {
-        // 查询出非草稿、没有被删除的文章，并按照热度降序排序前 10 文章
+        // 查询出非草稿、没有被删除的文章，并按照热度降序排序前 5 文章
         LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
         wrapper.orderByDesc(Article::getViewCount);
-        // wrapper.last("limit 10");
+        // wrapper.last("limit 5");
 
         Page<Article> page = new Page<>(1, 5);
         this.page(page, wrapper);
@@ -92,11 +90,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult getArticleDetail(Long id) {
         // 从数据库中查询文章
         Article article = getById(id);
-        // TODO:使用断言并抛出异常
-        if (article == null) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.RESOURCE_NOT_EXIST);
-        }
-
+        Assert.notNull(article, AppHttpCodeEnum.RESOURCE_NOT_EXIST);
         ArticleDetailsVo articleDetailsVO = BeanCopyUtils.copyBean(article, ArticleDetailsVo.class);
 
         // 设置分类名称
@@ -132,6 +126,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public ResponseResult updateViewCount(Long id) {
         Article article = getById(id);
+        Assert.notNull(article, AppHttpCodeEnum.RESOURCE_NOT_EXIST);
         article.setViewCount(article.getViewCount() + 1);
         updateById(article);
         return ResponseResult.okResult();
@@ -141,6 +136,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult getPreviousNextArticle(Long id) {
         // 查询当前的文章
         Article article = getById(id);
+        Assert.notNull(article, AppHttpCodeEnum.RESOURCE_NOT_EXIST);
         PreviousNextArticleVo previousNextArticleVo = new PreviousNextArticleVo();
 
         // 查询上一篇文章

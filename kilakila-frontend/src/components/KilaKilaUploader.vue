@@ -104,6 +104,7 @@ import { ref, computed } from "vue";
 import { uploadImage } from "../api/image";
 import { Plus } from "@element-plus/icons-vue";
 import VueEasyLightbox from "vue-easy-lightbox";
+import { ElMessage } from 'element-plus/lib/components';
 
 export default {
     name: "KilaKilaUploader",
@@ -176,6 +177,7 @@ export default {
                     isProgressVisible.value = false;
                     localImageUrl.value = "";
                     context.emit("uploaded", "");
+                    ElMessage.error("哎呀，图片上传出错啦~")
                 }
             );
         }

@@ -26,10 +26,4 @@ public class GlobalExceptionHandler {
         String message = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
         return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_NOT_VALID, message);
     }
-
-    @ExceptionHandler({Exception.class})
-    public ResponseResult exceptionHandler(Exception e) {
-        log.error("发生异常！{0}", e);
-        return ResponseResult.errorResult(AppHttpCodeEnum.SYSTEM_ERROR, e.getMessage());
-    }
 }

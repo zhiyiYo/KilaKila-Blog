@@ -33,11 +33,9 @@
 
 <script>
 import { reactive, ref } from "vue";
-import KilaKilaCard from "./KilaKilaCard";
 
 export default {
     name: "KilaKilaCatalog",
-    components: { KilaKilaCard },
     setup(props) {
         let titles = reactive(getTitles());
         let currentTitle = reactive({});

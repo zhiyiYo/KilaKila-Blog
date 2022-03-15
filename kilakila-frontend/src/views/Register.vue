@@ -106,8 +106,6 @@
 import { ref, reactive } from "vue";
 import { User, Lock, Postcard, Promotion } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
-import KilaKilaButton from "../components/KilaKilaButton";
-import KilaKilaFormCard from "../components/KilaKilaFormCard";
 import { register } from "../api/user";
 import { md5Encryption } from "../utils/encrypt";
 import router from "../router/index";
@@ -119,8 +117,6 @@ export default {
         Lock,
         Postcard,
         Promotion,
-        KilaKilaFormCard,
-        KilaKilaButton,
     },
     setup() {
         let ruleFormRef = ref();

@@ -156,14 +156,6 @@
 </template>
 
 <script>
-import KilaKilaHeader from "../../components/KilaKilaHeader";
-import KilaKilaFooter from "../../components/KilaKilaFooter";
-import KilaKilaWifeCover from "../../components/KilaKilaWifeCover";
-import KilaKilaAdminCard from "../../components/KilaKilaAdminCard";
-import KilaKilaCatalogCard from "../../components/KilaKilaCatalogCard";
-import KilaKilaHotArticleCard from "../../components/KilaKilaHotArticleCard";
-import KilaKilaBackToTop from "../../components/KilaKilaBackToTop";
-import KilaKilaLightBox from "../../components/KilaKilaLightBox";
 import {
     getArticleDetails,
     getPreviousNextArticle,
@@ -179,16 +171,6 @@ import router from "../../router";
 
 export default {
     name: "ArticleDetails",
-    components: {
-        KilaKilaWifeCover,
-        KilaKilaHeader,
-        KilaKilaFooter,
-        KilaKilaAdminCard,
-        KilaKilaHotArticleCard,
-        KilaKilaBackToTop,
-        KilaKilaCatalogCard,
-        KilaKilaLightBox,
-    },
     setup(props) {
         window.scrollTo({ top: 0 });
 
@@ -340,6 +322,7 @@ export default {
             border-radius: 6px;
             width: 100%;
             cursor: pointer;
+            cursor: zoom-in;
             box-shadow: 0 1px 15px rgba(27, 31, 35, 0.15),
                 0 0 1px rgba(106, 115, 125, 0.35);
         }

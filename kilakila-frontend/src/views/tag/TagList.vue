@@ -30,32 +30,10 @@
 </template>
 
 <script>
-import KilaKilaWifeCover from "../../components/KilaKilaWifeCover";
-import KilaKilaHeader from "../../components/KilaKilaHeader";
-import KilaKilaBackToTop from "../../components/KilaKilaBackToTop";
-import KilaKilaWordCloudCard from "../../components/KilaKilaWordCloudCard";
-import KilaKilaFooter from "../../components/KilaKilaFooter";
-import KilaKilaAdminCard from "../../components/KilaKilaAdminCard";
-import KilaKilaHotArticleCard from "../../components/KilaKilaHotArticleCard";
-import KilaKilaCategoryCard from "../../components/KilaKilaCategoryCard";
-import KilaKilaTagCard from "../../components/KilaKilaTagCard";
-import KilaKilaArchiveCard from "../../components/KilaKilaArchiveCard";
 import { mapState } from "../../store/map";
 
 export default {
     name: "TagList",
-    components: {
-        KilaKilaHeader,
-        KilaKilaWifeCover,
-        KilaKilaBackToTop,
-        KilaKilaWordCloudCard,
-        KilaKilaFooter,
-        KilaKilaAdminCard,
-        KilaKilaHotArticleCard,
-        KilaKilaCategoryCard,
-        KilaKilaTagCard,
-        KilaKilaArchiveCard,
-    },
     setup() {
         window.scrollTo({ top: 0 });
         let { tagCounts } = mapState("tagAbout");

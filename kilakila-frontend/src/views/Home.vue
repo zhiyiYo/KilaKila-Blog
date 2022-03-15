@@ -55,33 +55,11 @@
 
 <script>
 import { reactive, ref } from "vue";
-import KilaKilaCover from "../components/KilaKilaCover";
-import KilaKilaHeader from "../components/KilaKilaHeader";
-import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
-import KilaKilaPostArticleCard from "../components/KilaKilaPostArticleCard";
-import KilaKilaFooter from "../components/KilaKilaFooter";
-import KilaKilaAdminCard from "../components/KilaKilaAdminCard";
-import KilaKilaHotArticleCard from "../components/KilaKilaHotArticleCard";
-import KilaKilaCategoryCard from "../components/KilaKilaCategoryCard";
-import KilaKilaTagCard from "../components/KilaKilaTagCard";
-import KilaKilaArchiveCard from "../components/KilaKilaArchiveCard";
 import { getPostArticleList } from "../api/article";
 import { defaultThumbnail } from "../utils/thumbnail";
 
 export default {
     name: "Home",
-    components: {
-        KilaKilaHeader,
-        KilaKilaCover,
-        KilaKilaBackToTop,
-        KilaKilaPostArticleCard,
-        KilaKilaFooter,
-        KilaKilaAdminCard,
-        KilaKilaHotArticleCard,
-        KilaKilaCategoryCard,
-        KilaKilaTagCard,
-        KilaKilaArchiveCard,
-    },
     setup() {
         let pageSize = 10;
         let postArticles = reactive([]);

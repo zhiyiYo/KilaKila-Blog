@@ -15,13 +15,9 @@
 </template>
 
 <script>
-import KilaKilaCard from "./KilaKilaCard";
 import { mapState } from "../store/map";
 export default {
     name: "KilaKilaCategoryCard",
-    components: {
-        KilaKilaCard,
-    },
     setup() {
         let { categoryCounts } = mapState("categoryAbout");
         return { categoryCounts };

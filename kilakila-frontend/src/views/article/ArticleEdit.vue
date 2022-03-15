@@ -129,12 +129,7 @@
 <script>
 import { ref, reactive, computed, nextTick } from "vue";
 import { mapState } from "../../store/map";
-import KilaKilaHeader from "../../components/KilaKilaHeader.vue";
-import KilaKilaWifeCover from "../../components/KilaKilaWifeCover.vue";
-import KilaKilaFooter from "../../components/KilaKilaFooter.vue";
-import KilaKilaUploader from "../../components/KilaKilaUploader";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { UploadFilled } from "@element-plus/icons-vue";
 import { addArticle, editArticle, getArticleDetails } from "../../api/article";
 import { uploadImage } from "../../api/image";
 import router from "../../router";
@@ -143,13 +138,6 @@ import markdownIt from "../../utils/markdown-it";
 
 export default {
     name: "ArticleEdit",
-    components: {
-        KilaKilaHeader,
-        KilaKilaWifeCover,
-        KilaKilaFooter,
-        UploadFilled,
-        KilaKilaUploader,
-    },
     setup(props) {
         let isInEditMode = props.id ? true : false;
         let content = ref("");

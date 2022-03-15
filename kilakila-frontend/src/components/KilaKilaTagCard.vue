@@ -14,16 +14,12 @@
 </template>
 
 <script>
-import KilaKilaCard from "./KilaKilaCard";
 import { mapState } from "../store/map";
 import { linearColorWordCloud } from "../utils/word-cloud";
 import { computed } from "@vue/runtime-core";
 
 export default {
     name: "KilaKilaTagCard",
-    components: {
-        KilaKilaCard,
-    },
     setup() {
         let { tagCounts } = mapState("tagAbout");
         let tagClouds = computed(() => linearColorWordCloud(tagCounts.value));

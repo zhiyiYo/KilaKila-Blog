@@ -36,16 +36,12 @@
 </template>
 
 <script>
-import KilaKilaCard from "./KilaKilaCard";
 import { getHotArticleList } from "../api/article";
 import { reactive } from "@vue/reactivity";
 import { defaultThumbnail, useDefaultThumbnail } from "../utils/thumbnail";
 
 export default {
     name: "KilaKilaHotArticleCard",
-    components: {
-        KilaKilaCard,
-    },
     setup() {
         let hotArticles = reactive([]);
 

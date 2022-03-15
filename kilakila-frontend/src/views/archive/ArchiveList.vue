@@ -64,7 +64,8 @@
                                             ><font-awesome-icon
                                                 :icon="['fas', 'calendar-days']"
                                                 class="article-meta-data-icon"
-                                            />{{ article.createTime }}</span
+                                            />发表于
+                                            {{ article.createTime }}</span
                                         >
                                         <span
                                             ><font-awesome-icon
@@ -103,15 +104,6 @@
 </template>
 
 <script>
-import KilaKilaWifeCover from "../../components/KilaKilaWifeCover";
-import KilaKilaHeader from "../../components/KilaKilaHeader";
-import KilaKilaBackToTop from "../../components/KilaKilaBackToTop";
-import KilaKilaFooter from "../../components/KilaKilaFooter";
-import KilaKilaAdminCard from "../../components/KilaKilaAdminCard";
-import KilaKilaHotArticleCard from "../../components/KilaKilaHotArticleCard";
-import KilaKilaCategoryCard from "../../components/KilaKilaCategoryCard";
-import KilaKilaTagCard from "../../components/KilaKilaTagCard";
-import KilaKilaArchiveCard from "../../components/KilaKilaArchiveCard";
 import { mapState } from "../../store/map";
 import { getArchiveList } from "../../api/archive";
 import { computed, reactive } from "vue";
@@ -119,17 +111,6 @@ import { defaultThumbnail, useDefaultThumbnail } from "../../utils/thumbnail";
 
 export default {
     name: "ArchiveList",
-    components: {
-        KilaKilaHeader,
-        KilaKilaWifeCover,
-        KilaKilaBackToTop,
-        KilaKilaFooter,
-        KilaKilaAdminCard,
-        KilaKilaHotArticleCard,
-        KilaKilaCategoryCard,
-        KilaKilaTagCard,
-        KilaKilaArchiveCard,
-    },
     setup() {
         window.scrollTo({ top: 0 });
         let pageSize = 10;
@@ -345,7 +326,7 @@ export default {
 
         .article-title {
             color: var(--text-color);
-            font-size: 13.5px;
+            font-size: 15px;
             text-decoration: none;
             transition: color 0.4s;
             overflow: hidden;
@@ -360,10 +341,10 @@ export default {
         }
 
         .article-meta-data {
-            font-size: 12px;
+            font-size: 13px;
             color: rgb(133, 133, 133);
             box-sizing: border-box;
-            line-height: 24px;
+            line-height: 30px;
             overflow: hidden;
             -webkit-line-clamp: 1;
             display: -webkit-box;

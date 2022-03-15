@@ -81,9 +81,6 @@ export default {
     name: "KilaKilaAdminCard",
     setup() {
         let { adminInfo, articleCountInfo } = mapState("adminAbout");
-        let a = computed(() => {
-            return { name: "hzz" };
-        });
 
         function gotoGithub() {
             location.href = adminInfo.value.githubUrl;

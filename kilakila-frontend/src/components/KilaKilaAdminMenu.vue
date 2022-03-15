@@ -84,14 +84,8 @@
 </template>
 
 <script>
-import KilaKilaAdminCard from "./KilaKilaAdminCard";
-import KilaKilaDivider from "./KilaKilaDivider";
 export default {
     name: "KilaKilaAdminMenu",
-    components: {
-        KilaKilaAdminCard,
-        KilaKilaDivider,
-    },
 };
 </script>
 
@@ -122,7 +116,7 @@ export default {
     justify-content: space-between;
     text-decoration: none;
     padding-right: 30px;
-    color: var(--text-color);
+    color: #4c4948;
     font-size: 14px;
     transition: all 0.4s;
     border-radius: 4px;

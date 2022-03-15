@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { ref, computed, reactive, onBeforeUnmount } from "vue";
+import { ref, computed, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import { getRunTime } from "../utils/date";
 export default {

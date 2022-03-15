@@ -32,14 +32,10 @@
 
 <script>
 import { reactive, ref } from "vue";
-import KilaKilaAdminMenu from "./KilaKilaAdminMenu";
 import store from "../store";
 
 export default {
     name: "KilaKilaHeader",
-    components: {
-        KilaKilaAdminMenu,
-    },
     setup() {
         let drawer = ref(false);
         let menuItems = reactive([

@@ -65,8 +65,6 @@
 import { ref, reactive } from "vue";
 import { User, Lock } from "@element-plus/icons-vue";
 import { ElMessage } from "element-plus";
-import KilaKilaButton from "../components/KilaKilaButton";
-import KilaKilaFormCard from "../components/KilaKilaFormCard";
 import { login } from "../api/user";
 import {
     setToken,
@@ -83,8 +81,6 @@ export default {
     components: {
         User,
         Lock,
-        KilaKilaFormCard,
-        KilaKilaButton,
     },
     setup() {
         removeToken();

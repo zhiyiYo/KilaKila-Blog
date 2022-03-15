@@ -17,13 +17,13 @@ export default {
             window.scrollTo({ top: 0, behavior: "smooth" });
         }
 
-        window.onscroll = function () {
+        window.addEventListener("scroll", function () {
             if (window.scrollY > 300) {
                 buttonClass.value = "";
             } else {
                 buttonClass.value = "hidden";
             }
-        };
+        });
 
         return { buttonClass, scrollToTop };
     },

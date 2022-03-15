@@ -5,6 +5,7 @@ import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.enums.AppHttpCodeEnum;
 import com.zhiyiyo.exception.SystemException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,10 +21,11 @@ public class GlobalExceptionHandler {
         return ResponseResult.errorResult(e.getCode(), e.getMsg());
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class})
-    public ResponseResult methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+    @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
+    public ResponseResult methodArgumentNotValidExceptionHandler(BindException e) {
         log.error("发生异常！{0}", e);
         String message = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
         return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_NOT_VALID, message);
     }
+
 }

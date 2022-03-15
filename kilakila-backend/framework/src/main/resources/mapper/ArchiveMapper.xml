@@ -14,4 +14,27 @@
         select count(*)
         from (select count(*) from article group by date_format(create_time, '%Y/%c')) as t
     </select>
+
+    <select id="selectArchiveList" resultMap="ArchiveVoResultMap">
+        select date_format(create_time, '%Y') as year,
+               a.id                           as articleId,
+               a.title                        as articleTitle,
+               a.view_count                   as articleViewCount,
+               a.thumbnail                    as articleThumbnail,
+               a.create_time                  as articleCreateTime
+        from article as a
+        order by a.create_time desc
+        limit #{start}, #{pageSize}
+    </select>
+
+    <resultMap id="ArchiveVoResultMap" type="com.zhiyiyo.domain.vo.ArchiveVo">
+        <id column="year" property="year"/>
+        <collection property="articles" ofType="com.zhiyiyo.domain.vo.HotArticleVo">
+            <id column="articleId" property="id"/>
+            <result column="articleTitle" property="title"/>
+            <result column="articleThumbnail" property="thumbnail"/>
+            <result column="articleCreateTime" property="createTime"/>
+            <result column="articleViewCount" property="viewCount"/>
+        </collection>
+    </resultMap>
 </mapper>

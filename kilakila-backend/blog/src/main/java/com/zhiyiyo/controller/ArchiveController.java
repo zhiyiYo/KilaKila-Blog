@@ -18,4 +18,9 @@ public class ArchiveController {
     public ResponseResult getArchiveCountList(Integer pageNum, Integer pageSize){
         return archiveService.getArchiveCountList(pageNum, pageSize);
     }
+
+    @GetMapping("/archiveList")
+    public ResponseResult getArchiveList(Integer pageNum, Integer pageSize){
+        return archiveService.getArchiveList(pageNum, pageSize);
+    }
 }

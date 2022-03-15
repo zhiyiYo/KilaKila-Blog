@@ -97,7 +97,7 @@ export default {
 }
 
 .hot-article-title {
-    color: #4c4948;
+    color: var(--text-color);
     font-size: 13.5px;
     text-decoration: none;
     transition: color 0.4s;

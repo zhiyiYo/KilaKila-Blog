@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -67,6 +68,7 @@ public class User implements Serializable {
      * 邮箱
      */
     @NotBlank(message = "邮箱不能为空")
+    @Email(message = "邮箱格式错误")
     private String email; 
     
     /**

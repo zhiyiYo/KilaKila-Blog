@@ -160,7 +160,7 @@ export default {
 }
 
 .post-article-summary {
-    color: #4c4948;
+    color: var(--text-color);
     font-size: 14px;
     overflow: hidden;
     display: -webkit-box;

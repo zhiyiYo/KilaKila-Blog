@@ -3,8 +3,10 @@ package com.zhiyiyo.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.dto.ArticleDTO;
+import com.zhiyiyo.domain.dto.ArticleQueryDTO;
 import com.zhiyiyo.domain.entity.Article;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -12,10 +14,11 @@ import java.util.List;
  */
 public interface ArticleService extends IService<Article> {
     List<Article> listNormalArticle();
+    Long getNormalArticleCount();
 
     ResponseResult getHotArticleList();
 
-    ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId, Long tagId);
+    ResponseResult getArticleList(ArticleQueryDTO articleQueryDTO);
 
     ResponseResult getArticleDetail(Long id);
 

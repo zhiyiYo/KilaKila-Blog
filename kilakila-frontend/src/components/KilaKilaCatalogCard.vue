@@ -210,7 +210,7 @@ export default {
 
 .catalog-card-header div > span {
     font-size: 17px;
-    color: #4c4948;
+    color: var(--text-color);
 }
 
 .progress {

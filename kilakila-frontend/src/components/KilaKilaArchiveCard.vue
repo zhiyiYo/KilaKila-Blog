@@ -88,12 +88,12 @@ export default {
 
 .header-more-icon {
     font-size: 18px;
-    color: #4c4948;
+    color: var(--text-color);
 }
 
 .card-header span {
     font-size: 17px;
-    color: #4c4948;
+    color: var(--text-color);
 }
 
 .archive-item {
@@ -101,7 +101,7 @@ export default {
     justify-content: space-between;
     text-decoration: none;
     padding: 10px 10px;
-    color: #4c4948;
+    color: var(--text-color);
     font-size: 14px;
     transition: all 0.4s;
     border-radius: 4px;

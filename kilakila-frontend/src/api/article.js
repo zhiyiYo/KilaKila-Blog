@@ -23,16 +23,11 @@ function getArticleCount() {
  * @param {number} pageSize 每一页的文章数
  * @param {number} categoryId 文章所属分类，可以不传
  * @param {number} tagId 文章的标签，可以不传
+ * @param {string} date 文章的发表日期，格式为 `yyyy/MM`，比如 `2021/1` 或 `2021/02`，可以不传
  * @returns promise
  */
-function getPostArticleList(pageNum, pageSize, categoryId, tagId) {
-    let params = { pageNum, pageSize }
-    if (categoryId) {
-        params.categoryId = categoryId
-    }
-    if (tagId) {
-        params.tagId = tagId
-    }
+function getPostArticleList(pageNum, pageSize, categoryId, tagId, date) {
+    let params = { pageNum, pageSize, categoryId, tagId, date }
 
     return request({
         url: '/article/articleList',

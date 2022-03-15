@@ -13,7 +13,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
 CREATE DATABASE
 /*!32312 IF NOT EXISTS*/
 `kila_kila_blog`;
@@ -125,22 +124,38 @@ INSERT INTO
 VALUES
   (
     1,
-    '测试 Kila Kila Blog 的博客样式',
-    '# 字符效果\n\n* ~~删除线~~ <s>删除线（开启识别HTML标签时）</s>\n\n* *斜体字* _斜体字_\n* **粗体** __粗体__\n* ***粗斜体*** ___粗斜体___\n\n* 上标：X<sub>2</sub>，下标：O<sup>2</sup>\n\n* ==高亮==\n\n* `Inline Code`\n\n> 引用：如果想要插入空白换行（即 `<br>` 标签），在插入处先键入两个以上的空格然后回车即可\n\n\n#  超链接\n* [普通链接](https://www.cnblogs.com/zhiyiYo/)\n* [*斜体链接*](https://www.cnblogs.com/zhiyiYo/)\n* [**粗体链接**](https://www.cnblogs.com/zhiyiYo/)\n\n# 脚注\n这是一个简单的脚注 [^1] 而这是一个更长的脚注 [^bignote].\n\n[^1]: 这是第一个脚注.\n\n[^bignote]: 这是一个非常长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长的脚注.\n\n\n# 图像\n下面是一张我家硝子的壁纸?:\n![硝子1](https://i.niupic.com/images/2022/03/11/9Wl7.jpg)\n再来一张好了?：\n![硝子2](https://i.niupic.com/images/2022/03/12/9Wme.jpg)\n\n# 代码\n\n## 行内代码\n在 VS Code 中按下 <kbd>Alt</kbd> + <kbd>T</kbd> + <kbd>R</kbd> 执行命令：`npm install marked`\n\n## 代码片\n\n### Python 代码\n```python\nclass Animal:\n    \"\"\" 动物类 \"\"\"\n\n    def __init__(self, age: int, name: str):\n        self.age = age\n        self.name = name\n\n    def getInfo(self) -> str:\n        \"\"\" 返回信息 \"\"\"\n        return f\'age: {self.age}; name: {self.name}\'\n\n\nclass Dog(Animal):\n    \"\"\" 狗狗类 \"\"\"\n\n    def __init__(self, age: int, name: str, gender=\'female\', color=\'white\'):\n        super().__init__(age, name)\n        self.gender = gender\n        self.__color = color\n\n    def bark(self):\n        \"\"\" 狗叫 \"\"\"\n        print(\'lololo\')\n\n    @property\n    def color(self):\n        return self.__color\n\n    @color.setter\n    def color(self, color: str):\n        if color not in [\'red\', \'white\', \'black\']:\n            raise ValueError(\'颜色不符合要求\')\n        self.__color = color\n\n\nif __name__ == \'__main__\':\n    dog = Dog(16, \'啸天\', gender=\'male\')\n    # 狗叫\n    dog.bark()\n    # 设置狗狗毛色\n    dog.color = \'blue\'\n```\n\n### HTML 代码\n\n```html\n<!DOCTYPE html>\n<html>\n    <head>\n        <mate charest=\"utf-8\" />\n        <title>Hello world!</title>\n    </head>\n    <body>\n        <h1>Hello world!</h1>\n    </body>\n</html>\n```\n\n\n\n# 列表\n\n## 无序列表\n\n* 福建\n  * 厦门\n  * 福州\n* 浙江\n* 江苏\n## 有序列表\n\n1. 动物\n   1. 人类\n   2. 犬类\n2. 植物\n3. 微生物\n\n## 任务列表\n\n- [x] 预习计算机网络\n- [ ] 复习现代控制理论\n- [ ] 刷现代控制理论历年卷\n    - [ ] 2019 年期末试卷\n    - [ ] 2020 年期末试卷\n\n\n\n# 表格\n\n| 项目   |  价格 | 数量  |\n| ------ | ----: | :---: |\n| 计算机 | $1600 |   5   |\n| 手机   |   $12 |  12   |\n| 管线   |    $1 |  234  |\n\n----\n\n# 特殊符号\n\n&copy; &  &uml; &trade; &iexcl; &pound;\n&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot;\n\nX&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;\n\n18&ordm;C  &quot;  &apos;\n\n# Emoji表情 :satisfied:\n* 马：:horse:\n* 星星：:star2:\n* 笑脸：:smile:\n* 跑步：:running:\n\n# 数学公式\n\n行间公式：\n$$\\sin(\\alpha)^{\\theta}=\\sum_{i=0}^{n}(x^i + \\cos(f))$$\n行内公式 $E=mc^2$\n\n# 绘图\n## 时序图\n\n```mermaid\nsequenceDiagram\n\n  Alice->>John: Hello John, how are you?\n  loop Healthcheck\n      John->>John: Fight against hypochondria\n  end\n  Note right of John: Rational thoughts!\n       John-->>Alice: Great!\n       John->>Bob   : How about you?\n       Bob-->>John  : Jolly good!\n```\n\n\n## 状态图\n\n```mermaid\nstateDiagram\n\n    [*]-->Active\n    state Active {\n        [*]-->NumLockOff\n        NumLockOff-->NumLockOn : EvNumLockPressed\n        NumLockOn-->NumLockOff : EvNumLockPressed\n        --\n        [*]-->CapsLockOff\n        CapsLockOff-->CapsLockOn : EvCapsLockPressed\n        CapsLockOn-->CapsLockOff : EvCapsLockPressed\n        --\n        [*]-->ScrollLockOff\n        ScrollLockOff-->ScrollLockOn : EvCapsLockPressed\n        ScrollLockOn-->ScrollLockOff : EvCapsLockPressed\n            }\n```',
-    '这篇博客用来测试 Kila Kila Blog 的正文样式',
-    1,
-    'https://i.niupic.com/images/2022/03/11/9Wl7.jpg',
+    '如何在 pyqt 中解决国际化 tr() 函数不管用的问题',
+    '# 前言\n\n有些时候我们在父类中使用了 `self.tr(\'XXX\')`，使用 Qt Linguist 完成翻译并导出 qm 文件后，发现子类中仍然是英文原文。比如下面这段代码：\n\n```python\nclass AlbumCardBase(QWidget):\n    \"\"\" 专辑卡基类 \"\"\"\n\n    def __init__(self, parent=None):\n        super().__init__(parent=parent)\n        self.playButton = BlurButton(\n            self,\n            (30, 65),\n            \":/images/album_tab_interface/Play.png\",\n            self.coverPath,\n            self.tr(\'Play\')\n        )\n        self.addToButton = BlurButton(\n            self,\n            (100, 65),\n            \":/images/album_tab_interface/Add.png\",\n            self.coverPath,\n            self.tr(\'Add to\')\n        )\n```\n\n父类 `AlbumCardBase` 中有两处使用了 `tr` 函数，分别翻译为 `播放` 和 `添加到`，但是在子类中这些文本仍然会显示为 `Play` 和 `Add to`，下面来看看如何解决这个问题。\n\n# 解决过程\n\n生成的 ts 文件中，有这样一段代码：\n\n```xml\n<context>\n    <name>AlbumCardBase</name>\n    <message>\n        <location filename=\"../../components/album_card/album_card_base.py\" line=\"50\"/>\n        <source>Add to</source>\n        <translation>添加到</translation>\n    </message>\n    <message>\n        <location filename=\"../../components/album_card/album_card_base.py\" line=\"43\"/>\n        <source>Play</source>\n        <translation>播放</translation>\n    </message>\n</context>\n```\n\n可以看到上述代码描述了源文的位置和内容以及译文，但是只对父类 `AlbumCardBase` 起作用。要想对子类应用上述规则，只需复制粘贴再修改 `<name>` 标签中的类名即可，比如 `AlbumCard` 为子类，那么只需添加下述代码：\n\n```xml\n<context>\n    <name>AlbumCard</name>\n    <message>\n        <location filename=\"../../components/album_card/album_card_base.py\" line=\"50\"/>\n        <source>Add to</source>\n        <translation>添加到</translation>\n    </message>\n    <message>\n        <location filename=\"../../components/album_card/album_card_base.py\" line=\"43\"/>\n        <source>Play</source>\n        <translation>播放</translation>\n    </message>\n</context>\n```\n\n完成上述步骤后导出 qm 文件即可。\n',
+    '前言\n有些时候我们在父类中使用了 self.tr(\'XXX\')，使用 Qt Linguist 完成翻译并导出 qm 文件后，发现子类中仍然是英文原文。比如下面这段代码：\nclass AlbumCardBase(QWidget):\n    &quot;&quot;&quot; 专辑卡基类 &quot;',
+    2,
+    'https://i.niupic.com/images/2022/03/14/9Ws2.png',
     '0',
     '0',
-    44,
+    5,
     '1',
     1,
-    '2022-01-12 21:16:07',
-    NULL,
-    '2022-03-12 21:16:07',
+    '2022-03-14 00:27:57',
+    1,
+    '2022-03-14 00:27:57',
     0
   ),(
     2,
+    '如何在 Vue3 中处理 img 标签图片加载错误的问题',
+    '# 前言\n\n有时因为图片路径错误等问题，`<img>` 标签中的图片无法正确加载，就会呈现出图裂的模样，很影响界面的美观。这时候我们可以使用默认的图片来替换掉无法加载的图片，下面就来看下如何实现这个过程。\n\n# 实现方式\n\n`<img>` 标签中的图片无法正常加载时，会触发 `onerror` 事件，所以我们可以给这个事件绑定一个回调 `useDefaultImage`，下面是实现代码：\n\n```html\n<template>\n    <img\n        :src=\"data.thumbnail\"\n        @error.once=\"useDefaultImage\"\n        alt=\"缩略图\"\n    />\n</template>\n\n<script>\nexport default {\n    setup() {\n        let defaultThumbnail = require(\"@/assets/image/article-thumbnail.jpg\");\n\n        function useDefaultImage(event) {\n            event.target.src = defaultThumbnail;\n        }\n\n        return { useDefaultImage };\n    },\n};\n</script>\n```\n\n正常情况下用了上述代码之后就能加载默认图片了，但是有一种情况下仍然无法触发 `onerror` 事件：服务器返回的数据 `data` 没有 `thumbnail` 属性（比如在响应结果类上使用了 Jackson 的  `@JsonInclude(JsonInclude.Include.NON_NULL)` 注解），此时为 `data.thumbnail` 就会是 `undefined`，无法触发 `onerror` 事件，所以可以在拿到响应数据的时候处理一下为空的情况，用默认图片路径来替换。\n',
+    '前言\n有时因为图片路径错误等问题，&lt;img&gt; 标签中的图片无法正确加载，就会呈现出图裂的模样，很影响界面的美观。这时候我们可以使用默认的图片来替换掉无法加载的图片，下面就来看下如何实现这个过程。\n实现方式\n&lt;img&gt; 标签中的图片无法正常加载时，会触发 onerror 事件，',
+    4,
+    'https://i.niupic.com/images/2022/03/12/9Wma.png ',
+    '0',
+    '0',
+    6,
+    '1',
+    1,
+    '2022-03-13 23:59:15',
+    1,
+    '2022-03-13 23:59:15',
+    0
+  ),(
+    3,
     '对 python 中 @property 装饰器的一点思考',
     '# 前言\npython 中提供了 `@property` 装饰器，可以将一个成员函数变为成员变量来访问，之前只是觉得这东西应该就只是为了 `setter` 和 `getter` 而存在的，但是学了 Vue 的计算属性后对这个装饰器有了新的见解。\n\n# 计算属性\n在 Vue 中提供了计算属性 `computed`，避免在模板中写出很长的表达式。仔细想想，用了 `@property` 装饰器的方法不就是计算属性的 `get()` 吗，然后 `@property.setter` 不就是 `set()` 吗？有了 `get()` 之后，当一个变量发生变化时，计算属性也随之发生变化，这样在更新变量时没必要手动在代码中更新计算属性的值，代码看起来就更加简洁了。比如，有以下代码：\n```python\nclass ImageViewer:\n\n    def __init__(self):\n        self.imagePaths = [\'キラキラ.png\', \'恋をしたのは.png\']\n        self.index = 0\n\n    def next(self):\n        if self.index >= len(self.imagePaths)-1:\n            return\n\n        self.index += 1\n\n    def previous(self):\n        if self.index <= 0\n            return\n\n        self.index -= 1\n\n    @property\n    def imagePath(self):\n        return self.imagePaths[self.index]\n```\n有了 `@property` 之后，每次访问到的 `imagePath` 都会是最新的，没必要在 `next()` 方法和 `previous()` 中再写一行更新 `imagePath` 的代码，我们只需维护好 `index` 即可，以上~',
     'python 中提供了 `@property` 装饰器，可以将一个成员函数变为成员变量来访问，之前只是觉得这东西应该就只是为了 `setter` 和 `getter` 而存在的，但是学了 Vue 的计算属性后对这个装饰器有了新的见解。',
@@ -148,15 +163,31 @@ VALUES
     'https://i.niupic.com/images/2022/03/12/9Wme.jpg',
     '0',
     '0',
-    18,
+    34,
     '1',
     1,
     '2022-02-12 22:32:45',
-    NULL,
+    1,
     '2022-03-12 22:32:45',
     0
   ),(
-    3,
+    4,
+    '测试 Kila Kila Blog 的博客样式',
+    '# 字符效果\n\n* ~~删除线~~ <s>删除线（开启识别HTML标签时）</s>\n\n* *斜体字* _斜体字_\n* **粗体** __粗体__\n* ***粗斜体*** ___粗斜体___\n\n* 上标：X<sub>2</sub>，下标：O<sup>2</sup>\n\n* ==高亮==\n\n* `Inline Code`\n\n> 引用：如果想要插入空白换行（即 `<br>` 标签），在插入处先键入两个以上的空格然后回车即可\n\n\n#  超链接\n* [普通链接](https://www.cnblogs.com/zhiyiYo/)\n* [*斜体链接*](https://www.cnblogs.com/zhiyiYo/)\n* [**粗体链接**](https://www.cnblogs.com/zhiyiYo/)\n\n# 脚注\n这是一个简单的脚注 [^1] 而这是一个更长的脚注 [^bignote].\n\n[^1]: 这是第一个脚注.\n\n[^bignote]: 这是一个非常长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长长的脚注.\n\n\n# 图像\n下面是一张我家硝子的壁纸?:\n![硝子1](https://i.niupic.com/images/2022/03/11/9Wl7.jpg)\n再来一张好了?：\n![硝子2](https://i.niupic.com/images/2022/03/12/9Wme.jpg)\n\n# 代码\n\n## 行内代码\n在 VS Code 中按下 <kbd>Alt</kbd> + <kbd>T</kbd> + <kbd>R</kbd> 执行命令：`npm install marked`\n\n## 代码片\n\n### Python 代码\n```python\nclass Animal:\n    \"\"\" 动物类 \"\"\"\n\n    def __init__(self, age: int, name: str):\n        self.age = age\n        self.name = name\n\n    def getInfo(self) -> str:\n        \"\"\" 返回信息 \"\"\"\n        return f\'age: {self.age}; name: {self.name}\'\n\n\nclass Dog(Animal):\n    \"\"\" 狗狗类 \"\"\"\n\n    def __init__(self, age: int, name: str, gender=\'female\', color=\'white\'):\n        super().__init__(age, name)\n        self.gender = gender\n        self.__color = color\n\n    def bark(self):\n        \"\"\" 狗叫 \"\"\"\n        print(\'lololo\')\n\n    @property\n    def color(self):\n        return self.__color\n\n    @color.setter\n    def color(self, color: str):\n        if color not in [\'red\', \'white\', \'black\']:\n            raise ValueError(\'颜色不符合要求\')\n        self.__color = color\n\n\nif __name__ == \'__main__\':\n    dog = Dog(16, \'啸天\', gender=\'male\')\n    # 狗叫\n    dog.bark()\n    # 设置狗狗毛色\n    dog.color = \'blue\'\n```\n\n### HTML 代码\n\n```html\n<!DOCTYPE html>\n<html>\n    <head>\n        <mate charest=\"utf-8\" />\n        <title>Hello world!</title>\n    </head>\n    <body>\n        <h1>Hello world!</h1>\n    </body>\n</html>\n```\n\n\n\n# 列表\n\n## 无序列表\n\n* 福建\n  * 厦门\n  * 福州\n* 浙江\n* 江苏\n## 有序列表\n\n1. 动物\n   1. 人类\n   2. 犬类\n2. 植物\n3. 微生物\n\n## 任务列表\n\n- [x] 预习计算机网络\n- [ ] 复习现代控制理论\n- [ ] 刷现代控制理论历年卷\n    - [ ] 2019 年期末试卷\n    - [ ] 2020 年期末试卷\n\n\n\n# 表格\n\n| 项目   |  价格 | 数量  |\n| ------ | ----: | :---: |\n| 计算机 | $1600 |   5   |\n| 手机   |   $12 |  12   |\n| 管线   |    $1 |  234  |\n\n----\n\n# 特殊符号\n\n&copy; &  &uml; &trade; &iexcl; &pound;\n&amp; &lt; &gt; &yen; &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot;\n\nX&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;\n\n18&ordm;C  &quot;  &apos;\n\n# Emoji表情 :satisfied:\n* 马：:horse:\n* 星星：:star2:\n* 笑脸：:smile:\n* 跑步：:running:\n\n# 数学公式\n\n行间公式：\n$$\\sin(\\alpha)^{\\theta}=\\sum_{i=0}^{n}(x^i + \\cos(f))$$\n行内公式 $E=mc^2$\n\n# 绘图\n## 时序图\n\n```mermaid\nsequenceDiagram\n\n  Alice->>John: Hello John, how are you?\n  loop Healthcheck\n      John->>John: Fight against hypochondria\n  end\n  Note right of John: Rational thoughts!\n       John-->>Alice: Great!\n       John->>Bob   : How about you?\n       Bob-->>John  : Jolly good!\n```\n\n\n## 状态图\n\n```mermaid\nstateDiagram\n\n    [*]-->Active\n    state Active {\n        [*]-->NumLockOff\n        NumLockOff-->NumLockOn : EvNumLockPressed\n        NumLockOn-->NumLockOff : EvNumLockPressed\n        --\n        [*]-->CapsLockOff\n        CapsLockOff-->CapsLockOn : EvCapsLockPressed\n        CapsLockOn-->CapsLockOff : EvCapsLockPressed\n        --\n        [*]-->ScrollLockOff\n        ScrollLockOff-->ScrollLockOn : EvCapsLockPressed\n        ScrollLockOn-->ScrollLockOff : EvCapsLockPressed\n            }\n```',
+    '这篇博客用来测试 Kila Kila Blog 的正文样式',
+    1,
+    'https://i.niupic.com/images/2022/03/11/9Wl7.jpg',
+    '1',
+    '0',
+    71,
+    '1',
+    1,
+    '2022-01-12 21:16:07',
+    1,
+    '2022-03-12 21:16:07',
+    0
+  ),(
+    5,
     '如何在 IDEA 中配置 Easy Code 的 MybatisPlus 实体类模板',
     '# 前言\nEasy Code 是一个很强大的插件，可以根据数据库的表结构生成对应的实体类、Mapper 接口等代码，省去了编写没有技术含量的代码的工作，极大提升敲代码的效率。但是如果仅仅使用预置的模板可能无法满足我们的需求，这时候就可以自己去定制模板。下面给出实体类的模板。\n\n# 实现流程\n\n我们希望实体类满足以下需求：\n\n* 使用 Lombok 的 `@Data`、`@NoArgsConstructor` 和 `@AllArgsConstructor` 注解\n* 使用 `@TableName` 注解让实体类应该和数据库的表名对应\n* 实现 `Serializable` 接口\n* 在主键字段上使用 `@TableId` 注解\n\n对应的模板如下所示：\n\n```java\n##导入宏定义\n$!{define.vm}\n\n##保存文件（宏定义）\n#save(\"/entity\", \".java\")\n\n##包路径（宏定义）\n#setPackageSuffix(\"entity\")\n\n##自动导入包（全局变量）\n$!{autoImport.vm}\nimport java.io.Serializable;\n\nimport com.baomidou.mybatisplus.annotation.IdType;\nimport com.baomidou.mybatisplus.annotation.TableId;\nimport com.baomidou.mybatisplus.annotation.TableName;\nimport lombok.Data;\nimport lombok.AllArgsConstructor;\nimport lombok.NoArgsConstructor;\n\n##表注释（宏定义）\n#tableComment(\"表实体类\")\n@SuppressWarnings(\"serial\")\n@Data\n@AllArgsConstructor\n@NoArgsConstructor\n@TableName(\"$!{tableInfo.obj.name}\")\npublic class $!{tableInfo.name} implements Serializable {\n\n    private static final long serialVersionUID = $!tool.serial();\n\n#foreach($column in $tableInfo.fullColumn)\n    #if(${column.comment})/**\n     * ${column.comment}\n     */#end\n    \n  #if($column.name.equals(\'id\'))\n  @TableId(type = IdType.AUTO)\n  #end\n  private $!{tool.getClsNameByFullName($column.type)} $!{column.name}; \n    \n#end\n\n}\n\n```\n\n',
     '前言\nEasy Code 是一个很强大的插件，可以根据数据库的表结构生成对应的实体类、Mapper 接口等代码，省去了编写没有技术含量的代码的工作，极大提升敲代码的效率。但是如果仅仅使用预置的模板可能无法满足我们的需求，这时候就可以自己去定制模板。下面给出实体类的模板。\n实现流程\n我们希望实体类满足',
@@ -167,41 +198,9 @@ VALUES
     8,
     '1',
     1,
+    '2021-12-13 13:24:53',
+    1,
     '2022-03-13 13:24:53',
-    NULL,
-    '2022-03-13 13:24:53',
-    0
-  ),(
-    4,
-    '如何在 Vue3 中处理 img 标签图片加载错误的问题',
-    '# 前言\n\n有时因为图片路径错误等问题，`<img>` 标签中的图片无法正确加载，就会呈现出图裂的模样，很影响界面的美观。这时候我们可以使用默认的图片来替换掉无法加载的图片，下面就来看下如何实现这个过程。\n\n# 实现方式\n\n`<img>` 标签中的图片无法正常加载时，会触发 `onerror` 事件，所以我们可以给这个事件绑定一个回调 `useDefaultImage`，下面是实现代码：\n\n```html\n<template>\n    <img\n        :src=\"data.thumbnail\"\n        @error.once=\"useDefaultImage\"\n        alt=\"缩略图\"\n    />\n</template>\n\n<script>\nexport default {\n    setup() {\n        let defaultThumbnail = require(\"@/assets/image/article-thumbnail.jpg\");\n\n        function useDefaultImage(event) {\n            event.target.src = defaultThumbnail;\n        }\n\n        return { useDefaultImage };\n    },\n};\n</script>\n```\n\n正常情况下用了上述代码之后就能加载默认图片了，但是有一种情况下仍然无法触发 `onerror` 事件：服务器返回的数据 `data` 没有 `thumbnail` 属性（比如在响应结果类上使用了 Jackson 的  `@JsonInclude(JsonInclude.Include.NON_NULL)` 注解），此时为 `data.thumbnail` 就会是 `undefined`，无法触发 `onerror` 事件，所以可以在拿到响应数据的时候处理一下为空的情况，用默认图片路径来替换。\n',
-    '前言\n有时因为图片路径错误等问题，&lt;img&gt; 标签中的图片无法正确加载，就会呈现出图裂的模样，很影响界面的美观。这时候我们可以使用默认的图片来替换掉无法加载的图片，下面就来看下如何实现这个过程。\n实现方式\n&lt;img&gt; 标签中的图片无法正常加载时，会触发 onerror 事件，',
-    4,
-    'https://i.niupic.com/images/2022/03/12/9Wma.png ',
-    '0',
-    '0',
-    5,
-    '1',
-    1,
-    '2022-03-13 23:59:15',
-    1,
-    '2022-03-13 23:59:15',
-    0
-  ),(
-    5,
-    '如何在 pyqt 中解决国际化 tr() 函数不管用的问题',
-    '# 前言\n\n有些时候我们在父类中使用了 `self.tr(\'XXX\')`，使用 Qt Linguist 完成翻译并导出 qm 文件后，发现子类中仍然是英文原文。比如下面这段代码：\n\n```python\nclass AlbumCardBase(QWidget):\n    \"\"\" 专辑卡基类 \"\"\"\n\n    def __init__(self, parent=None):\n        super().__init__(parent=parent)\n        self.playButton = BlurButton(\n            self,\n            (30, 65),\n            \":/images/album_tab_interface/Play.png\",\n            self.coverPath,\n            self.tr(\'Play\')\n        )\n        self.addToButton = BlurButton(\n            self,\n            (100, 65),\n            \":/images/album_tab_interface/Add.png\",\n            self.coverPath,\n            self.tr(\'Add to\')\n        )\n```\n\n父类 `AlbumCardBase` 中有两处使用了 `tr` 函数，分别翻译为 `播放` 和 `添加到`，但是在子类中这些文本仍然会显示为 `Play` 和 `Add to`，下面来看看如何解决这个问题。\n\n# 解决过程\n\n生成的 ts 文件中，有这样一段代码：\n\n```xml\n<context>\n    <name>AlbumCardBase</name>\n    <message>\n        <location filename=\"../../components/album_card/album_card_base.py\" line=\"50\"/>\n        <source>Add to</source>\n        <translation>添加到</translation>\n    </message>\n    <message>\n        <location filename=\"../../components/album_card/album_card_base.py\" line=\"43\"/>\n        <source>Play</source>\n        <translation>播放</translation>\n    </message>\n</context>\n```\n\n可以看到上述代码描述了源文的位置和内容以及译文，但是只对父类 `AlbumCardBase` 起作用。要想对子类应用上述规则，只需复制粘贴再修改 `<name>` 标签中的类名即可，比如 `AlbumCard` 为子类，那么只需添加下述代码：\n\n```xml\n<context>\n    <name>AlbumCard</name>\n    <message>\n        <location filename=\"../../components/album_card/album_card_base.py\" line=\"50\"/>\n        <source>Add to</source>\n        <translation>添加到</translation>\n    </message>\n    <message>\n        <location filename=\"../../components/album_card/album_card_base.py\" line=\"43\"/>\n        <source>Play</source>\n        <translation>播放</translation>\n    </message>\n</context>\n```\n\n完成上述步骤后导出 qm 文件即可。\n',
-    '前言\n有些时候我们在父类中使用了 self.tr(\'XXX\')，使用 Qt Linguist 完成翻译并导出 qm 文件后，发现子类中仍然是英文原文。比如下面这段代码：\nclass AlbumCardBase(QWidget):\n    &quot;&quot;&quot; 专辑卡基类 &quot;',
-    2,
-    'https://i.niupic.com/images/2022/03/14/9Ws2.png',
-    '0',
-    '0',
-    4,
-    '1',
-    1,
-    '2022-03-14 00:27:57',
-    1,
-    '2022-03-14 00:27:57',
     0
   ),(
     6,
@@ -215,7 +214,7 @@ VALUES
     2,
     '1',
     1,
-    '2022-03-14 00:30:14',
+    '2021-11-09 00:30:14',
     1,
     '2022-03-14 00:30:14',
     0
@@ -240,7 +239,7 @@ CREATE TABLE `article_tag` (
 INSERT INTO
   `article_tag`
 VALUES
-  (1, 1),(2, 2),(2, 3),(2, 4),(3, 5),(4, 6),(4, 7),(5, 8),(6, 9),(6, 10);
+  (1, 2),(1, 8),(2, 6),(2, 7),(3, 2),(3, 3),(3, 4),(4, 1),(4, 7),(5, 5),(6, 2),(6, 9),(6, 10);
   /*!40000 ALTER TABLE `article_tag` ENABLE KEYS */;
 --
   -- Table structure for table `category`
@@ -480,7 +479,18 @@ CREATE TABLE `role` (
 INSERT INTO
   `role`
 VALUES
-  (1, '管理员', 'admin', '0', 0, NULL, NULL, NULL, NULL, NULL),(
+  (
+    1,
+    '管理员',
+    'admin',
+    '0',
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  ),(
     2,
     '普通用户',
     'normal_user',

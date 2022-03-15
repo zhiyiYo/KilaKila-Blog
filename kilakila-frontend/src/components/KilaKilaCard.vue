@@ -28,7 +28,7 @@ export default {
         iconColor: {
             type: String,
             require: false,
-            default: "#4c4948",
+            default: "var(--text-color)",
         },
     },
     setup(props) {
@@ -64,6 +64,6 @@ export default {
 
 .card-header span {
     font-size: 17px;
-    color: #4c4948;
+    color: var(--text-color);
 }
 </style>

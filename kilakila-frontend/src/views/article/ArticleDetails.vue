@@ -366,7 +366,7 @@ export default {
         }
 
         p {
-            color: #4c4948;
+            color: var(--text-color);
             font-size: 15px;
             line-height: 28px;
         }
@@ -602,7 +602,7 @@ export default {
                 -webkit-box-orient: vertical;
                 line-height: 28px;
                 font-size: 15px;
-                color: #4c4948;
+                color: var(--text-color);
 
                 a {
                     color: #99a9bf;
@@ -625,7 +625,7 @@ export default {
     .article-tags {
         padding-left: 3px;
         margin-top: 20px;
-        color: #4c4948;
+        color: var(--text-color);
         font-size: 15px;
 
         a {

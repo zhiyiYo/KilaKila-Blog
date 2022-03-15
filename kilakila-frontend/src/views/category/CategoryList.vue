@@ -110,4 +110,14 @@ export default {
     width: 74%;
     margin: 0;
 }
+
+@media screen and (max-width: 900px) {
+    .side-content {
+        display: none;
+    }
+
+    .cloud-card {
+        width: 100%;
+    }
+}
 </style>

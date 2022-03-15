@@ -7,11 +7,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.dto.ArticleDTO;
+import com.zhiyiyo.domain.dto.ArticleQueryDTO;
 import com.zhiyiyo.domain.entity.ArticleTag;
 import com.zhiyiyo.domain.entity.Category;
 import com.zhiyiyo.domain.entity.Tag;
 import com.zhiyiyo.domain.vo.*;
 import com.zhiyiyo.enums.AppHttpCodeEnum;
+import com.zhiyiyo.exception.SystemException;
 import com.zhiyiyo.mapper.ArticleMapper;
 import com.zhiyiyo.domain.entity.Article;
 import com.zhiyiyo.service.ArticleService;
@@ -20,10 +22,14 @@ import com.zhiyiyo.service.CategoryService;
 import com.zhiyiyo.service.TagService;
 import com.zhiyiyo.utils.Assert;
 import com.zhiyiyo.utils.BeanCopyUtils;
+import com.zhiyiyo.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -49,6 +55,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    public Long getNormalArticleCount() {
+        LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
+        return count(wrapper);
+    }
+
+    @Override
     public ResponseResult getHotArticleList() {
         // 查询出非草稿、没有被删除的文章，并按照热度降序排序前 5 文章
         LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
@@ -64,21 +77,31 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
-    public ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId, Long tagId) {
+    public ResponseResult getArticleList(ArticleQueryDTO articleQueryDTO) {
         // 构造查询条件
         LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);
-        wrapper.orderByDesc(Article::getIsTop);
-        wrapper.eq(categoryId != null, Article::getCategoryId, categoryId);
-        if (tagId != null) {
+        wrapper.orderByDesc(Article::getIsTop).orderByDesc(Article::getCreateTime);
+        wrapper.eq(articleQueryDTO.getCategoryId() != null, Article::getCategoryId, articleQueryDTO.getCategoryId());
+
+        if (articleQueryDTO.getTagId() != null) {
             LambdaQueryWrapper<ArticleTag> tagWrapper = new LambdaQueryWrapper<>();
-            tagWrapper.eq(ArticleTag::getTagId, tagId);
+            tagWrapper.eq(ArticleTag::getTagId, articleQueryDTO.getTagId());
             List<ArticleTag> articleTags = articleTagService.list(tagWrapper);
             wrapper.in(Article::getId, articleTags.stream().map(ArticleTag::getArticleId).collect(Collectors.toList()));
         }
 
+        if (articleQueryDTO.getDate() != null) {
+            try {
+                Map<String, Date> dateRange = DateUtils.getDateRange(articleQueryDTO.getDate());
+                wrapper.between(Article::getCreateTime, dateRange.get("start"), dateRange.get("end"));
+            } catch (ParseException e) {
+                throw new SystemException(AppHttpCodeEnum.DATE_NOT_VALID);
+            }
+        }
+
         // 从数据库中分页查询
-        Page<Article> page = new Page<>(pageNum, pageSize);
+        Page<Article> page = new Page<>(articleQueryDTO.getPageNum(), articleQueryDTO.getPageSize());
         this.page(page, wrapper);
         List<Article> articles = page.getRecords();
 
@@ -123,9 +146,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Override
     public ResponseResult getArticleCount() {
-        long article = count();
+        Long article = getNormalArticleCount();
         long category = categoryService.count();
-        Long tag = tagService.count();
+        long tag = tagService.count();
         return ResponseResult.okResult(new ArticleCountVo(article, category, tag));
     }
 

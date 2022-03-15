@@ -2,12 +2,14 @@ package com.zhiyiyo.controller;
 
 import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.dto.ArticleDTO;
+import com.zhiyiyo.domain.dto.ArticleQueryDTO;
 import com.zhiyiyo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/article")
@@ -22,8 +24,8 @@ public class ArticleController {
     }
 
     @GetMapping("/articleList")
-    public ResponseResult getArticleList(Integer pageNum, Integer pageSize, Long categoryId, Long tagId) {
-        return articleService.getArticleList(pageNum, pageSize, categoryId, tagId);
+    public ResponseResult getArticleList(@Valid ArticleQueryDTO articleQueryDTO){
+        return articleService.getArticleList(articleQueryDTO);
     }
 
     @GetMapping("/{id}")

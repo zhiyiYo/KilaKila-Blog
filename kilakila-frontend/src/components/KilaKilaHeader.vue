@@ -23,7 +23,7 @@
             direction="ltr"
             :show-close="false"
             :with-header="false"
-            :size="350"
+            size="40%"
         >
             <kila-kila-admin-menu />
         </el-drawer>
@@ -41,10 +41,11 @@ export default {
         KilaKilaAdminMenu,
     },
     setup() {
+        let drawer = ref(false);
         let menuItems = reactive([
             { name: "首页", icon: ["fab", "fort-awesome"], href: "/" },
             { name: "归档", icon: ["fas", "box-archive"], href: "/archive" },
-            { name: "分类", icon: ["fas", "folder"], href: "/catelog" },
+            { name: "分类", icon: ["fas", "folder"], href: "/category" },
             { name: "标签", icon: ["fas", "tags"], href: "/tag" },
             { name: "个人中心", icon: ["fas", "user"], href: "/user/settings" },
         ]);
@@ -57,7 +58,14 @@ export default {
             });
         }
 
-        let drawer = ref(false);
+        window.addEventListener("resize", function () {
+            let scale = window.devicePixelRatio;
+            let width = document.documentElement.clientWidth * scale;
+            if (width > 900 * scale) {
+                drawer.value = false;
+            }
+        });
+
         return { menuItems, drawer };
     },
 };

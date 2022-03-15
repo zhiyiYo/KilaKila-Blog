@@ -89,7 +89,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         }
 
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(articles, ArticleListVo.class);
-        return ResponseResult.okResult(new PageVo<ArticleListVo>(page.getTotal(), articleListVos));
+        return ResponseResult.okResult(new PageVo<>(page.getTotal(), articleListVos));
     }
 
     @Override

@@ -1,12 +1,12 @@
 <template>
-    <div id="category">
+    <div id="tag-details">
         <!-- 页头 -->
         <kila-kila-header />
 
         <!-- 二次元封面 -->
         <kila-kila-wife-cover>
-            <div class="category-info">
-                <h1 class="category-name">{{ categoryName }}</h1>
+            <div class="tag-info">
+                <h1 class="tag-name">{{ tagName }}</h1>
             </div>
         </kila-kila-wife-cover>
 
@@ -53,22 +53,22 @@
 
 <script>
 import { computed, reactive, ref } from "vue";
-import KilaKilaWifeCover from "../components/KilaKilaWifeCover";
-import KilaKilaHeader from "../components/KilaKilaHeader";
-import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
-import KilaKilaPostArticleCard from "../components/KilaKilaPostArticleCard";
-import KilaKilaFooter from "../components/KilaKilaFooter";
-import KilaKilaAdminCard from "../components/KilaKilaAdminCard";
-import KilaKilaHotArticleCard from "../components/KilaKilaHotArticleCard";
-import KilaKilaCategoryCard from "../components/KilaKilaCategoryCard";
-import KilaKilaTagCard from "../components/KilaKilaTagCard";
-import KilaKilaArchiveCard from "../components/KilaKilaArchiveCard";
-import { getPostArticleList } from "../api/article";
-import { defaultThumbnail } from "../utils/thumbnail";
-import { mapState } from "../store/map";
+import KilaKilaWifeCover from "../../components/KilaKilaWifeCover";
+import KilaKilaHeader from "../../components/KilaKilaHeader";
+import KilaKilaBackToTop from "../../components/KilaKilaBackToTop";
+import KilaKilaPostArticleCard from "../../components/KilaKilaPostArticleCard";
+import KilaKilaFooter from "../../components/KilaKilaFooter";
+import KilaKilaAdminCard from "../../components/KilaKilaAdminCard";
+import KilaKilaHotArticleCard from "../../components/KilaKilaHotArticleCard";
+import KilaKilaCategoryCard from "../../components/KilaKilaCategoryCard";
+import KilaKilaTagCard from "../../components/KilaKilaTagCard";
+import KilaKilaArchiveCard from "../../components/KilaKilaArchiveCard";
+import { getPostArticleList } from "../../api/article";
+import { defaultThumbnail } from "../../utils/thumbnail";
+import { mapState } from "../../store/map";
 
 export default {
-    name: "Category",
+    name: "TagDetails",
     components: {
         KilaKilaHeader,
         KilaKilaWifeCover,
@@ -85,10 +85,10 @@ export default {
         let pageSize = 10;
         let postArticles = reactive([]);
         let articleCount = ref(0);
-        let { categoryCounts } = mapState("categoryAbout");
-        let categoryName = computed(() => {
+        let { tagCounts } = mapState("tagAbout");
+        let tagName = computed(() => {
             let map = Object.fromEntries(
-                categoryCounts.value.map((i) => [i.id, i.name])
+                tagCounts.value.map((i) => [i.id, i.name])
             );
             return map[props.id];
         });
@@ -96,21 +96,24 @@ export default {
         onCurrentPageChanged(1);
 
         function onCurrentPageChanged(pageNum) {
-            getPostArticleList(pageNum, pageSize, props.id).then((data) => {
-                articleCount.value = parseInt(data.total);
-                data.rows.forEach((article) => {
-                    article.createTime = article.createTime.split(" ")[0];
-                    article.thumbnail = article.thumbnail || defaultThumbnail;
-                });
+            getPostArticleList(pageNum, pageSize, null, props.id).then(
+                (data) => {
+                    articleCount.value = parseInt(data.total);
+                    data.rows.forEach((article) => {
+                        article.createTime = article.createTime.split(" ")[0];
+                        article.thumbnail =
+                            article.thumbnail || defaultThumbnail;
+                    });
 
-                postArticles.splice(0, postArticles.length, ...data.rows);
-            });
+                    postArticles.splice(0, postArticles.length, ...data.rows);
+                }
+            );
         }
 
         window.scrollTo({ top: 0 });
 
         return {
-            categoryName,
+            tagName,
             postArticles,
             articleCount,
             pageSize,
@@ -122,7 +125,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#category {
+#tag-details {
     height: 100%;
     width: 100%;
 }
@@ -140,13 +143,13 @@ export default {
     align-items: center;
     justify-content: center;
 
-    .category-info {
+    .tag-info {
         text-align: center;
         position: absolute;
         width: 100%;
         text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 
-        .category-name {
+        .tag-name {
             font-size: 40px;
             color: white;
             line-height: 1.5;

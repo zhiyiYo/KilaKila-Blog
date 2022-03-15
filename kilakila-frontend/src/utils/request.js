@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getToken } from '../utils/storage'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import router from '../router/index'
-import errorCode from '../utils/errorCode'
+import errorCode from '../utils/error-code'
 
 
 axios.defaults.headers['Content-Type'] = "application/json;charset=utf-8"

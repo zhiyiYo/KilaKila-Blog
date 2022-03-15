@@ -1,5 +1,5 @@
 <template>
-    <div class="article">
+    <div id="article-details">
         <!-- 页头 -->
         <kila-kila-header />
 
@@ -94,6 +94,7 @@
                         :to="'/tag/' + tag.id"
                         v-for="tag in articleDetails.tags"
                         :key="tag.id"
+                        class="tag-link"
                         >{{ tag.name }}</router-link
                     >
                 </div>
@@ -155,29 +156,29 @@
 </template>
 
 <script>
-import KilaKilaHeader from "../components/KilaKilaHeader";
-import KilaKilaFooter from "../components/KilaKilaFooter";
-import KilaKilaWifeCover from "../components/KilaKilaWifeCover";
-import KilaKilaAdminCard from "../components/KilaKilaAdminCard";
-import KilaKilaCatalogCard from "../components/KilaKilaCatalogCard";
-import KilaKilaHotArticleCard from "../components/KilaKilaHotArticleCard";
-import KilaKilaBackToTop from "../components/KilaKilaBackToTop";
-import KilaKilaLightBox from "../components/KilaKilaLightBox";
+import KilaKilaHeader from "../../components/KilaKilaHeader";
+import KilaKilaFooter from "../../components/KilaKilaFooter";
+import KilaKilaWifeCover from "../../components/KilaKilaWifeCover";
+import KilaKilaAdminCard from "../../components/KilaKilaAdminCard";
+import KilaKilaCatalogCard from "../../components/KilaKilaCatalogCard";
+import KilaKilaHotArticleCard from "../../components/KilaKilaHotArticleCard";
+import KilaKilaBackToTop from "../../components/KilaKilaBackToTop";
+import KilaKilaLightBox from "../../components/KilaKilaLightBox";
 import {
     getArticleDetails,
     getPreviousNextArticle,
     updateViewCount,
-} from "../api/article";
+} from "../../api/article";
 import { reactive, nextTick, ref } from "vue";
-import markdownIt from "../utils/markdown-it";
-import { mapState } from "../store/map";
-import { useDefaultThumbnail, defaultThumbnail } from "../utils/thumbnail";
-import buildCodeBlock from "../utils/code-block";
-import { renderByMathjax, initMathJax } from "../utils/mathjax";
-import router from "../router";
+import markdownIt from "../../utils/markdown-it";
+import { mapState } from "../../store/map";
+import { useDefaultThumbnail, defaultThumbnail } from "../../utils/thumbnail";
+import buildCodeBlock from "../../utils/code-block";
+import { renderByMathjax, initMathJax } from "../../utils/mathjax";
+import router from "../../router";
 
 export default {
-    name: "Article",
+    name: "ArticleDetails",
     components: {
         KilaKilaWifeCover,
         KilaKilaHeader,
@@ -636,6 +637,7 @@ export default {
             background: #49b1f5;
             margin-right: 8px;
             color: white;
+            display: inline-block;
         }
     }
 

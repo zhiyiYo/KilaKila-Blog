@@ -2,11 +2,13 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
-import Article from "../views/Article.vue"
-import Edit from "../views/Edit"
+import ArticleDetails from "../views/article/ArticleDetails"
+import ArticleEdit from "../views/article/ArticleEdit"
 import Settings from "../views/Settings"
-import Category from "../views/Category"
-import Tag from "../views/Tag"
+import CategoryList from "../views/category/CategoryList"
+import CategoryDetails from "../views/category/CategoryDetails"
+import TagList from "../views/tag/TagList"
+import TagDetails from "../views/tag/TagDetails"
 import { getUserInfo } from "../utils/storage"
 
 const routes = [
@@ -28,7 +30,7 @@ const routes = [
     {
         path: "/article/add",
         name: "ArticleAdd",
-        component: Edit,
+        component: ArticleEdit,
         meta: {
             needAuthentication: true
         }
@@ -36,28 +38,40 @@ const routes = [
     {
         path: "/article/:id",
         name: "ArticleDetails",
-        component: Article,
+        component: ArticleDetails,
         props: true
     },
     {
         path: "/article/:id/edit",
         name: "ArticleEdit",
-        component: Edit,
+        component: ArticleEdit,
         props: true,
         meta: {
             needAuthentication: true
         }
     },
     {
+        path: "/category",
+        name: "CategoryList",
+        component: CategoryList,
+        props: true
+    },
+    {
         path: "/category/:id",
-        name: "Category",
-        component: Category,
+        name: "CategoryDetails",
+        component: CategoryDetails,
+        props: true
+    },
+    {
+        path: "/tag",
+        name: "TagList",
+        component: TagList,
         props: true
     },
     {
         path: "/tag/:id",
-        name: "Tga",
-        component: Tag,
+        name: "TagDetails",
+        component: TagDetails,
         props: true
     },
     {

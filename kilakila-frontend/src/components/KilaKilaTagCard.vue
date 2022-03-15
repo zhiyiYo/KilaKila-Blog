@@ -16,7 +16,7 @@
 <script>
 import KilaKilaCard from "./KilaKilaCard";
 import { mapState } from "../store/map";
-import wordCloud from "../utils/wordCloud";
+import { linearColorWordCloud } from "../utils/word-cloud";
 import { computed } from "@vue/runtime-core";
 
 export default {
@@ -26,7 +26,7 @@ export default {
     },
     setup() {
         let { tagCounts } = mapState("tagAbout");
-        let tagClouds = computed(() => wordCloud(tagCounts.value));
+        let tagClouds = computed(() => linearColorWordCloud(tagCounts.value));
         return { tagClouds };
     },
 };

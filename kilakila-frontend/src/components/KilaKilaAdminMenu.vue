@@ -35,11 +35,11 @@
                         .categoryCounts"
                     :key="category.id"
                     :index="'3-' + category.id"
-                    class="category-item"
+                    class="link-item"
                     @click="$router.push('/category/' + category.id)"
                     >🗂️
-                    <span class="category-name">{{ category.name }}</span>
-                    <span class="category-count">{{ category.count }}</span>
+                    <span class="link-name">{{ category.name }}</span>
+                    <span>{{ category.count }}</span>
                 </el-menu-item>
             </el-sub-menu>
 
@@ -56,11 +56,11 @@
                     v-for="tag in $store.state.tagAbout.tagCounts"
                     :key="tag.id"
                     :index="'4-' + tag.id"
-                    class="tag-item"
-                    @click="$router.push('/tag')"
+                    class="link-item"
+                    @click="$router.push('/tag/' + tag.id)"
                     >🔖
-                    <span class="tag-name">{{ tag.name }}</span>
-                    <span class="tag-count">{{ tag.count }}</span>
+                    <span class="link-name">{{ tag.name }}</span>
+                    <span>{{ tag.count }}</span>
                 </el-menu-item>
             </el-sub-menu>
 
@@ -95,7 +95,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .admin-menu {
     text-shadow: none !important;
     width: 100%;
@@ -117,7 +117,7 @@ export default {
     margin: 0 10px 0 0;
 }
 
-:deep(.category-item, .tag-item) {
+:deep(.link-item) {
     display: flex;
     justify-content: space-between;
     text-decoration: none;
@@ -126,21 +126,16 @@ export default {
     font-size: 14px;
     transition: all 0.4s;
     border-radius: 4px;
+
+    &:hover {
+        padding-left: 50px !important;
+    }
 }
 
-:deep(.category-item:hover, .tag-item:hover) {
-    padding-left: 50px !important;
-}
-
-.category-name,
-.tag-name {
+.link-name {
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-left: 3px;
-}
-
-a {
-    display: block;
 }
 </style>

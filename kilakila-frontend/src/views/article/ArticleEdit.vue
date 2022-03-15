@@ -1,5 +1,5 @@
 <template>
-    <div class="edit">
+    <div id="arctile-edit">
         <!-- 页头 -->
         <kila-kila-header />
 
@@ -128,21 +128,21 @@
 
 <script>
 import { ref, reactive, computed, nextTick } from "vue";
-import { mapState } from "../store/map";
-import KilaKilaHeader from "../components/KilaKilaHeader.vue";
-import KilaKilaWifeCover from "../components/KilaKilaWifeCover.vue";
-import KilaKilaFooter from "../components/KilaKilaFooter.vue";
-import KilaKilaUploader from "../components/KilaKilaUploader";
+import { mapState } from "../../store/map";
+import KilaKilaHeader from "../../components/KilaKilaHeader.vue";
+import KilaKilaWifeCover from "../../components/KilaKilaWifeCover.vue";
+import KilaKilaFooter from "../../components/KilaKilaFooter.vue";
+import KilaKilaUploader from "../../components/KilaKilaUploader";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { UploadFilled } from "@element-plus/icons-vue";
-import { addArticle, editArticle, getArticleDetails } from "../api/article";
-import { uploadImage } from "../api/image";
-import router from "../router";
-import bus from "../utils/bus";
-import markdownIt from "../utils/markdown-it";
+import { addArticle, editArticle, getArticleDetails } from "../../api/article";
+import { uploadImage } from "../../api/image";
+import router from "../../router";
+import bus from "../../utils/bus";
+import markdownIt from "../../utils/markdown-it";
 
 export default {
-    name: "Edit",
+    name: "ArticleEdit",
     components: {
         KilaKilaHeader,
         KilaKilaWifeCover,

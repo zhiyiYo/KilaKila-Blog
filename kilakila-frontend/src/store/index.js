@@ -43,7 +43,6 @@ let adminAbout = {
 	},
 	mutations: {
 		updateAdminInfo(state, adminInfo) {
-			delete adminInfo.avatar
 			Object.assign(state.adminInfo, adminInfo)
 		},
 		updateArticleCountInfo(state, articleCountInfo) {

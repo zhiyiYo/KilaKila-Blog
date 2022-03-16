@@ -113,7 +113,7 @@ CREATE TABLE `article` (
     `update_time` datetime DEFAULT NULL,
     `del_flag` int DEFAULT '0' COMMENT '删除标志（0代表未删除，1代表已删除）',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB AUTO_INCREMENT = 25 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文章表';
+  ) ENGINE = InnoDB AUTO_INCREMENT = 26 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文章表';
   /*!40101 SET character_set_client = @saved_cs_client */;
 --
   -- Dumping data for table `article`
@@ -131,7 +131,7 @@ VALUES
     'https://i.niupic.com/images/2022/03/14/9Ws2.png',
     '0',
     '0',
-    5,
+    13,
     '1',
     1,
     '2022-03-14 00:27:57',
@@ -147,7 +147,7 @@ VALUES
     'https://i.niupic.com/images/2022/03/12/9Wma.png ',
     '0',
     '0',
-    6,
+    12,
     '1',
     1,
     '2022-03-13 23:59:15',
@@ -163,7 +163,7 @@ VALUES
     'https://i.niupic.com/images/2022/03/12/9Wme.jpg',
     '0',
     '0',
-    34,
+    37,
     '1',
     1,
     '2022-02-12 22:32:45',
@@ -179,7 +179,7 @@ VALUES
     'https://i.niupic.com/images/2022/03/11/9Wl7.jpg',
     '1',
     '0',
-    71,
+    79,
     '1',
     1,
     '2022-01-12 21:16:07',
@@ -195,7 +195,7 @@ VALUES
     'https://i.niupic.com/images/2022/03/11/9Wl4.jpg',
     '0',
     '0',
-    8,
+    11,
     '1',
     1,
     '2021-12-13 13:24:53',
@@ -211,7 +211,7 @@ VALUES
     'https://i.niupic.com/images/2022/03/11/9Wl0.png ',
     '0',
     '0',
-    2,
+    3,
     '1',
     1,
     '2021-11-09 00:30:14',
@@ -259,7 +259,7 @@ CREATE TABLE `category` (
     `update_time` datetime DEFAULT NULL,
     `del_flag` int DEFAULT '0' COMMENT '删除标志（0代表未删除，1代表已删除）',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB AUTO_INCREMENT = 18 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '分类表';
+  ) ENGINE = InnoDB AUTO_INCREMENT = 19 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '分类表';
   /*!40101 SET character_set_client = @saved_cs_client */;
 --
   -- Dumping data for table `category`
@@ -479,18 +479,7 @@ CREATE TABLE `role` (
 INSERT INTO
   `role`
 VALUES
-  (
-    1,
-    '管理员',
-    'admin',
-    '0',
-    0,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-  ),(
+  (1, '管理员', 'admin', '0', 0, NULL, NULL, NULL, NULL, NULL),(
     2,
     '普通用户',
     'normal_user',
@@ -539,7 +528,7 @@ CREATE TABLE `tag` (
     `update_time` datetime DEFAULT NULL,
     `del_flag` int DEFAULT '0' COMMENT '删除标志（0代表未删除，1代表已删除）',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB AUTO_INCREMENT = 30 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '标签表';
+  ) ENGINE = InnoDB AUTO_INCREMENT = 32 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '标签表';
   /*!40101 SET character_set_client = @saved_cs_client */;
 --
   -- Dumping data for table `tag`
@@ -654,7 +643,7 @@ CREATE TABLE `user` (
     `update_time` datetime DEFAULT NULL COMMENT '更新时间',
     `del_flag` int DEFAULT '0' COMMENT '删除标志（0代表未删除，1代表已删除）',
     PRIMARY KEY (`id`)
-  ) ENGINE = InnoDB AUTO_INCREMENT = 14787164048663 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表';
+  ) ENGINE = InnoDB AUTO_INCREMENT = 14787164048664 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户表';
   /*!40101 SET character_set_client = @saved_cs_client */;
 --
   -- Dumping data for table `user`
@@ -674,7 +663,7 @@ VALUES
     '1319158137@qq.com',
     '18888888888',
     '0',
-    'https://blog-static.cnblogs.com/files/blogs/677826/%E7%A1%9D%E5%AD%90.gif',
+    'https://i.niupic.com/images/2022/03/11/9WkX.jpg ',
     NULL,
     '2022-01-05 09:01:56',
     1,
@@ -779,4 +768,4 @@ VALUES
   /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
   /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
   /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
--- Dump completed on 2022-03-14  0:32:44
+-- Dump completed on 2022-03-16 14:27:46

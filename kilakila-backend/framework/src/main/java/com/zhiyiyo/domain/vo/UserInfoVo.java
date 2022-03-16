@@ -23,4 +23,6 @@ public class UserInfoVo {
     private Boolean isAdmin;
 
     private String email;
+
+    private String phonenumber;
 }

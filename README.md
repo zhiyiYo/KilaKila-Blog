@@ -1,5 +1,5 @@
 # ✨ Kila Kila Blog ✨
-一个基于 SpringBoot 和 Vue3 的博客系统，取名灵感来自 aiko 的第 18 首单曲 [キラキラ](https://www.youtube.com/watch?v=S0bXDRY1DGM)。
+一个基于 SpringBoot 和 Vue3 的博客系统，取名灵感来自 aiko 的第 18 张单曲 [キラキラ](https://www.youtube.com/watch?v=S0bXDRY1DGM)。
 
 ## 博客界面
 ![文章详情](resource/images/博客界面.gif)
@@ -25,7 +25,7 @@
 
 * **有木有接口文档呀？**
 
-   有的，[点我](https://www.apifox.cn/apidoc/shared-8fb9dd6e-4a7f-480f-b5f3-b7d3eda1bcc6) 查看 紧 张 刺 激 的接口在线文档
+   有的，[点我](https://www.apifox.cn/apidoc/shared-8fb9dd6e-4a7f-480f-b5f3-b7d3eda1bcc6) 查看 紧 张 刺 激 的在线接口文档。
 
 ## License
 ```

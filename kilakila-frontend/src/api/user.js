@@ -58,5 +58,19 @@ function getUserInfo() {
     return request.get("/user/userInfo")
 }
 
+/**
+ * 更新用户信息
+ * @param {object} userInfo 用户信息
+ * @returns promise
+ */
+function updateUserInfo(userInfo) {
+    return request({
+        url: "/user/userInfo",
+        method: "put",
+        data: userInfo,
+        needAuthentication: true
+    })
+}
 
-export { login, logout, register, getAdminInfo, getUserInfo }
+
+export { login, logout, register, getAdminInfo, getUserInfo, updateUserInfo }

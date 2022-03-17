@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhiyiyo.constants.SystemConstants;
 import com.zhiyiyo.domain.ResponseResult;
+import com.zhiyiyo.domain.dto.UserDTO;
 import com.zhiyiyo.domain.entity.User;
 import com.zhiyiyo.domain.vo.UserInfoVo;
 import com.zhiyiyo.enums.AppHttpCodeEnum;
+import com.zhiyiyo.exception.SystemException;
 import com.zhiyiyo.mapper.UserMapper;
 import com.zhiyiyo.service.UserService;
 import com.zhiyiyo.utils.Assert;
@@ -57,6 +59,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 添加用户
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         save(user);
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult updateUserInfo(UserDTO user) {
+        // 查询邮箱是否已经存在
+        LambdaQueryWrapper<User> sameEmailWrapper = new LambdaQueryWrapper<>();
+        sameEmailWrapper.eq(User::getEmail, user.getEmail());
+        User sameEmailUser = getOne(sameEmailWrapper);
+        if (sameEmailUser != null && !user.getId().equals(sameEmailUser.getId())) {
+            throw new SystemException(AppHttpCodeEnum.EMAIL_EXIST);
+        }
+
+        updateById(BeanCopyUtils.copyBean(user, User.class));
         return ResponseResult.okResult();
     }
 }

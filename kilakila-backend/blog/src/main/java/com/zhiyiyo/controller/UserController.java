@@ -2,6 +2,7 @@ package com.zhiyiyo.controller;
 
 
 import com.zhiyiyo.domain.ResponseResult;
+import com.zhiyiyo.domain.dto.UserDTO;
 import com.zhiyiyo.domain.entity.User;
 import com.zhiyiyo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class UserController {
     @GetMapping("/userInfo")
     public ResponseResult getUserInfo(){
         return userService.getUserInfo();
+    }
+
+    @PutMapping("/userInfo")
+    public ResponseResult updateUserInfo(@Valid @RequestBody UserDTO user){
+        return userService.updateUserInfo(user);
     }
 
     @GetMapping("/adminInfo")

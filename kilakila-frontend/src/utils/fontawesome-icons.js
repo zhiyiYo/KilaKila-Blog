@@ -16,7 +16,8 @@ import {
     faBarsStaggered,
     faPen,
     faTrashCan,
-    faUser
+    faUser,
+    faCamera
 } from "@fortawesome/free-solid-svg-icons"
 
 library.add(faGithub);
@@ -38,6 +39,7 @@ library.add(faBoxArchive);
 library.add(faBars);
 library.add(faEnvelope);
 library.add(faUser);
+library.add(faCamera);
 
 
 export default FontAwesomeIcon

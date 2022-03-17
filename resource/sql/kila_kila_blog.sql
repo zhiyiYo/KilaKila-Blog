@@ -479,7 +479,18 @@ CREATE TABLE `role` (
 INSERT INTO
   `role`
 VALUES
-  (1, '管理员', 'admin', '0', 0, NULL, NULL, NULL, NULL, NULL),(
+  (
+    1,
+    '管理员',
+    'admin',
+    '0',
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+  ),(
     2,
     '普通用户',
     'normal_user',
@@ -663,7 +674,7 @@ VALUES
     '1319158137@qq.com',
     '18888888888',
     '0',
-    'https://i.niupic.com/images/2022/03/11/9WkX.jpg ',
+    'https://i.niupic.com/images/2022/03/11/9WkX.jpg',
     NULL,
     '2022-01-05 09:01:56',
     1,

@@ -4,11 +4,8 @@
         <kila-kila-header />
 
         <!-- 封面 -->
-        <kila-kila-cover
-            imgUrl="assets/image/home-cover.jpg"
-            title="✨ Kila Kila Blog ✨"
-            content="雄关漫道真如铁，而今迈步从头越"
-        ></kila-kila-cover>
+        <kila-kila-cover imgUrl="assets/image/home-cover.jpg" title="✨ Kila Kila Blog ✨"
+            content="雄关漫道真如铁，而今迈步从头越"></kila-kila-cover>
 
         <div class="container">
             <!-- 侧边栏 -->
@@ -22,31 +19,17 @@
 
             <!-- 发表的文章 -->
             <div class="post-article-list">
-                <kila-kila-post-article-card
-                    v-for="(article, index) in postArticles"
-                    :key="article.id"
-                    :article="article"
-                    :reverse="index % 2 == 1"
-                />
+                <kila-kila-post-article-card v-for="(article, index) in postArticles" :key="article.id"
+                    :article="article" :reverse="index % 2 == 1" />
 
                 <!-- 分页 -->
-                <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    :total="articleCount"
-                    :page-size="pageSize"
-                    id="pagination"
-                    @current-change="onCurrentPageChanged"
-                    v-if="articleCount > 0"
-                >
-                </el-pagination>
+                <el-pagination background layout="prev, pager, next" :total="articleCount" :page-size="pageSize"
+                    id="pagination" @current-change="onCurrentPageChanged" v-if="articleCount > 0"></el-pagination>
             </div>
         </div>
 
         <!-- 页脚 -->
-        <kila-kila-footer
-            :adminName="$store.state.adminAbout.adminInfo.nickName"
-        />
+        <kila-kila-footer :adminName="$store.state.adminAbout.adminInfo.nickName" />
 
         <!-- 滚动到顶部按钮 -->
         <kila-kila-back-to-top />
@@ -75,7 +58,7 @@ export default {
                     article.thumbnail = article.thumbnail || defaultThumbnail;
                 });
 
-                postArticles.splice(0, postArticles.length, ...data.rows);
+                postArticles.push(...data.rows)
             });
         }
 
@@ -119,7 +102,7 @@ export default {
     margin-top: 20px;
     justify-content: center;
 
-    & > button {
+    &>button {
         box-shadow: var(--card-box-shadow);
         background: white;
         border-radius: 8px;

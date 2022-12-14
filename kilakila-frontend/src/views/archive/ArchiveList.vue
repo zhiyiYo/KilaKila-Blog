@@ -10,71 +10,36 @@
 
         <div class="container">
             <!-- 侧边栏 -->
-            <div class="side-content">
-                <kila-kila-admin-card />
-                <kila-kila-hot-article-card />
-                <kila-kila-category-card />
-                <kila-kila-tag-card />
-                <kila-kila-archive-card />
-            </div>
+            <kila-kila-side-bar />
 
             <!-- 归档 -->
             <div class="archive-body">
                 <div class="archive-card">
                     <el-timeline class="timeline">
-                        <el-timeline-item
-                            center
-                            :timestamp="`历史文章 - ${articleCount}`"
-                            placement="top"
-                            class="root-item"
-                        >
+                        <el-timeline-item center :timestamp="`历史文章 - ${articleCount}`" placement="top"
+                            class="root-item">
                         </el-timeline-item>
 
-                        <el-timeline-item
-                            v-for="archive in archives"
-                            :key="archive.year"
-                            class="year-item"
-                            :timestamp="archive.year + ''"
-                            placement="top"
-                        >
-                            <div
-                                v-for="article in archive.articles"
-                                :key="article.id"
-                                class="article-item"
-                            >
-                                <router-link
-                                    :to="`/article/${article.id}`"
-                                    class="article-thumbail-link"
-                                    ><img
-                                        :src="article.thumbnail"
-                                        @error.once="useDefaultThumbnail"
-                                        alt="缩略图"
-                                        class="article-thumbnail"
-                                    />
+                        <el-timeline-item v-for="archive in archives" :key="archive.year" class="year-item"
+                            :timestamp="archive.year + ''" placement="top">
+                            <div v-for="article in archive.articles" :key="article.id" class="article-item">
+                                <router-link :to="`/article/${article.id}`" class="article-thumbail-link"><img
+                                        :src="article.thumbnail" @error.once="useDefaultThumbnail" alt="缩略图"
+                                        class="article-thumbnail" />
                                 </router-link>
 
                                 <div class="article-info">
-                                    <router-link
-                                        :to="`/article/${article.id}`"
-                                        class="article-title"
-                                        >{{ article.title }}
+                                    <router-link :to="`/article/${article.id}`"
+                                        class="article-title">{{ article.title }}
                                     </router-link>
                                     <div class="article-meta-data">
-                                        <span
-                                            ><font-awesome-icon
-                                                :icon="['fas', 'calendar-days']"
-                                                class="article-meta-data-icon"
-                                            />发表于
-                                            {{ article.createTime }}</span
-                                        >
-                                        <span
-                                            ><font-awesome-icon
-                                                :icon="['fas', 'eye']"
-                                                class="article-meta-data-icon"
-                                            />{{
-                                                article.viewCount
-                                            }}次围观</span
-                                        >
+                                        <span><font-awesome-icon :icon="['fas', 'calendar-days']"
+                                                class="article-meta-data-icon" />发表于
+                                            {{ article.createTime }}</span>
+                                        <span><font-awesome-icon :icon="['fas', 'eye']"
+                                                class="article-meta-data-icon" />{{
+                                                        article.viewCount
+                                                }}次围观</span>
                                     </div>
                                 </div>
                             </div>
@@ -83,15 +48,8 @@
                 </div>
 
                 <!-- 分页 -->
-                <el-pagination
-                    background
-                    layout="prev, pager, next"
-                    :total="articleCount"
-                    :page-size="pageSize"
-                    id="pagination"
-                    @current-change="onCurrentPageChanged"
-                    v-if="articleCount > 0"
-                />
+                <el-pagination background layout="prev, pager, next" :total="articleCount" :page-size="pageSize"
+                    id="pagination" @current-change="onCurrentPageChanged" v-if="articleCount > 0" />
             </div>
         </div>
 
@@ -182,11 +140,6 @@ export default {
     }
 }
 
-.side-content {
-    width: 26%;
-    margin-right: 20px;
-}
-
 .archive-body {
     width: 74%;
     height: 100%;
@@ -202,7 +155,7 @@ export default {
         margin-top: 20px;
         justify-content: center;
 
-        & > button {
+        &>button {
             box-shadow: var(--card-box-shadow);
             background: white;
             border-radius: 8px;
@@ -362,10 +315,6 @@ export default {
 }
 
 @media screen and (max-width: 900px) {
-    .side-content {
-        display: none;
-    }
-
     .archive-body {
         width: 100%;
     }

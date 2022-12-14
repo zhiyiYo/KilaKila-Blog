@@ -8,13 +8,8 @@
             <div class="article-info">
                 <h1 class="article-title">
                     {{ articleDetails.title }}
-                    <font-awesome-icon
-                        :icon="['fas', 'pen']"
-                        class="edit-icon"
-                        title="编辑"
-                        v-if="isAdmin"
-                        @click="editArticle"
-                    />
+                    <font-awesome-icon :icon="['fas', 'pen']" class="edit-icon" title="编辑" v-if="isAdmin"
+                        @click="editArticle" />
                 </h1>
                 <div class="article-meta-data-wrap">
                     <span class="article-meta-data">
@@ -37,20 +32,17 @@
 
         <div class="container">
             <!-- 侧边栏 -->
-            <div class="side-content">
+            <kila-kila-side-bar>
                 <kila-kila-admin-card />
                 <div class="sticky-layout">
                     <kila-kila-catalog-card v-if="articleLoaded" />
                     <kila-kila-hot-article-card />
                 </div>
-            </div>
+            </kila-kila-side-bar>
 
             <!-- 文章内容 -->
             <div class="post-body">
-                <div
-                    class="article-content"
-                    v-html="articleDetails.content"
-                ></div>
+                <div class="article-content" v-html="articleDetails.content"></div>
 
                 <!-- 版权声明 -->
                 <div class="article-signature">
@@ -60,9 +52,7 @@
                             <span class="copyright-title">文章作者：</span>
                             <span class="copyright-content">
                                 <router-link to="/">
-                                    {{ adminInfo.nickName }}</router-link
-                                ></span
-                            >
+                                    {{ adminInfo.nickName }}</router-link></span>
                         </div>
                         <div class="copyright-item">
                             <span class="copyright-title">文章链接：</span>
@@ -74,10 +64,7 @@
                             <span class="copyright-title">版权声明：</span>
                             <span class="copyright-content">
                                 本博客所有文章除特别声明外，均采用
-                                <a
-                                    href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
-                                    >BY-NC-SA</a
-                                >
+                                <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">BY-NC-SA</a>
                                 许可协议。转载请注明出处！
                             </span>
                         </div>
@@ -90,28 +77,16 @@
                         <font-awesome-icon :icon="['fas', 'tags']" />
                         标签：
                     </span>
-                    <router-link
-                        :to="'/tag/' + tag.id"
-                        v-for="tag in articleDetails.tags"
-                        :key="tag.id"
-                        class="tag-link"
-                        >{{ tag.name }}</router-link
-                    >
+                    <router-link :to="'/tag/' + tag.id" v-for="tag in articleDetails.tags" :key="tag.id"
+                        class="tag-link">{{ tag.name }}</router-link>
                 </div>
 
                 <!-- 上一篇和下一篇 -->
                 <div class="previous-next-article">
-                    <div
-                        class="previous-article"
-                        v-if="previousArticle.id"
-                        :style="{ width: nextArticle.id ? '50%' : '100%' }"
-                    >
+                    <div class="previous-article" v-if="previousArticle.id"
+                        :style="{ width: nextArticle.id ? '50%' : '100%' }">
                         <router-link :to="`/article/${previousArticle.id}`">
-                            <img
-                                :src="previousArticle.thumbnail"
-                                alt="缩略图"
-                                @error="useDefaultThumbnail"
-                            />
+                            <img :src="previousArticle.thumbnail" alt="缩略图" @error.once="useDefaultThumbnail" />
                             <div class="previous-article-info">
                                 <div class="label">« 上一篇</div>
                                 <div class="title">
@@ -121,17 +96,10 @@
                         </router-link>
                     </div>
 
-                    <div
-                        class="next-article"
-                        v-if="nextArticle.id"
-                        :style="{ width: previousArticle.id ? '50%' : '100%' }"
-                    >
+                    <div class="next-article" v-if="nextArticle.id"
+                        :style="{ width: previousArticle.id ? '50%' : '100%' }">
                         <router-link :to="`/article/${nextArticle.id}`">
-                            <img
-                                :src="nextArticle.thumbnail"
-                                alt="缩略图"
-                                @error="useDefaultThumbnail"
-                            />
+                            <img :src="nextArticle.thumbnail" alt="缩略图" @error.once="useDefaultThumbnail" />
                             <div class="next-article-info">
                                 <div class="label">下一篇 »</div>
                                 <div class="title">
@@ -249,11 +217,6 @@ export default {
     justify-content: center;
 }
 
-.side-content {
-    width: 26%;
-    margin-right: 20px;
-}
-
 .article-info {
     text-align: center;
     position: absolute;
@@ -333,8 +296,8 @@ export default {
         h4 code,
         h5 code,
         h6 code,
-        p > code,
-        li > code,
+        p>code,
+        li>code,
         table code {
             color: #c7254e;
             line-height: 1.2;
@@ -697,10 +660,6 @@ export default {
 }
 
 @media screen and (max-width: 900px) {
-    .side-content {
-        display: none;
-    }
-
     .post-body {
         width: 100%;
     }

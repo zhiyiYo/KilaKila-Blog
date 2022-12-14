@@ -33,7 +33,6 @@ service.interceptors.response.use(response => {
     // 服务器响应的数据中的状态码
     const code = response.data.code || 200
     if (code === 200) return response.data.data;
-    console.log(response.data);
     const msg = errorCode.get(code)
     if (code === 401) {
         ElMessageBox.confirm(

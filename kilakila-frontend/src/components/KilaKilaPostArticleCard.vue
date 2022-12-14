@@ -1,22 +1,14 @@
 <template>
     <div :class="cardClass">
         <!-- 缩略图 -->
-        <router-link :to="`/article/${article.id}`" :class="thumbailLinkClass"
-            ><img
-                :src="article.thumbnail"
-                @error.once="useDefaultThumbnail"
-                alt="缩略图"
-                class="post-article-thumbnail"
-            />
+        <router-link :to="`/article/${article.id}`" :class="thumbailLinkClass"><img :src="article.thumbnail"
+                @error.once="useDefaultThumbnail" alt="缩略图" class="post-article-thumbnail" />
         </router-link>
 
         <!-- 文章信息 -->
         <div class="post-article-info">
             <!-- 文章标题 -->
-            <router-link
-                :to="`/article/${article.id}`"
-                class="post-article-title"
-                >{{ article.title }}
+            <router-link :to="`/article/${article.id}`" class="post-article-title">{{ article.title }}
             </router-link>
 
             <!-- 其他元数据 -->
@@ -53,7 +45,7 @@ export default {
     name: "KilaKilaPostArticleCard",
     props: {
         article: {
-            typing: Object,
+            type: Object,
             require: true,
         },
         reverse: {

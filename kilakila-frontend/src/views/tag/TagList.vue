@@ -10,13 +10,7 @@
 
         <div class="container">
             <!-- 侧边栏 -->
-            <div class="side-content">
-                <kila-kila-admin-card />
-                <kila-kila-hot-article-card />
-                <kila-kila-category-card />
-                <kila-kila-tag-card />
-                <kila-kila-archive-card />
-            </div>
+            <kila-kila-side-bar />
 
             <kila-kila-word-cloud-card :words="tagCounts" baseUrl="/tag" />
         </div>
@@ -76,21 +70,12 @@ export default {
     }
 }
 
-.side-content {
-    width: 26%;
-    margin-right: 20px;
-}
-
 .cloud-card {
     width: 74%;
     margin: 0;
 }
 
 @media screen and (max-width: 900px) {
-    .side-content {
-        display: none;
-    }
-
     .cloud-card {
         width: 100%;
     }

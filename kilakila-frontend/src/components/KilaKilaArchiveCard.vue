@@ -2,31 +2,16 @@
     <div class="card">
         <div class="card-header">
             <div>
-                <span
-                    ><font-awesome-icon
-                        :icon="['fas', 'box-archive']"
-                        class="header-icon"
-                /></span>
+                <span><font-awesome-icon :icon="['fas', 'box-archive']" class="header-icon" /></span>
                 <span>归档</span>
             </div>
-            <router-link
-                to="/archive/"
-                class="header-more-link"
-                title="查看更多"
-                ><font-awesome-icon
-                    :icon="['fas', 'angle-right']"
-                    class="header-more-icon"
-            /></router-link>
+            <router-link to="/archive/" class="header-more-link" title="查看更多"><font-awesome-icon
+                    :icon="['fas', 'angle-right']" class="header-more-icon" /></router-link>
         </div>
         <div class="card-body archive-list">
-            <router-link
-                v-for="archive in archiveCounts"
-                :key="archive.date"
-                :to="`/archive/${archive.date}`"
-                class="archive-item"
-            >
-                <span class="archive-date"
-                    >{{ archive.date.split("/")[0] }} 年
+            <router-link v-for="archive in archiveCounts" :key="archive.date" :to="`/archive/${archive.date}`"
+                class="archive-item">
+                <span class="archive-date">{{ archive.date.split("/")[0] }} 年
                     {{ archive.date.split("/")[1] }} 月
                 </span>
                 <span class="archive-count">{{ archive.count }}</span>
@@ -44,7 +29,7 @@ export default {
     setup() {
         let archiveCounts = reactive([]);
 
-        getArchiveCountList(1, 8).then((data) => {
+        getArchiveCountList(1, 100).then((data) => {
             archiveCounts.push(...data.rows);
         });
 
@@ -120,6 +105,7 @@ export default {
 }
 
 @keyframes moveLinkAni {
+
     0%,
     100% {
         -webkit-transform: translateX(0);

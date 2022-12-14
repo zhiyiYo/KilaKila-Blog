@@ -11,111 +11,52 @@
         <!-- 编辑表单 -->
         <div class="edit-card">
             <h1 class="kila-kila-blog-title">✨ Kila Kila Blog ✨</h1>
-            <el-form
-                ref="ruleFormRef"
-                :model="ruleForm"
-                :rules="rules"
-                label-width="60px"
-                class="edit-ruleForm"
-            >
+            <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="60px" class="edit-ruleForm">
                 <!-- 标题 -->
                 <el-form-item prop="title" label="标题">
-                    <el-input
-                        v-model="ruleForm.title"
-                        class="w-50 m-3"
-                        size="large"
-                        placeholder="给博客起一个好标题很重要哦"
-                    ></el-input>
+                    <el-input v-model="ruleForm.title" class="w-50 m-3" size="large"
+                        placeholder="给博客起一个好标题很重要哦"></el-input>
                 </el-form-item>
 
                 <!-- 摘要 -->
                 <el-form-item prop="summary" label="摘要">
-                    <el-input
-                        v-model="ruleForm.summary"
-                        class="w-50 m-3"
-                        size="large"
-                        type="textarea"
-                        placeholder="简要介绍一下这篇博客吧"
-                    ></el-input>
+                    <el-input v-model="ruleForm.summary" class="w-50 m-3" size="large" type="textarea"
+                        placeholder="简要介绍一下这篇博客吧"></el-input>
                 </el-form-item>
 
                 <div class="inline-form-row">
                     <!-- 分类 -->
-                    <el-form-item
-                        label="分类"
-                        prop="category"
-                        inline
-                        style="width: 35%"
-                    >
-                        <el-select-v2
-                            v-model="ruleForm.category"
-                            :options="categories"
-                            placeholder="给博客分个类吧"
-                            style="width: 100%; vertical-align: middle"
-                            allow-create
-                            filterable
-                            clearable
-                        />
+                    <el-form-item label="分类" prop="category" inline style="width: 35%">
+                        <el-select-v2 v-model="ruleForm.category" :options="categories" placeholder="给博客分个类吧"
+                            style="width: 100%; vertical-align: middle" allow-create filterable clearable />
                     </el-form-item>
 
                     <!-- 标签 -->
-                    <el-form-item
-                        label="标签"
-                        prop="tag"
-                        inline
-                        style="width: 60%"
-                    >
-                        <el-select-v2
-                            v-model="ruleForm.tags"
-                            :options="tags"
-                            placeholder="来贴几个标签吧"
-                            style="width: 100%; vertical-align: middle"
-                            multiple
-                            allow-create
-                            filterable
-                            clearable
-                        />
+                    <el-form-item label="标签" prop="tag" inline style="width: 60%">
+                        <el-select-v2 v-model="ruleForm.tags" :options="tags" placeholder="来贴几个标签吧"
+                            style="width: 100%; vertical-align: middle" multiple allow-create filterable clearable />
                     </el-form-item>
                 </div>
 
-                <!-- 内容 -->
+                <!-- 编辑器 -->
                 <el-form-item prop="content" label="内容">
-                    <mavon-editor
-                        v-model="ruleForm.content"
-                        id="mavon"
-                        codeStyle="atom-one-dark"
-                        :autofocus="false"
-                        @imgAdd="onImageAdded"
-                        ref="mavonRef"
-                    />
+                    <mavon-editor v-model="ruleForm.content" id="mavon" codeStyle="atom-one-dark" :autofocus="false"
+                        :boxShadow="false" @imgAdd="onImageAdded" ref="mavonRef" />
                 </el-form-item>
 
                 <!-- 缩略图 -->
                 <el-form-item prop="thumbnail" label="缩略图">
-                    <kila-kila-uploader
-                        @uploaded="handleThumbnailUploaded"
-                        @aboutToUpload="handleAboutToUploadThumbnail"
-                        @removed="handleRemoveThumbnail"
-                        ref="uploaderRef"
-                    />
+                    <kila-kila-uploader @uploaded="handleThumbnailUploaded"
+                        @aboutToUpload="handleAboutToUploadThumbnail" @removed="handleRemoveThumbnail"
+                        ref="uploaderRef" />
                 </el-form-item>
 
                 <!-- 按钮 -->
                 <el-form-item>
-                    <el-button
-                        type="primary"
-                        @click="submitForm(ruleFormRef, false)"
-                        color="#1892ff"
-                        class="el-button"
-                        id="submit-button"
-                        >立刻发布</el-button
-                    >
-                    <el-button
-                        class="el-button"
-                        id="draft-button"
-                        @click="submitForm(ruleFormRef, true)"
-                        >存为草稿</el-button
-                    >
+                    <el-button type="primary" @click="submitForm(ruleFormRef, false)" color="#1892ff" class="el-button"
+                        id="submit-button">立刻发布</el-button>
+                    <el-button class="el-button" id="draft-button"
+                        @click="submitForm(ruleFormRef, true)">存为草稿</el-button>
                     <el-button @click="cancelSubmit">取消</el-button>
                 </el-form-item>
             </el-form>
@@ -357,6 +298,15 @@ export default {
     #mavon {
         width: 100%;
         max-height: 600px;
+        border-color: #d9d9d9;
+
+        &:focus {
+            border-color: var(--el-color-primary);
+        }
+
+        .v-note-op {
+            border-bottom-color: #d9d9d9;
+        }
     }
 
     .el-button {

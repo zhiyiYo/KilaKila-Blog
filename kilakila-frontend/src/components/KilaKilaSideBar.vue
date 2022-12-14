@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: "SideBar"
+    name: "KilaKilaSideBar"
 }
 </script>
 

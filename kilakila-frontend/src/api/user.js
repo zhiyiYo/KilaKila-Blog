@@ -1,4 +1,5 @@
 import request from '../utils/request'
+import { getRandomAvatar } from "../utils/avatar"
 
 /**
  * 用户登录
@@ -38,7 +39,7 @@ function register(userName, nickName, email, password) {
     return request({
         url: "/user/register",
         method: "post",
-        data: { userName, nickName, email, password },
+        data: { userName, nickName, email, password, avatar: getRandomAvatar() },
     })
 }
 

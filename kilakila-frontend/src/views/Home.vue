@@ -58,7 +58,8 @@ export default {
                     article.thumbnail = article.thumbnail || defaultThumbnail;
                 });
 
-                postArticles.push(...data.rows)
+                // 重置列表内容
+                postArticles.splice(0, postArticles.length, ...data.rows)
             });
         }
 

@@ -109,6 +109,35 @@
                         </router-link>
                     </div>
                 </div>
+
+                <!-- 文章描述 -->
+                <div id="article-desc">
+                    posted @ {{ articleDetails.createTime.slice(0, -3) }}
+                    <span>{{ adminInfo.nickName }}</span>
+                    <span>阅读({{ articleDetails.viewCount }})</span>
+                    <span>评论({{ commentCount }})</span>
+                    <router-link :to="`/article/${articleDetails.id}/edit`" v-if="isAdmin">编辑</router-link>
+                </div>
+
+                <!-- 评论列表 -->
+                <div id="comment-area" v-if="comments.length > 0">
+                    <div class="comment-area-title">
+                        <font-awesome-icon :icon="['fas', 'comments']" class="comment-icon" />评论列表
+                    </div>
+
+                    <!-- 评论 -->
+                    <div id="comment-items">
+                        <kila-kila-comment-item v-for="(comment, index) in comments" :key="comment.id"
+                            :comment="comment"
+                            :floorNumber="(currentCommentPageNum - 1) * commentPageSize + index + 1" />
+                    </div>
+
+                    <!-- 分页 -->
+                    <el-pagination background layout="prev, pager, next" :total="commentCount"
+                        :page-size="commentPageSize" id="comment-pagination"
+                        @current-change="onCurrentCommentPageChanged" v-if="commentCount > 0">
+                    </el-pagination>
+                </div>
             </div>
         </div>
 
@@ -129,13 +158,14 @@ import {
     getPreviousNextArticle,
     updateViewCount,
 } from "../../api/article";
-import { reactive, nextTick, ref } from "vue";
+import { reactive, nextTick, ref, computed } from "vue";
 import markdownIt from "../../utils/markdown-it";
 import { mapState } from "../../store/map";
 import { useDefaultThumbnail, defaultThumbnail } from "../../utils/thumbnail";
 import buildCodeBlock from "../../utils/code-block";
 import { renderByMathjax, initMathJax } from "../../utils/mathjax";
 import router from "../../router";
+import { getCommentList } from "../../api/comment"
 
 export default {
     name: "ArticleDetails",
@@ -149,7 +179,8 @@ export default {
         let nextArticle = reactive({});
         let lightBoxRef = ref();
 
-        let articleDetails = reactive({});
+        // 获取文章内容
+        let articleDetails = reactive({ createTime: "" });
         getArticleDetails(props.id).then((data) => {
             Object.assign(articleDetails, data);
             articleDetails.content = markdownIt.render(data.content);
@@ -166,6 +197,8 @@ export default {
         });
 
         updateViewCount(props.id);
+
+        // 获取上一篇和下一篇文章
         getPreviousNextArticle(props.id).then((data) => {
             if (data.previous) {
                 Object.assign(previousArticle, data.previous);
@@ -181,6 +214,21 @@ export default {
             }
         });
 
+        // 获取评论列表
+        let comments = reactive([]);
+        let commentCount = ref(0);
+        let commentPageSize = 5;
+        let currentCommentPageNum = ref(1);
+        onCurrentCommentPageChanged(1);
+
+        function onCurrentCommentPageChanged(pageNum) {
+            getCommentList(props.id, pageNum, commentPageSize).then(data => {
+                currentCommentPageNum.value = pageNum;
+                commentCount.value = parseInt(data.total);
+                comments.splice(0, comments.length, ...data.rows);
+            });
+        }
+
         function editArticle() {
             router.push(`/article/${props.id}/edit`);
         }
@@ -191,7 +239,12 @@ export default {
             articleLoaded,
             adminInfo,
             articleUrl,
+            comments,
+            commentCount,
+            commentPageSize,
+            currentCommentPageNum,
             useDefaultThumbnail,
+            onCurrentCommentPageChanged,
             previousArticle,
             nextArticle,
             lightBoxRef,
@@ -652,6 +705,54 @@ export default {
             }
         }
     }
+
+    #article-desc {
+        font-size: 14px;
+        margin-top: 8px;
+        text-align: right;
+        color: var(--text-color);
+
+        span,
+        a {
+            padding: 0 4px;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.6s ease-out;
+
+            &:hover {
+                color: var(--theme-color);
+            }
+        }
+    }
+
+    #comment-area {
+        margin-top: 70px;
+
+        .comment-area-title {
+            font-size: 20px;
+            margin: 20px 0;
+            padding-bottom: 5px;
+
+            .comment-icon {
+                margin-right: 7px;
+                color: #e173b3;
+            }
+        }
+
+        :deep(#comment-pagination) {
+            margin: 20px 0;
+            justify-content: center;
+
+            .number,
+            .btn-prev,
+            .btn-next {
+                border-radius: 6px;
+            }
+        }
+    }
 }
 
 .sticky-layout {
@@ -662,6 +763,10 @@ export default {
 @media screen and (max-width: 900px) {
     .post-body {
         width: 100%;
+    }
+
+    #article-desc {
+        display: none;
     }
 }
 

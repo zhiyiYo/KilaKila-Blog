@@ -62,7 +62,7 @@ export default {
                     article.thumbnail = article.thumbnail || defaultThumbnail;
                 });
 
-                postArticles.push(...data.rows);
+                postArticles.splice(0, postArticles.length, ...data.rows);
             });
         }
 

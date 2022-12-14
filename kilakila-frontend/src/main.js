@@ -10,8 +10,8 @@ import store from "./store";
 import VueMavonEditor from "mavon-editor";
 import FontAwesomeIcon from "./utils/fontawesome-icons";
 
-createApp(App)
-    .use(store)
+const app = createApp(App);
+app.use(store)
     .use(router)
     .use(VueMavonEditor)
     .component("font-awesome-icon", FontAwesomeIcon)

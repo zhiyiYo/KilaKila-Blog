@@ -49,7 +49,7 @@ export default {
     transition: bottom 0.2s, opacity 0.2s, background-color 0.2s;
     user-select: none;
     width: 50px;
-    z-index: 1;
+    z-index: 9999;
 }
 
 #back-to-top:hover {

@@ -23,7 +23,9 @@ import com.zhiyiyo.service.TagService;
 import com.zhiyiyo.utils.Assert;
 import com.zhiyiyo.utils.BeanCopyUtils;
 import com.zhiyiyo.utils.DateUtils;
+import com.zhiyiyo.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -46,6 +48,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private RedisCache redisCache;
 
     @Override
     public List<Article> listNormalArticle() {
@@ -153,11 +158,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
     @Override
+    public List<Article> listViewCount() {
+        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(Article::getId, Article::getViewCount);
+        return list(queryWrapper);
+    }
+
+    @Override
     public ResponseResult updateViewCount(Long id) {
-        Article article = getById(id);
-        Assert.notNull(article, AppHttpCodeEnum.RESOURCE_NOT_EXIST);
-        article.setViewCount(article.getViewCount() + 1);
-        updateById(article);
+        // 不检查 id 是否存在，这样可以直接更新新发表文章的阅读量
+        redisCache.increaseCacheMapValue(SystemConstants.REDIS_ARTICLE_VIEW_COUNT_KEY, id.toString(), 1);
         return ResponseResult.okResult();
     }
 
@@ -169,18 +179,18 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         PreviousNextArticleVo previousNextArticleVo = new PreviousNextArticleVo();
 
         // 查询上一篇文章
-        QueryWrapper<Article> previousWrapper = new QueryWrapper<>();
-        previousWrapper.lt("create_time", article.getCreateTime());
-        previousWrapper.orderByDesc("create_time").last("limit 1");
+        LambdaQueryWrapper<Article> previousWrapper = new LambdaQueryWrapper<>();
+        previousWrapper.lt(Article::getCreateTime, article.getCreateTime());
+        previousWrapper.orderByDesc(Article::getCreateBy).last("limit 1");
         Article previousArticle = getOne(previousWrapper);
         if (previousArticle != null) {
             previousNextArticleVo.setPrevious(BeanCopyUtils.copyBean(previousArticle, HotArticleVo.class));
         }
 
         // 查询下一篇文章
-        QueryWrapper<Article> nextWrapper = new QueryWrapper<>();
-        nextWrapper.gt("create_time", article.getCreateTime());
-        nextWrapper.orderByAsc("create_time").last("limit 1");
+        LambdaQueryWrapper<Article> nextWrapper = new LambdaQueryWrapper<>();
+        nextWrapper.gt(Article::getCreateTime, article.getCreateTime());
+        nextWrapper.orderByAsc(Article::getCreateTime).last("limit 1");
         Article nextArticle = getOne(nextWrapper);
         if (nextArticle != null) {
             previousNextArticleVo.setNext(BeanCopyUtils.copyBean(nextArticle, HotArticleVo.class));

@@ -12,7 +12,7 @@ spring:
       max-file-size: 2MB
       max-request-size: 5MB
   redis:
-    password: shoko67
+    password: shokokawayi
 
 mybatis-plus:
   # configuration:

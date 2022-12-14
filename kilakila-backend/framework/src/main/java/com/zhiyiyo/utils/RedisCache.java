@@ -187,12 +187,24 @@ public class RedisCache {
     /**
      * 删除Hash中的数据
      *
-     * @param key
-     * @param hkey
+     * @param key  Redis键
+     * @param hKey Hash键
      */
-    public void delCacheMapValue(final String key, final String hkey) {
+    public void delCacheMapValue(final String key, final String hKey) {
         HashOperations hashOperations = redisTemplate.opsForHash();
-        hashOperations.delete(key, hkey);
+        hashOperations.delete(key, hKey);
+    }
+
+    /**
+     * 获取Hash中的数据
+     *
+     * @param key  Redis键
+     * @param hKey Hash键
+     * @param delta 增量
+     * @return 增加后的值
+     */
+    public Long increaseCacheMapValue(final String key, final String hKey, long delta){
+        return redisTemplate.opsForHash().increment(key, hKey, delta);
     }
 
     /**

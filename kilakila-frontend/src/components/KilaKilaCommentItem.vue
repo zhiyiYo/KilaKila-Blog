@@ -106,7 +106,8 @@ export default {
         width: 100%;
         margin-left: 20px;
         z-index: 1;
-        overflow: auto;
+        flex: 1;
+        min-width: 0;
 
         .comment-item-header {
             display: flex;

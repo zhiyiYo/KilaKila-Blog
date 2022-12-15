@@ -128,8 +128,8 @@
                     <!-- 评论 -->
                     <div id="comment-items">
                         <kila-kila-comment-item v-for="(comment, index) in comments" :key="comment.id"
-                            :comment="comment"
-                            :floorNumber="(currentCommentPageNum - 1) * commentPageSize + index + 1" />
+                            :comment="comment" :floorNumber="(currentCommentPageNum - 1) * commentPageSize + index + 1"
+                            @reply="onReplyComment" @update="onUpdateComment" @delete="onDeleteComment" />
                     </div>
 
                     <!-- 分页 -->
@@ -146,7 +146,8 @@
                         <mavon-editor v-model="commentContent" id="mavon" codeStyle="atom-one-dark" :autofocus="false"
                             :boxShadow="false" @imgAdd="onImageAdded" ref="mavonRef" placeholder="发表一条伟大的评论吧~"
                             defaultOpen="edit" :toolbars="mavonToolbarOption" :subfield="false" />
-                        <button id="comment-submit-btn" @click="submitComment">提交评论</button>
+                        <button id="comment-submit-btn"
+                            @click="submitComment">{{ isInEditMode ? "修改评论" : "提交评论" }}</button>
                     </div>
                 </div>
             </div>
@@ -177,7 +178,8 @@ import { useDefaultThumbnail, defaultThumbnail } from "../../utils/thumbnail";
 import buildCodeBlock from "../../utils/code-block";
 import { renderByMathjax, initMathJax } from "../../utils/mathjax";
 import router from "../../router";
-import { getCommentList, addComment } from "../../api/comment"
+import { getCommentList, addComment, deleteComment, updateComment } from "../../api/comment"
+import { getUserInfo } from "../../utils/storage";
 
 export default {
     name: "ArticleDetails",
@@ -251,7 +253,6 @@ export default {
             router.push(`/article/${props.id}/edit`);
         }
 
-
         // 添加评论
         let mavonToolbarOption = {
             bold: true, // 粗体
@@ -279,6 +280,9 @@ export default {
             preview: true, // 预览
         };
         let commentContent = ref("");
+        let isInEditMode = ref(false);
+        let editedComment = {};
+        let mavonRef = ref();
 
         function onImageAdded(pos, file) {
             uploadImage(file).then((url) => {
@@ -292,11 +296,46 @@ export default {
                 return;
             }
 
-            addComment(props.id, commentContent.value).then(data => {
+            if (!isInEditMode.value) {
+                var promise = addComment(props.id, commentContent.value);
+            } else {
+                var promise = updateComment(editedComment.id, commentContent.value);
+            }
+
+            promise.then(() => {
                 ElMessage.success("吐槽成功啦");
                 commentContent.value = "";
                 onCurrentCommentPageChanged(currentCommentPageNum.value);
+            })
+
+            isInEditMode.value = false;
+        }
+
+        function onReplyComment(comment) {
+            commentContent.value = `@${comment.userName}\n>${comment.content.replace(/\n/g, "\n>")}\n\n`;
+        }
+
+        function onDeleteComment(comment) {
+            ElMessageBox.confirm(
+                "前辈确定删除这条评论吗？",
+                "一条友善的提示",
+                {
+                    confirmButtonText: "你在教我做事？",
+                    cancelButtonText: "我再想想",
+                    type: "warning",
+                }
+            ).then(() => {
+                deleteComment(comment.id).then(() => {
+                    ElMessage.success("删除评论成功~");
+                    onCurrentCommentPageChanged(0);
+                })
             });
+        }
+
+        function onUpdateComment(comment) {
+            commentContent.value = comment.content;
+            isInEditMode.value = true;
+            editedComment = comment;
         }
 
         return {
@@ -316,9 +355,14 @@ export default {
             lightBoxRef,
             mavonToolbarOption,
             commentContent,
+            mavonRef,
+            isInEditMode,
             editArticle,
             onImageAdded,
-            submitComment
+            submitComment,
+            onDeleteComment,
+            onReplyComment,
+            onUpdateComment
         };
     },
     props: ["id"],

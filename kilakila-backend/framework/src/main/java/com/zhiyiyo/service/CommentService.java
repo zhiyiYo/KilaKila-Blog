@@ -12,5 +12,9 @@ public interface CommentService extends IService<Comment> {
     ResponseResult getCommentList(Long articleId, Integer pageNum, Integer pageSize);
 
     ResponseResult addComment(Comment comment);
+
+    ResponseResult updateComment(Comment comment);
+
+    ResponseResult deleteCommand(Long id);
 }
 

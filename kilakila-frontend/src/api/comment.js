@@ -30,4 +30,32 @@ function addComment(articleId, content) {
 }
 
 
-export { getCommentList, addComment }
+/**
+ * 更新评论
+ * @param {number} id 评论 id
+ * @param {string} content 评论内容
+ */
+function updateComment(id, content) {
+    return request({
+        url: "/comment",
+        method: "put",
+        data: {id, content},
+        needAuthentication: true
+    })
+}
+
+
+/**
+ *
+ * @param {number} id 删除评论
+ */
+function deleteComment(id) {
+    return request({
+        url: `/comment/${id}`,
+        method: "delete",
+        needAuthentication: true
+    })
+}
+
+
+export { getCommentList, addComment, deleteComment, updateComment }

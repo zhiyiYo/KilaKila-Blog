@@ -17,13 +17,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({SystemException.class})
     public ResponseResult systemExceptionHandler(SystemException e) {
-        log.error("发生异常！{0}", e);
+        log.error("发生异常！{}", e.getMsg());
         return ResponseResult.errorResult(e.getCode(), e.getMsg());
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
     public ResponseResult methodArgumentNotValidExceptionHandler(BindException e) {
-        log.error("发生异常！{0}", e);
+        log.error("发生异常！{}", e.getMessage());
         String message = e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
         return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_NOT_VALID, message);
     }

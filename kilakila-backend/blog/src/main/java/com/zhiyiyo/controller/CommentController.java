@@ -23,4 +23,14 @@ public class CommentController {
         return commentService.addComment(comment);
     }
 
+    @PutMapping
+    public ResponseResult updateComment(@RequestBody Comment comment){
+        return commentService.updateComment(comment);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseResult deleteCommand(@PathVariable("id") Long id){
+        return commentService.deleteCommand(id);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.zhiyiyo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhiyiyo.constants.SystemConstants;
@@ -8,10 +9,12 @@ import com.zhiyiyo.domain.ResponseResult;
 import com.zhiyiyo.domain.entity.User;
 import com.zhiyiyo.domain.vo.CommentVo;
 import com.zhiyiyo.domain.vo.PageVo;
+import com.zhiyiyo.enums.AppHttpCodeEnum;
 import com.zhiyiyo.mapper.CommentMapper;
 import com.zhiyiyo.domain.entity.Comment;
 import com.zhiyiyo.service.CommentService;
 import com.zhiyiyo.service.UserService;
+import com.zhiyiyo.utils.Assert;
 import com.zhiyiyo.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +55,20 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Override
     public ResponseResult addComment(Comment comment) {
         save(comment);
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult updateComment(Comment comment) {
+        boolean success = updateById(comment);
+        Assert.isTrue(success, AppHttpCodeEnum.RESOURCE_NOT_EXIST);
+        return ResponseResult.okResult();
+    }
+
+    @Override
+    public ResponseResult deleteCommand(Long id) {
+        boolean success = removeById(id);
+        Assert.isTrue(success, AppHttpCodeEnum.RESOURCE_NOT_EXIST);
         return ResponseResult.okResult();
     }
 

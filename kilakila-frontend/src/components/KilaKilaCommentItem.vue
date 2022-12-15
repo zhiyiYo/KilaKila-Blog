@@ -30,7 +30,7 @@
                     </span>
 
                     <!-- 更多操作 -->
-                    <span class="more-actions">
+                    <span class="more-actions" @click="showMoreActionsMenu">
                         <svg xmlns="http://www.w3.org/2000/svg" role="img" height="16" width="16" viewBox="0 0 16 16"
                             version="1.1">
                             <path
@@ -38,6 +38,16 @@
                             </path>
                         </svg>
                     </span>
+
+                    <el-dropdown ref="moreActionsMenu" trigger="contextmenu" @command="handleMenuCommand">
+                        <template #dropdown>
+                            <el-dropdown-menu>
+                                <el-dropdown-item command="reply">回复</el-dropdown-item>
+                                <el-dropdown-item command="update" v-if="canModify">修改</el-dropdown-item>
+                                <el-dropdown-item command="delete" v-if="canModify">删除</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </template>
+                    </el-dropdown>
                 </div>
             </div>
             <div class="comment-item-content" v-html="content"></div>
@@ -46,9 +56,11 @@
 </template>
 
 <script>
-import { reactive, computed } from "vue";
+import { reactive, computed, ref } from "vue";
 import { fallbackAvatar } from "../utils/avatar";
 import markdownIt from "../utils/markdown-it";
+import { getUserInfo } from "../utils/storage";
+
 
 export default {
     name: "KilaKilaCommentItem",
@@ -62,20 +74,39 @@ export default {
             require: true
         }
     },
-    setup(props) {
+    emits: ["reply", "update", "delete"],
+    setup(props, context) {
         let commentClass = reactive(["comment-item"])
         if (props.comment.isAdmin) {
             commentClass.push("comment-item-admin")
         }
 
         let content = computed(() => markdownIt.render(props.comment.content));
+        let moreActionsMenu = ref();
+        let userInfo = getUserInfo();
+        let canModify = userInfo ? ref(userInfo.isAdmin || props.comment.createBy == userInfo.id) : ref(false);
 
         function scrollToAnchor(event) {
             event.target.scrollIntoView({ behavior: "smooth" })
         }
 
+        function showMoreActionsMenu() {
+            moreActionsMenu.value.handleOpen();
+        }
 
-        return { commentClass, scrollToAnchor, content }
+        function handleMenuCommand(command) {
+            context.emit(command, props.comment);
+        }
+
+        return {
+            commentClass,
+            content,
+            moreActionsMenu,
+            canModify,
+            scrollToAnchor,
+            showMoreActionsMenu,
+            handleMenuCommand
+        }
     }
 }
 </script>
@@ -198,6 +229,12 @@ export default {
                 margin-left: 2px;
                 border-width: 7px;
                 border-right-color: #f6f8fa;
+            }
+
+            /* 弹出菜单 */
+            :deep(.el-dropdown) {
+                left: -13px;
+                top: 10px;
             }
         }
 

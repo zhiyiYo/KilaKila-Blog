@@ -51,7 +51,7 @@ export function renderByMathjax(el) {
         return
     }
 
-    el = [document.querySelector(el)]
+    el = [...document.querySelectorAll(el)]
 
     return new Promise((resolve, reject) => {
         window.MathJax.typesetPromise(el)

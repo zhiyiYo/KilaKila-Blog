@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.PUT,"/article").authenticated()
             .antMatchers(HttpMethod.POST,"/article").authenticated()
             .antMatchers(HttpMethod.DELETE,"/article").authenticated()
+            .antMatchers(HttpMethod.POST,"/comment").authenticated()
             .anyRequest().permitAll();
 
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

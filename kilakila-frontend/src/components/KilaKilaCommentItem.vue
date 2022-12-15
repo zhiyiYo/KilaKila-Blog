@@ -40,14 +40,15 @@
                     </span>
                 </div>
             </div>
-            <div class="comment-item-content" v-html="comment.content"></div>
+            <div class="comment-item-content" v-html="content"></div>
         </div>
     </div>
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import { fallbackAvatar } from "../utils/avatar";
+import markdownIt from "../utils/markdown-it";
 
 export default {
     name: "KilaKilaCommentItem",
@@ -67,11 +68,14 @@ export default {
             commentClass.push("comment-item-admin")
         }
 
+        let content = computed(() => markdownIt.render(props.comment.content));
+
         function scrollToAnchor(event) {
             event.target.scrollIntoView({ behavior: "smooth" })
         }
 
-        return { commentClass, scrollToAnchor }
+
+        return { commentClass, scrollToAnchor, content }
     }
 }
 </script>
@@ -102,6 +106,7 @@ export default {
         width: 100%;
         margin-left: 20px;
         z-index: 1;
+        overflow: auto;
 
         .comment-item-header {
             display: flex;
@@ -205,6 +210,7 @@ export default {
             a {
                 color: var(--theme-color);
                 position: relative;
+                text-decoration: none;
 
                 &:after {
                     content: "";
@@ -238,12 +244,29 @@ export default {
                     font-size: 13px !important;
                     border-radius: 3px !important;
                     border: 1px solid #f9f2f4 !important;
+                    padding: 0.2em 0.3em !important;
+                    word-break: break-all;
                 }
             }
 
             pre {
                 margin: 10px 0;
-                border-radius: 6px;
+                white-space: pre;
+                position: relative;
+                border-radius: 7px;
+                color: #bababa;
+                background-color: #282c34;
+                font-size: 14px;
+                padding: 0;
+
+                code {
+                    border: none;
+                    border-radius: 7px;
+                    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
+                        monospace !important;
+                    line-height: 21px;
+                }
+
             }
 
             img {
@@ -258,6 +281,7 @@ export default {
                 color: #57606a;
                 border: none;
                 border-left: 0.25em solid #d0d7de;
+                margin: 10px 0;
 
                 p {
                     line-height: 1.8;

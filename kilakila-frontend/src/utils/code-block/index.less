@@ -8,6 +8,7 @@
     color: #bababa;
     font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace !important;
     font-size: 14px !important;
+    position: relative;
 
     /* 代码块不换行 */
     white-space: pre;
@@ -159,7 +160,8 @@
     height: 3px;
 }
 
-.article-content pre {
+.article-content pre,
+.comment-item-content pre {
     position: relative;
 
     &>span {
@@ -176,10 +178,8 @@
         cursor: pointer;
         opacity: 0;
         margin: 8px 10px;
-        transition: all 0.5s;
-        -moz-transition: all 0.5s;
-        -webkit-transition: all 0.5s;
-        -o-transition: all 0.5s;
+        transition: all 0.3s;
+        z-index: 5;
 
         &:hover {
             background: #ddd;
@@ -189,8 +189,5 @@
     &:hover>span {
         opacity: 1;
         transition: opacity 0.25s;
-        -moz-transition: opacity 0.25s;
-        -webkit-transition: opacity 0.25s;
-        -o-transition: opacity 0.25s;
     }
 }

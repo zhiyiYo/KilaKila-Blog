@@ -123,10 +123,12 @@ function buildCopyButton(element) {
  * @param {string} selector 包含 pre code 的元素选择器
  */
 function buildCodeBlock(selector) {
-    let element = document.querySelector(selector)
-    highlightCode(element)
-    buildLineNumber(element)
-    buildCopyButton(element)
+    let elements = document.querySelectorAll(selector);
+    for (let element of elements) {
+        highlightCode(element);
+        buildLineNumber(element);
+        buildCopyButton(element);
+    }
 }
 
 export default buildCodeBlock

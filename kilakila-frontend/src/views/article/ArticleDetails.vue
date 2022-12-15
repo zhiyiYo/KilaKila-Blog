@@ -138,6 +138,17 @@
                         @current-change="onCurrentCommentPageChanged" v-if="commentCount > 0">
                     </el-pagination>
                 </div>
+
+                <!-- 发表评论 -->
+                <div id="comment-form">
+                    <div id="comment-form-title">✏️ 发表评论</div>
+                    <div id="comment-editor">
+                        <mavon-editor v-model="commentContent" id="mavon" codeStyle="atom-one-dark" :autofocus="false"
+                            :boxShadow="false" @imgAdd="onImageAdded" ref="mavonRef" placeholder="发表一条伟大的评论吧~"
+                            defaultOpen="edit" :toolbars="mavonToolbarOption" :subfield="false" />
+                        <button id="comment-submit-btn" @click="submitComment">提交评论</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -158,14 +169,15 @@ import {
     getPreviousNextArticle,
     updateViewCount,
 } from "../../api/article";
-import { reactive, nextTick, ref, computed } from "vue";
+import { reactive, nextTick, ref } from "vue";
+import { ElMessage } from "element-plus";
 import markdownIt from "../../utils/markdown-it";
 import { mapState } from "../../store/map";
 import { useDefaultThumbnail, defaultThumbnail } from "../../utils/thumbnail";
 import buildCodeBlock from "../../utils/code-block";
 import { renderByMathjax, initMathJax } from "../../utils/mathjax";
 import router from "../../router";
-import { getCommentList } from "../../api/comment"
+import { getCommentList, addComment } from "../../api/comment"
 
 export default {
     name: "ArticleDetails",
@@ -188,6 +200,7 @@ export default {
             nextTick(() => {
                 initMathJax({}, () => {
                     renderByMathjax(".article-content");
+                    renderByMathjax(".comment-item-content");
                 });
                 buildCodeBlock(".article-content");
                 articleLoaded.value = true;
@@ -226,11 +239,64 @@ export default {
                 currentCommentPageNum.value = pageNum;
                 commentCount.value = parseInt(data.total);
                 comments.splice(0, comments.length, ...data.rows);
+
+                nextTick(() => {
+                    renderByMathjax(".comment-item-content");
+                    buildCodeBlock(".comment-item-content");
+                });
             });
         }
 
         function editArticle() {
             router.push(`/article/${props.id}/edit`);
+        }
+
+
+        // 添加评论
+        let mavonToolbarOption = {
+            bold: true, // 粗体
+            italic: true, // 斜体
+            header: true, // 标题
+            underline: true, // 下划线
+            strikethrough: true, // 中划线
+            mark: true, // 标记
+            superscript: true, // 上角标
+            subscript: true, // 下角标
+            quote: true, // 引用
+            ol: true, // 有序列表
+            ul: true, // 无序列表
+            link: true, // 链接
+            imagelink: true, // 图片链接
+            code: true, // code
+            table: true, // 表格
+            fullscreen: true, // 全屏编辑
+            help: true, // 帮助
+            navigation: true, // 导航目录
+            alignleft: true, // 左对齐
+            aligncenter: true, // 居中
+            alignright: true, // 右对齐
+            subfield: true, // 单双栏模式
+            preview: true, // 预览
+        };
+        let commentContent = ref("");
+
+        function onImageAdded(pos, file) {
+            uploadImage(file).then((url) => {
+                mavonRef.value.$img2Url(pos, url);
+            });
+        }
+
+        function submitComment() {
+            if (commentContent.value.trim().length == 0) {
+                ElMessage.warning("评论内容不能为空哦~");
+                return;
+            }
+
+            addComment(props.id, commentContent.value).then(data => {
+                ElMessage.success("吐槽成功啦");
+                commentContent.value = "";
+                onCurrentCommentPageChanged(currentCommentPageNum.value);
+            });
         }
 
         return {
@@ -248,7 +314,11 @@ export default {
             previousArticle,
             nextArticle,
             lightBoxRef,
+            mavonToolbarOption,
+            commentContent,
             editArticle,
+            onImageAdded,
+            submitComment
         };
     },
     props: ["id"],
@@ -735,6 +805,7 @@ export default {
             font-size: 20px;
             margin: 20px 0;
             padding-bottom: 5px;
+            color: var(--text-color);
 
             .comment-icon {
                 margin-right: 7px;
@@ -750,6 +821,36 @@ export default {
             .btn-prev,
             .btn-next {
                 border-radius: 6px;
+            }
+        }
+    }
+
+    #comment-form {
+        #comment-form-title {
+            font-size: 20px;
+            margin: 40px 0 20px;
+            color: var(--text-color);
+        }
+
+        #comment-editor {
+            #mavon {
+                border-color: #eef2f8;
+            }
+
+            #comment-submit-btn {
+                color: white;
+                background-color: var(--theme-color);
+                border: 1px solid var(--theme-color);
+                border-radius: 5px;
+                cursor: pointer;
+                padding: 7px 17px;
+                font-size: 13px;
+                margin: 10px 0;
+                transition: all 0.3s ease-out;
+
+                &:hover {
+                    opacity: 0.7;
+                }
             }
         }
     }
